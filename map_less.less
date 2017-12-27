@@ -43,6 +43,7 @@
   display: inline-block;
   overflow-y: scroll;
   .icons {
+    margin-bottom: 5px;
     display: flex;
     justify-content: flex-end;
     button  {
@@ -230,4 +231,37 @@
     display: inline-flex;
   }
 }
-
+label {
+  margin: 0;
+}
+#afterSaved {
+  display: none;
+  color: red;
+  text-align: center;
+  text-shadow: darkred;
+  margin: 0;
+}
+#loadingImage_Back {
+  z-index:1100;
+  display: none;
+  background-color: #231f20;
+  opacity: 0.7;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top:0;
+  left:0;
+  #loadingImage {
+    position: absolute;
+    z-index: 1200;
+    width: 400px;
+    height: 400px;
+    background-image: url(./img/e6fa6b92decd26328f1f3616620b3e89.gif);
+  }
+}
+#sampleImage>img {
+  width: 70px;
+  height: 70px;
+  display: inline;
+  margin-right: 5px;
+}

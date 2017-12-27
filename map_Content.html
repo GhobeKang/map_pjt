@@ -52,8 +52,8 @@
             </div>
             <template v-for="content in images">
                 <thumbnail :content-Title="content.title" :image-Url="content.representedImage" :total-Contents="content.counter"
-                           :total-Images="content.totalImageOfthis" :database-Title="content.dbTitle"
-                           @checked="checkedContentCollect">
+                           :total-Images="content.totalImageOfthis" :database-Title="content.dbTitle" :location="content.location"
+                           :geo="content.geo" @checked="checkedContentCollect">
 
                 </thumbnail>
 
@@ -119,8 +119,13 @@
 
                         </div>
                     </div>
-
-                    <p>
+                    <p id="afterSaved">
+                        <strong>
+                            All files is updated to server!
+                            escape this window by pressing 'ESC' or clicking outside of this window..
+                        </strong>
+                    </p>
+                    <p id="defaultMsg">
                         <strong>Drag and drop into here!</strong>
                     </p>
                 </div>
@@ -137,6 +142,11 @@
 
             </div>
         </div>
+    </div>
+</div>
+<div id="loadingImage_Back">
+    <div id="loadingImage">
+
     </div>
 </div>
 <script src="lib/dropzone.js"></script>
@@ -160,6 +170,8 @@
     var initCenterPoint = new google.maps.LatLng(37.54235, 126.9352);
     var thumbnail_vue;
     var modalMap;
+    var centerHeight = window.innerHeight/2;
+    var centerWidth = window.innerWidth/2;
 
         $.getScript('./src/dropzoneInit.js', function() {
             console.log('dropzone initialization is done');
@@ -172,7 +184,8 @@
 
             var startMarker = new google.maps.Marker({
                position: initCenterPoint,
-               map: map
+               map: map,
+               icon: './img/cutepenguin.gif'
             });
             map.addListener('drag',function() {
                 var center = map.getCenter();
@@ -195,7 +208,8 @@
                     },
                     components: {
                         thumbnail : {
-                            props: ['contentTitle','imageUrl','totalContents','totalImages','databaseTitle'],
+                            props: ['contentTitle','imageUrl','totalContents','totalImages','databaseTitle','location'
+                            ,'geo'],
                             computed: {
                                 fullLength: function() {
                                     var contents_Num = this.totalContents;
@@ -211,7 +225,7 @@
                             template : `<div>
                                             <input class=removeCheck type="checkbox" v-bind:value="databaseTitle" id=":contentTitle" v-model="checked">
                                             <label for=":contentTitle">{{contentTitle}}</label>
-                                            <a href="#" class="thumbnail" @click="showImages">
+                                            <a href="#" class="thumbnail" @click="showImages" @mouseover="moveToLocation">
                                                 <img v-bind:src="imageUrl" alt="...">
                                                 <span class="badge">+{{totalContents}}</span>
                                             </a>
@@ -226,7 +240,9 @@
                                 }
                             },
                             methods: {
-
+                                moveToLocation: function() {
+                                    map.setCenter({lat: this.geo.lat, lng: this.geo.lng });
+                                },
                                 showImages: function() {
                                     showing_vue.loadingTotalImages(this.totalImages, function() {
                                         $('.dragdealer').attr('tabindex', -1).focus();
@@ -262,7 +278,7 @@
                                         .then(function() {
                                             console.log('deleted album')
                                         });
-                                    store.ref('/user/'+auth.currentUser.uid+'/'+contentTitle[title]).delete();
+                                    var storeDelFolder = store.ref('/user/'+auth.currentUser.uid+'/'+contentTitle[title]);
                                 }
                             }
                         },
@@ -274,6 +290,8 @@
                             var database = init.database();
                             var contentTitle = '';
                             var databaseTitle = '';
+                            var location = '';
+                            var geo = "";
 
                             if (auth.currentUser !== null) {
                                 var databaseRef = database.ref('/'+auth.currentUser.uid);
@@ -283,9 +301,32 @@
                                         databaseTitle = datasnapshot.key;
                                         var resultArray = [];
                                         datasnapshot.forEach(function(content) {
+                                            geo = content.child('geometry').val();
                                             contentTitle = content.child('title').val();
+                                            location = content.child('location').val();
                                             content.child('downloadURL').forEach(function(urls){
                                                 resultArray.push(urls.val());
+                                            });
+                                            var initMarker = new google.maps.Marker({
+                                                clickable: true,
+                                                map: map,
+                                                position: ({lat:geo.lat, lng:geo.lng}),
+                                                animation: google.maps.Animation.DROP,
+                                                icon: './img/cuteneko.png'
+                                            });
+                                            var infoContent = '<div>' +
+                                                '<p><strong style="font-size:20px"><span><img src=""></span>Pinut  ['+location+']</strong></p>' +
+                                                '<p>'+content.child('desc').val()+'</p>' +
+                                                '</div>';
+                                            var infoWindow = new google.maps.InfoWindow({
+                                                content: infoContent
+                                            });
+
+                                            initMarker.addListener('mouseover', function(event){
+                                                infoWindow.open(map,initMarker);
+                                            })
+                                            initMarker.addListener('mouseout', function(event){
+                                                infoWindow.close();
                                             })
                                         });
                                         thumbnail_vue.images.push({
@@ -293,7 +334,9 @@
                                             dbTitle: databaseTitle,
                                             representedImage: resultArray[0],
                                             counter: resultArray.length,
-                                            totalImageOfthis: resultArray
+                                            totalImageOfthis: resultArray,
+                                            location : location,
+                                            geo : geo
                                         });
                                     });
                                 }).then(function() {
@@ -343,8 +386,7 @@
                             var xOffset;
                             var isDragging = false;
 
-                            var centerHeight = window.innerHeight/2;
-                            var centerWidth = window.innerWidth/2;
+
                             $('.dragdealer').css('position', 'absolute');
                             $('.dragdealer .handle').css({
                                 top: centerHeight,
@@ -441,7 +483,8 @@
                 location : "",
                 date: "",
                 desc: "",
-                title: ""
+                title: "",
+                geometry: ""
             },
 
             methods: {
@@ -455,9 +498,12 @@
                     var date = this.date;
                     var desc = this.desc;
                     var title = this.title;
+                    var geometry = this.geometry;
                     var dbTitle;
                     if (title.search(' ') !== -1) {
                         dbTitle = title.replace(' ', '-');
+                    }else {
+                        dbTitle = title;
                     }
 
                     if (currentUserID === null) {
@@ -468,6 +514,11 @@
                             alert("please input a title to store a conetent into database")
                         }else {
                             $('#decisionButtons>.start').attr('disabled', 'disabled');
+                            $('#loadingImage_Back').css('display','block');
+                            $('#loadingImage').css({
+                                top: centerHeight-200,
+                                left: centerWidth-200
+                            });
                             var downloadURL = [];
                             var imageStoreProcess = function() {
                                 var deferred = $.Deferred();
@@ -491,17 +542,22 @@
                                 return deferred.promise();
                             };
                             imageStoreProcess().then(function() {
-                                console.log(downloadURL);
                                 var inputSet = {
                                     downloadURL: downloadURL,
                                     location : location,
                                     date : date,
                                     desc : desc,
-                                    title : title
+                                    title : title,
+                                    geometry: geometry
                                 };
                                 var databasePath = database.ref('/'+currentUserID+'/'+dbTitle);
-                                databasePath.push().set(inputSet);
-                                console.log('storing into db is successed!');
+                                databasePath.push().set(inputSet)
+                                    .then(function() {
+                                        $('#loadingImage_Back').css('display','none');
+                                        $('#afterSaved').css('display', 'block');
+                                        console.log('storing into db is successed!');
+                                    })
+
                             })
                         }
                     }
@@ -533,6 +589,10 @@
                             map: modalMap,
                             position: result[0].geometry.location
                         });
+                        modal_vue.geometry = {
+                            lat :result[0].geometry.location.lat(),
+                            lng: result[0].geometry.location.lng()
+                        };
                         modalMap.setCenter(result[0].geometry.location);
                     }
                 })

@@ -41,8 +41,8 @@ var myDropzone = new Dropzone("div#dragndropSection", { // Make the whole body a
     previewsContainer: "#previews", // Define the container to display the previews
     init: function() {
         this.on('drop', function(file) {
-            if ($('#dragndropSection>p').css('display') !== 'none') {
-                $('#dragndropSection>p').css('display', 'none');
+            if ($('#defaultMsg').css('display') !== 'none') {
+                $('#defaultMsg').css('display', 'none');
             }
         })
 
