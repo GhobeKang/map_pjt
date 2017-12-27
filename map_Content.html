@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Map content</title>
+
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link rel="stylesheet/less" href="map_less.less">
+    <script src="./lib/less.min.js"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Brand</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#"> Home <span class="sr-only">(current)</span></a></li>
+                <li><a href="#">Map</a></li>
+            </ul>
+            <form class="navbar-form navbar-right" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div class="divider"></div>
+<div class="container-fluid" id="mainContainer">
+    <div class="row">
+        <div class="col-md-4" id="thumbnails" :data-images="images">
+            <div class="icons">
+                <button data-toggle="modal" data-target="#addModal" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                <button type="button"><span class="glyphicon glyphicon-minus" @click="removeAlbum"></span></button>
+            </div>
+            <template v-for="content in images">
+                <thumbnail :content-Title="content.title" :image-Url="content.representedImage" :total-Contents="content.counter"
+                           :total-Images="content.totalImageOfthis" :database-Title="content.dbTitle"
+                           @checked="checkedContentCollect">
+
+                </thumbnail>
+
+            </template>
+            <div class="deleteAlbum_buttons">
+                <button class="btn btn-warning cancel" @click="cancelAlbum">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span>Cancel</span>
+                </button>
+                <button class="btn btn-danger delete" @click="deleteAlbum">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    <span>Delete</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div id="mapDisplayed"></div>
+
+        </div>
+    </div>
+</div>
+<!--Image gallery showing when clicking a image icon @click="showImages"-->
+<div id="image-carousel" class="dragdealer">
+    <div class="imageCarouselTitle">
+        <h1><strong>Pieces of your Journey</strong></h1>
+    </div>
+    <div class="handle">
+        <template v-for="(val, key) in images">
+            <gallerythumbnail :image-Url="val" :image-Counter="key"></gallerythumbnail>
+        </template>
+    </div>
+</div>
+
+
+<div id="addModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-title">
+                <h1>Add a Repository</h1>
+            </div>
+            <div class="modal-body">
+                <p>Search Location</p>
+                <input v-model='location' id="inputLocationName" type="text">
+                <button type="button" id="SearchBtn">Search</button>
+                <div class="searchResultDisplayed">
+                    <div id="searchMap">
+
+                    </div>
+                </div>
+                <p>title</p>
+                <input v-model.trim="title" id="inputTitle" type="text">
+                <p>Date</p>
+                <input type="date" v-model="date" id="inputDate">
+                <p>description</p>
+                <input v-model="desc" id="inputDesc" type="text">
+
+                <div id="dragndropSection">
+                    <div id="previews">
+                        <div id="template" class="file-row">
+
+                            <span class="preview"><img data-dz-thumbnail /></span>
+
+                        </div>
+                    </div>
+
+                    <p>
+                        <strong>Drag and drop into here!</strong>
+                    </p>
+                </div>
+                <div id="decisionButtons">
+                    <button class="btn btn-primary start" @click="start">
+                        <i class="glyphicon glyphicon-upload"></i>
+                        <span>Start</span>
+                    </button>
+                    <button data-dz-remove class="btn btn-danger delete" @click="cancel">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        <span>DeleteAll</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="lib/dropzone.js"></script>
+<script src="https://unpkg.com/vue"></script>
+<script src="lib/dragdealer.js"></script>
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVwk_iAbB5EqaN02HdCgo4CEKVepMIz7I&libraries=geometry"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVwk_iAbB5EqaN02HdCgo4CEKVepMIz7I&libraries=places"></script>
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+
+
+<script>
+
+    var map;
+    var geocoder;
+    var autocomplete;
+    var auth;
+    var initCenterPoint = new google.maps.LatLng(37.54235, 126.9352);
+    var thumbnail_vue;
+    var modalMap;
+
+        $.getScript('./src/dropzoneInit.js', function() {
+            console.log('dropzone initialization is done');
+        }).done(function() {
+
+            map = new google.maps.Map(document.getElementById('mapDisplayed'), {
+                center: initCenterPoint,
+                zoom: 11
+            });
+
+            var startMarker = new google.maps.Marker({
+               position: initCenterPoint,
+               map: map
+            });
+            map.addListener('drag',function() {
+                var center = map.getCenter();
+                startMarker.setPosition(center);
+            });
+
+            setTimeout(function(){
+                auth = init.auth();
+                // auth connection is flicker... i should check this part later...
+                if (auth.currentUser !== null) {
+                    var curUser = auth.currentUser;
+                    var path = store.ref('/user/'+curUser.uid);
+                    console.log(path);
+                }
+                thumbnail_vue = new Vue({
+                    el: '#thumbnails',
+                    data: {
+                        images: [],
+                        checkedItems: []
+                    },
+                    components: {
+                        thumbnail : {
+                            props: ['contentTitle','imageUrl','totalContents','totalImages','databaseTitle'],
+                            computed: {
+                                fullLength: function() {
+                                    var contents_Num = this.totalContents;
+                                    var imageWidth = $('.slide>img').width();
+                                    return contents_Num * imageWidth;
+                                }
+                            },
+                            data : function() {
+                                return {
+                                    checked: []
+                                }
+                            },
+                            template : `<div>
+                                            <input class=removeCheck type="checkbox" v-bind:value="databaseTitle" id=":contentTitle" v-model="checked">
+                                            <label for=":contentTitle">{{contentTitle}}</label>
+                                            <a href="#" class="thumbnail" @click="showImages">
+                                                <img v-bind:src="imageUrl" alt="...">
+                                                <span class="badge">+{{totalContents}}</span>
+                                            </a>
+                                        </div>`,
+                            watch: {
+                                checked: function(val, oldVal) {
+                                    if (val.length !== 0) {
+                                        this.$emit('checked', val["0"]);
+                                    }else {
+                                        this.$emit('checked', oldVal["0"]);
+                                    }
+                                }
+                            },
+                            methods: {
+
+                                showImages: function() {
+                                    showing_vue.loadingTotalImages(this.totalImages, function() {
+                                        $('.dragdealer').attr('tabindex', -1).focus();
+                                        $('.dragdealer').css('display', 'block');
+                                    });
+                                }
+                            }
+                        }
+                    },
+                    methods: {
+                        checkedContentCollect: function(checked) {
+                            for (var i=0; i<this.checkedItems.length; i++) {
+                                if (this.checkedItems[i] === checked) {
+                                    this.checkedItems[i] = null;
+                                    return;
+                                }
+                            }
+                            this.checkedItems.push(checked);
+                        },
+                        cancelAlbum: function() {
+                            $('.deleteAlbum_buttons').css('display', 'none');
+                            $('.removeCheck').css('display', 'none');
+                        },
+                        deleteAlbum: function() {
+                            var database = init.database();
+                            var store = init.storage();
+                            var contentTitle = this.checkedItems;
+                            console.log(contentTitle);
+                            for (var title in contentTitle) {
+                                console.log(contentTitle[title]);
+                                if (contentTitle[title] !== null) {
+                                    database.ref('/'+auth.currentUser.uid+'/'+contentTitle[title]).remove()
+                                        .then(function() {
+                                            console.log('deleted album')
+                                        });
+                                    store.ref('/user/'+auth.currentUser.uid+'/'+contentTitle[title]).delete();
+                                }
+                            }
+                        },
+                        removeAlbum: function() {
+                            $('.deleteAlbum_buttons').css('display', 'block');
+                            $('.removeCheck').css('display', 'inline');
+                        },
+                        imagesLoad : function(callback) {
+                            var database = init.database();
+                            var contentTitle = '';
+                            var databaseTitle = '';
+
+                            if (auth.currentUser !== null) {
+                                var databaseRef = database.ref('/'+auth.currentUser.uid);
+                                databaseRef.once('value').then(function(data){
+
+                                    data.forEach(function(datasnapshot){
+                                        databaseTitle = datasnapshot.key;
+                                        var resultArray = [];
+                                        datasnapshot.forEach(function(content) {
+                                            contentTitle = content.child('title').val();
+                                            content.child('downloadURL').forEach(function(urls){
+                                                resultArray.push(urls.val());
+                                            })
+                                        });
+                                        thumbnail_vue.images.push({
+                                            title: contentTitle,
+                                            dbTitle: databaseTitle,
+                                            representedImage: resultArray[0],
+                                            counter: resultArray.length,
+                                            totalImageOfthis: resultArray
+                                        });
+                                    });
+                                }).then(function() {
+                                    if (typeof callback === 'function'){
+                                        callback();
+                                    }
+                                })
+                            }
+                        }
+                    },
+                    mounted: function() {
+                        this.imagesLoad(function() {
+                            console.log('its done');
+                        });
+                    },
+                });
+
+
+                var showing_vue = new Vue({
+                    el: '#image-carousel',
+                    data: {
+                        images: [],
+                        counter: 0
+                    },
+                    components: {
+                        gallerythumbnail: {
+                            props: ['imageUrl', 'imageCounter'],
+                            computed: {
+                                counterCal: function () {
+                                    console.log(this.imageUrl);
+                                    var fixedString = 'img' + this.imageCounter;
+                                    return fixedString;
+                                },
+                            },
+                            template: `<div class="slide" :class="counterCal"><img :src="imageUrl"></div>`
+
+                        }
+                    },
+                    methods: {
+                        loadingTotalImages: function (totalImages, callback) {
+                            showing_vue.images = totalImages;
+
+                            var beforePosition = 0;
+                            var imagesNum = totalImages.length -1;
+                            var xStart = 0;
+                            var xMove= 0;
+                            var xOffset;
+                            var isDragging = false;
+
+                            var centerHeight = window.innerHeight/2;
+                            var centerWidth = window.innerWidth/2;
+                            $('.dragdealer').css('position', 'absolute');
+                            $('.dragdealer .handle').css({
+                                top: centerHeight,
+                                left: centerWidth
+                            });
+                            $('.dragdealer .imageCarouselTitle').css({
+                                top: centerHeight - 300,
+                                left: centerWidth - 250
+                            });
+                            $('.dragdealer').on('keyup', function(event) {
+                                console.log(event.which);
+                                if (event.which == 27) {
+                                    $('.dragdealer').css('display', 'none');
+                                }
+                            })
+                            $('.handle').on('mousedown', function (event) {
+                                xStart = event.pageX;
+                                isDragging = true;
+                                console.log('mouse down event');
+                            });
+                            $('.handle').on('mousemove', function (event) {
+                                console.log(isDragging);
+                                if (isDragging) {
+                                    xMove = event.pageX;
+                                    xOffset = (beforePosition + (xMove - xStart));
+                                    $('.handle').css('transform', 'translate3d('+xOffset+'px, 0 ,0)');
+                                }
+                            });
+                            $(document).on('mouseup', function (event) {
+                                var imageOffset = $('.current')["0"].offsetLeft;
+                                var imageSize = $('.current')["0"].offsetWidth;
+                                var xEnd = event.pageX;
+                                var minMoved = imageSize * 0.5;
+                                var distance = xStart - xMove;
+                                beforePosition = -imageOffset;
+                                if (Math.abs(distance) > minMoved) {
+                                    if(xStart > xEnd) {
+                                        xOffset = - imageOffset - imageSize;
+                                        beforePosition = xOffset;
+
+                                        if ($('.current')["0"].nextSibling){
+                                            var next = "." + $('.current')["0"].nextSibling.classList["1"];
+                                            $('.current').removeClass('current');
+                                            $(next).addClass('current');
+                                        }
+                                    }else{
+                                        xOffset = - imageOffset + imageSize;
+                                        beforePosition = xOffset;
+
+                                        if ($('.current')["0"].previousSibling){
+                                            var prev = "." + $('.current')["0"].previousSibling.classList["1"];
+                                            $('.current').removeClass('current');
+                                            $(prev).addClass('current');
+                                        }
+                                    }
+
+                                }else {
+                                    xOffset = - imageOffset
+                                }
+
+                                if(xOffset > 0) {
+                                    xOffset = 0;
+                                }else if(xOffset < -(imageSize * imagesNum)) {
+                                    xOffset = -(imageSize * imagesNum)
+                                }
+
+                                $('.handle').css('transform', 'translate3d('+xOffset+'px, 0 ,0)');
+                                isDragging = false;
+                                console.log('mouse up event');
+                            });
+
+                            if (typeof callback === 'function') {
+                                callback();
+                            }
+                        },
+
+                    },
+
+                    updated: function () {
+                        this.$nextTick(function () {
+                            $('.slide:first').addClass('current');
+                        });
+                    }
+                })
+            }, 800);
+
+        });
+
+
+
+        var modal_vue = new Vue({
+            el: '#addModal',
+            data: {
+                location : "",
+                date: "",
+                desc: "",
+                title: ""
+            },
+
+            methods: {
+                cancel: function() {
+                    myDropzone.removeAllFiles();
+                },
+                start: function() {
+                    var queuedFiles = myDropzone.getQueuedFiles();
+                    var currentUserID = auth.currentUser.uid;
+                    var location = this.location;
+                    var date = this.date;
+                    var desc = this.desc;
+                    var title = this.title;
+                    var dbTitle;
+                    if (title.search(' ') !== -1) {
+                        dbTitle = title.replace(' ', '-');
+                    }
+
+                    if (currentUserID === null) {
+                        alert("please log-in")
+                    }else {
+                        var pathRoot = store.ref();
+                        if (!title) {
+                            alert("please input a title to store a conetent into database")
+                        }else {
+                            $('#decisionButtons>.start').attr('disabled', 'disabled');
+                            var downloadURL = [];
+                            var imageStoreProcess = function() {
+                                var deferred = $.Deferred();
+                                var counter = 0;
+
+                                for (var key in queuedFiles) {
+                                    var pathInStore = pathRoot.child('/user/'+currentUserID+'/'+dbTitle+'/'+queuedFiles[key].upload.filename);
+                                    pathInStore.put(queuedFiles[key]).then(function(snapshot) {
+                                        counter++;
+                                        downloadURL.push(snapshot.metadata.downloadURLs[0]);
+
+                                    },function(error){
+                                        console.log(error);
+                                    }).then(function() {
+                                        if (counter === queuedFiles.length){
+                                            deferred.resolve();
+                                        }
+                                    })
+                                }
+
+                                return deferred.promise();
+                            };
+                            imageStoreProcess().then(function() {
+                                console.log(downloadURL);
+                                var inputSet = {
+                                    downloadURL: downloadURL,
+                                    location : location,
+                                    date : date,
+                                    desc : desc,
+                                    title : title
+                                };
+                                var databasePath = database.ref('/'+currentUserID+'/'+dbTitle);
+                                databasePath.push().set(inputSet);
+                                console.log('storing into db is successed!');
+                            })
+                        }
+                    }
+                },
+            },
+
+        });
+        $('#addModal').on('hidden.bs.modal', function() {
+            window.location.reload();
+        });
+        $('#addModal').on('shown.bs.modal', function() {
+            modalMap = new google.maps.Map(document.getElementById('searchMap'), {
+                center: initCenterPoint,
+                zoom: 15
+            });
+            $('#inputLocationName').on('keyup', function(event) {
+                if (event.which == 13) {
+                    $('#SearchBtn').trigger('click');
+                }
+            });
+            $('#SearchBtn').on('click', function() {
+                var address = modal_vue.location;
+                geocoder = new google.maps.Geocoder();
+                geocoder.geocode({
+                    address: address
+                }, function(result, status) {
+                    if (status === 'OK') {
+                        var marker = new google.maps.Marker({
+                            map: modalMap,
+                            position: result[0].geometry.location
+                        });
+                        modalMap.setCenter(result[0].geometry.location);
+                    }
+                })
+            })
+        });
+        $('#addModal').on('show.bs.modal', function() {
+
+            var circle = new google.maps.Circle({
+                center: initCenterPoint,
+                radius: 100
+            });
+            var option = {
+                bounds: circle.getBounds(),
+                type: ['geocode']
+            };
+            var input = document.getElementById('inputLocationName');
+            autocomplete = new google.maps.places.Autocomplete(input, option);
+
+            map.addListener('center_changed', function() {
+
+                var mapCenter = map.getCenter();
+                var circleBoundary = new google.maps.Circle({
+                    center: mapCenter,
+                    radius: 100
+                });
+                autocomplete.setBounds(circleBoundary.getBounds());
+            });
+        });
+
+</script>
+
+</body>
+</html>

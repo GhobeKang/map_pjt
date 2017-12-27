@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+</head>
+<body>
+    <form class="loginForm">
+        <input id="email" type="text" placeholder="E-mail" >
+        <input id="password" type="password" placeholder="password">
+        <button type="button" id="submitBtn">submit</button>
+        <button type="button" id="signin" data-toggle="modal" data-target="#signinModal">SignIn</button>
+    </form>
+    <a href="map_Content.html">map_content html</a>
+
+    <div id="signinModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-title">
+                    <h1>Sign In</h1>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input id="email_Modal" type="text" placeholder="E-mail" >
+                        <input id="password_Modal" type="password" placeholder="password">
+                        <button type="button" id="submitBtn_Modal">submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+
+    <script>
+        // Initialize Firebase
+        var auth;
+        $.getScript('./src/firebaseInit.js', function() {
+            console.log('firebaseInit complete');
+            auth = init.auth();
+
+            auth.onAuthStateChanged(function(user) {
+                if (user) {
+                    $('#signinModal').modal('hide');
+                    $('.loginForm').addClass('hidden');
+                }else {
+                    $('.loginForm').removeClass('hidden');
+                }
+            })
+        });
+
+
+        $('#submitBtn').on('click', function() {
+            var email = $('#email').val();
+            var pass = $('#password').val();
+            auth.setPersistence('session').then(function() {
+                return auth.signInWithEmailAndPassword(email, pass)
+                    .catch(function(error){
+                        var errorcode = error.code;
+                        if (errorcode === 'auth/user-not-found' || errorcode === 'auth/wrong-password') {
+                            alert('wrong input E-Mail or password, check it again');
+                        }
+                        console.log(error);
+                });
+            });
+
+        });
+
+        $('#submitBtn_Modal').on('click', function() {
+            var email = $('#email_Modal').val();
+            var pass = $('#password_Modal').val();
+
+            auth.createUserWithEmailAndPassword(email, pass)
+                .catch(function(error){
+                    var errorcode = error.code;
+                    if (errorcode === 'auth/invalid-email') {
+                        alert('Invalid e-mail form, check it again');
+                    }
+                    console.log(error);
+                });
+
+        });
+
+
+
+    </script>
+</body>
+</html>
