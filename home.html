@@ -4,19 +4,31 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
+    <link rel="stylesheet" href="home_style.css">
     <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <!-- 부가적인 테마 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
 </head>
 <body>
+<div class="backImg">
+
+</div>
     <form class="loginForm">
-        <input id="email" type="text" placeholder="E-mail" >
-        <input id="password" type="password" placeholder="password">
-        <button type="button" id="submitBtn">submit</button>
-        <button type="button" id="signin" data-toggle="modal" data-target="#signinModal">SignIn</button>
+        <div id="loginContainer">
+            <div class="input-group">
+                <div class="input-group-addon">E-Mail</div>
+                <input id="email" class="form-control" type="email" placeholder="E-mail" >
+            </div>
+            <div class="input-group">
+                <div class="input-group-addon">PW</div>
+                <input id="password" class="form-control" type="password" placeholder="password">
+            </div>
+            <button type="button" id="submitBtn">submit</button>
+            <button type="button" id="signin" data-toggle="modal" data-target="#signinModal">SignIn</button>
+        </div>
     </form>
-    <a href="map_Content.html">map_content html</a>
 
     <div id="signinModal" class="modal fade">
         <div class="modal-dialog">
@@ -26,8 +38,14 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <input id="email_Modal" type="text" placeholder="E-mail" >
-                        <input id="password_Modal" type="password" placeholder="password">
+                        <div class="input-group">
+                            <div class="input-group-addon">E-Mail</div>
+                            <input id="email_Modal" class="form-control" type="email" placeholder="E-mail" >
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-addon">PW</div>
+                            <input id="password_Modal" class="form-control" type="password" placeholder="password">
+                        </div>
                         <button type="button" id="submitBtn_Modal">submit</button>
                     </form>
                 </div>
@@ -41,16 +59,73 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+    <script src="./lib/dragdealer.js"></script>
 
     <script>
         // Initialize Firebase
+        var centerHeight = window.innerHeight/2;
+        var centerWidth = window.innerWidth/2;
+
         var auth;
+        var slide = function(mountId, callback){
+            var isDragged = false;
+            var startX = 0;
+            var offsetX = 0;
+            var isEnabled = false;
+
+            $(".handle").on('mousedown', function(ev) {
+                startX = ev.pageX;
+                isDragged = true;
+                console.log('click');
+            });
+            $(".handle").on('mousemove', function(ev){
+                if (isDragged) {
+                    var positionX = ev.pageX;
+                    offsetX = positionX - startX;
+                    console.log(offsetX);
+                    $('.slideText').css('transform','translateX('+offsetX+'px)')
+                }
+            });
+            $(document.body).on('mouseup', function(ev) {
+                isDragged = false;
+                if (offsetX > $('.handle').width()*0.8) {
+                    isEnabled = true;
+                    $('.slideText').css('animation', 'fadeOut 2s');
+                    $('.slideText').css('transform', 'translateX(0px)');
+                }else {
+                    $('.slideText').css('transform', 'translateX(0px)');
+                }
+                if (isEnabled) {
+                    if (typeof callback === 'function') {
+                        callback();
+                    }
+                }
+            });
+
+        };
         $.getScript('./src/firebaseInit.js', function() {
             console.log('firebaseInit complete');
             auth = init.auth();
 
             auth.onAuthStateChanged(function(user) {
                 if (user) {
+                    var userID = auth.currentUser.email;
+                    var welcomeMsgAppend = function() {
+                        var deferred = $.Deferred();
+
+                        $('body').append('<div id="welcomeMsg"><p style="font-size: 35px; color: #FFFFFF; ">' +
+                            'Welcome here! <strong style="color: #FFB400">'+userID+',</strong> <br>Let\'s begin a Journy</p>' +
+                            '<div id="slideGetIn" class="dragdealer"><div class="handle"><div class="slideText">Next</div></div></div></div>');
+                        deferred.resolve();
+
+                        return deferred.promise();
+                    };
+                    welcomeMsgAppend().done(function() {
+                        slide('slideGetIn', function() {
+                            window.location.href = "map_Content.html";
+                        });
+                    });
+
                     $('#signinModal').modal('hide');
                     $('.loginForm').addClass('hidden');
                 }else {

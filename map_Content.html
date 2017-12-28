@@ -43,6 +43,7 @@
     </div><!-- /.container-fluid -->
 </nav>
 <div class="divider"></div>
+<div class="backImg"></div>
 <div class="container-fluid" id="mainContainer">
     <div class="row">
         <div class="col-md-4" id="thumbnails" :data-images="images">
@@ -270,15 +271,15 @@
                             var database = init.database();
                             var store = init.storage();
                             var contentTitle = this.checkedItems;
-                            console.log(contentTitle);
+
                             for (var title in contentTitle) {
-                                console.log(contentTitle[title]);
                                 if (contentTitle[title] !== null) {
                                     database.ref('/'+auth.currentUser.uid+'/'+contentTitle[title]).remove()
                                         .then(function() {
                                             console.log('deleted album')
-                                        });
-                                    var storeDelFolder = store.ref('/user/'+auth.currentUser.uid+'/'+contentTitle[title]);
+                                            setTimeout(window.location.reload(), 200);
+                                        })
+                                    //var storeDelFolder = store.ref('/user/'+auth.currentUser.uid+'/'+contentTitle[title]);
                                 }
                             }
                         },
@@ -315,7 +316,7 @@
                                                 icon: './img/cuteneko.png'
                                             });
                                             var infoContent = '<div>' +
-                                                '<p><strong style="font-size:20px"><span><img src=""></span>Pinut  ['+location+']</strong></p>' +
+                                                '<p><strong style="font-size:20px; font-family: miseng"><span><img src=""></span>Pinut  ['+location+']</strong></p>' +
                                                 '<p>'+content.child('desc').val()+'</p>' +
                                                 '</div>';
                                             var infoWindow = new google.maps.InfoWindow({
@@ -324,7 +325,7 @@
 
                                             initMarker.addListener('mouseover', function(event){
                                                 infoWindow.open(map,initMarker);
-                                            })
+                                            });
                                             initMarker.addListener('mouseout', function(event){
                                                 infoWindow.close();
                                             })
@@ -388,20 +389,13 @@
 
 
                             $('.dragdealer').css('position', 'absolute');
-                            $('.dragdealer .handle').css({
-                                top: centerHeight,
-                                left: centerWidth
-                            });
-                            $('.dragdealer .imageCarouselTitle').css({
-                                top: centerHeight - 300,
-                                left: centerWidth - 250
-                            });
+
                             $('.dragdealer').on('keyup', function(event) {
                                 console.log(event.which);
                                 if (event.which == 27) {
                                     $('.dragdealer').css('display', 'none');
                                 }
-                            })
+                            });
                             $('.handle').on('mousedown', function (event) {
                                 xStart = event.pageX;
                                 isDragging = true;
@@ -568,11 +562,8 @@
         $('#addModal').on('hidden.bs.modal', function() {
             window.location.reload();
         });
-        $('#addModal').on('shown.bs.modal', function() {
-            modalMap = new google.maps.Map(document.getElementById('searchMap'), {
-                center: initCenterPoint,
-                zoom: 15
-            });
+        $('#addModal').on('show.bs.modal', function() {
+
             $('#inputLocationName').on('keyup', function(event) {
                 if (event.which == 13) {
                     $('#SearchBtn').trigger('click');
@@ -598,25 +589,31 @@
                 })
             })
         });
-        $('#addModal').on('show.bs.modal', function() {
-
+        $('#addModal').on('shown.bs.modal', function() {
+            modalMap = new google.maps.Map(document.getElementById('searchMap'), {
+                center: initCenterPoint,
+                zoom: 15
+            });
             var circle = new google.maps.Circle({
                 center: initCenterPoint,
-                radius: 100
+                radius: 100000
             });
             var option = {
                 bounds: circle.getBounds(),
-                type: ['geocode']
+                type: ['(cities)']
             };
             var input = document.getElementById('inputLocationName');
             autocomplete = new google.maps.places.Autocomplete(input, option);
+            autocomplete.addListener('place_changed', function() {
+                var place = autocomplete.getPlace().formatted_address;
+                modal_vue.location = place;
+            });
+            modalMap.addListener('center_changed', function() {
 
-            map.addListener('center_changed', function() {
-
-                var mapCenter = map.getCenter();
+                var mapCenter = modalMap.getCenter();
                 var circleBoundary = new google.maps.Circle({
                     center: mapCenter,
-                    radius: 100
+                    radius: 100000
                 });
                 autocomplete.setBounds(circleBoundary.getBounds());
             });
