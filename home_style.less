@@ -21,8 +21,13 @@
   margin : 10% 0 0 32%;
   width: 37%;
   height: 64%;
-  #loginContainer>.input-group {
-    margin-top : 10px;
+  #loginContainer {
+    position:absolute;
+    top: 50%;
+    left: 16%;
+    .input-group {
+      margin-top : 10px;
+    }
   }
   #email {
     display: block;
@@ -41,37 +46,44 @@
     width: 155px;
     height: 40px;
   }
-  #loginContainer {
-    position: relative;
-    top: 321px;
-    left: 125px;
-  }
 }
-.modal-body {
-  form {
-    .input-group {
-      margin-top: 10px;
-      #email_Modal {
-        display: block;
-        height: 50px;
-        width: 230px;
-        text-align: center;
-      }
-      #password_Modal {
-        display: block;
-        height: 50px;
-        width: 246px;
-        text-align: center;
+.modal-dialog {
+  position: absolute;
+  .modal-content {
+    width: 65%;
+    .modal-title {
+      text-align: center;
+    }
+    .modal-body {
+      form {
+        .input-group {
+          margin-top: 10px;
+          #email_Modal {
+            display: block;
+            height: 50px;
+            width: 289px;
+            text-align: center;
+          }
+          #password_Modal {
+            display: block;
+            height: 50px;
+            width: 306px;
+            text-align: center;
+          }
+        }
+        button {
+          margin-top: 10px;
+          position: relative;
+          left: 65%;
+          width: 123px;
+          height: 40px;
+        }
       }
     }
-    button {
-      position: relative;
-      left: 72%;
-      width: 123px;
-      height: 40px;
-    }
+
   }
 }
+
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity: 1;}
@@ -83,17 +95,19 @@
 #welcomeMsg {
   font-family: blackNapkin;
   animation: fadeIn 4s;
-  position: absolute;
-  margin: 20% 0 0 32%;
+  position: fixed;
+  width: 100%;
+  margin-top: 20%;
   text-align: center;
 }
 
 #slideGetIn {
-  position: absolute;
-  margin-top: 100px;
-  width: auto;
+  position: relative;
+  width: 600px;
   height: auto;
+  margin: 0 auto;
   .handle {
+    margin-top: 10%;
     width: 600px;
     height: 80px;
     position: absolute;
@@ -104,6 +118,9 @@
     border-radius: 30px;
     background: rgba(200,200,200,0.5);
     .slideText {
+      &:hover {
+        color: gold;
+      }
       font-family: crayon;
       overflow: hidden;
       margin-top: 12px;
@@ -115,5 +132,35 @@
       heigth: 100%;
       color: #282828;
     }
+  }
+}
+#logOutBtn {
+  position: absolute;
+  display: inline-flex;
+  top: 10px;
+  left: 93%;
+  border-radius: 10px;
+  background : transparent;
+  color: lightgray;
+  width: 73px;
+  height: 30px;
+  text-align: center;
+}
+.alert {
+  width: 500px;
+  height: 120px;
+  position: absolute;
+  display: block;
+  top: 10%;
+  left: 32%;
+  font-size: 20px;
+  text-align: center;
+  button {
+    margin-top: 20px;
+    width: 100px;
+  }
+  .close{
+    width:0;
+    margin:0 10px 0 0;
   }
 }

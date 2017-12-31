@@ -53,7 +53,14 @@
         </div>
 
     </div>
-
+<div class="alert alert-danger hidden" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <p>your account will be log-out, continue?</p>
+    <button type="button" id="alert_commit">OK</button>
+    <button type="button" id="alert_deny">No</button>
+</div>
     <script src="https://unpkg.com/vue"></script>
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -63,10 +70,16 @@
 
     <script>
         // Initialize Firebase
-        var centerHeight = window.innerHeight/2;
-        var centerWidth = window.innerWidth/2;
+        var centerHeight = ((window.innerHeight/2)/window.innerHeight)*100;
+        var centerWidth = ((window.innerWidth/2)/window.innerWidth)*100;
 
         var auth;
+        var removeInnerTexts = function(callback) {
+            $('.form-control').val("")
+            if (typeof callback === 'function') {
+                callback();
+            }
+        };
         var slide = function(mountId, callback){
             var isDragged = false;
             var startX = 0;
@@ -125,10 +138,23 @@
                             window.location.href = "map_Content.html";
                         });
                     });
+                    $(document.body).append('<input type="button" id="logOutBtn" value="LogOut">');
+                    $('#logOutBtn').on('click', function() {
+                        $('#logOutBtn').alert();
+                        auth.signOut()
+                            .then(function() {
+
+                            })
+                    });
 
                     $('#signinModal').modal('hide');
                     $('.loginForm').addClass('hidden');
+                    removeInnerTexts(function() {
+
+                    });
                 }else {
+                    $('#welcomeMsg').remove();
+                    $('#logOutBtn').remove();
                     $('.loginForm').removeClass('hidden');
                 }
             })
@@ -160,12 +186,19 @@
                     var errorcode = error.code;
                     if (errorcode === 'auth/invalid-email') {
                         alert('Invalid e-mail form, check it again');
+                    }else if(errorcode === "auth/weak-password") {
+                        alert("Password should be at least 6 characters")
                     }
                     console.log(error);
                 });
 
         });
 
+        $('#password').on('keyup', function(event) {
+            if (event.which == 13) {
+                $('#submitBtn').trigger('click');
+            }
+        })
 
 
     </script>
