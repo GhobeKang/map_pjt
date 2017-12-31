@@ -11,6 +11,25 @@
   font-family: miseng;
   src: url(./font/SDMisaeng.ttf);
 }
+@font-face {
+  font-family: airways;
+  src: url(./font/Airways.ttf);
+}
+
+.pageTitle {
+  width: 100%;
+  position: fixed;
+  display: block;
+  text-align: center;
+  letter-spacing: 16px;
+  top: 1%;
+  p {
+    font-size: 70px;
+    font-family: airways;
+    font-weight: 400;
+    color: antiquewhite;
+  }
+}
 .backImg {
   background: url(./img/snow-gif-8.gif) no-repeat;
   background-size: cover;
@@ -23,98 +42,201 @@ body {
   font-family: miseng;
   font-size: 25px;
 }
-.navbar-default {
-  background-image: linear-gradient(to top, #000, #F8F8E9);
-}
-.navbar-default .navbar-nav>li>a {
-  &:hover {
+.top-nav {
+  height: 50px;
+  width: 100%;
+  margin-top: 1%;
+  position: relative;
+  display: block;
+  border: solid lightgrey 2px;
+
+  div {
+    margin: 12px 0 0 17px;
     color: white;
+    font-size: 20px;
+    word-spacing: -11px;
+    display: inline-flex;
+    a {
+      color: white;
+      text-decoration: none;
+
+      &:hover {
+        color: white;
+      }
+    }
+    &:visited {
+      color: white;
+    }
   }
-   color: white;
-}
-.divider {
-  margin-top: 55px;
-  border-top: solid darkgrey 1px;
+  #LogOut {
+    cursor: pointer;
+  }
 }
 #mainContainer {
-  margin-left : 5%;
-  margin-right : 5%;
-  height:90%;
-  width: 106%;
+  left: 50%;
+  transform: translateX(-50%);
+  height:70%;
+  width: 80%;
+  top: 13%;
   position: absolute;
   .row {
-    width: 100%;
     height: 100%;
   }
 }
 
 .col-md-8 {
   height:100%;
+  width: 76%;
+  padding: 0;
+
   #mapDisplayed {
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  left: 20px;
-  top: 20px;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    left: 20px;
+    top: 20px;
+    box-shadow:14px 14px 10px grey;
+    border: solid 2px #464646;
   }
 }
+.thumbnail_fix {
+  #thumbnails {
+    float: left;
+    border: double darkgrey 5px;
+    height: 100%;
+    margin: 22px 0 0 30px;
+    display: inline-block;
+    overflow-y: scroll;
+    .icons {
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: flex-end;
+      color: darkgrey;
+      button  {
+        background-color: transparent;
+        border: none;
+        span {
+          font-size: 20px;
 
-.row>#thumbnails {
-  float: left;
-  border-right: solid darkgrey 1px;
-  height: 100%;
-  width: 200px;
-  display: inline-block;
-  overflow-y: scroll;
-  div>label {
-    color: white;
-  }
-  .icons {
-    margin-bottom: 5px;
-    display: flex;
-    justify-content: flex-end;
-    color: darkgrey;
-    button  {
-      background-color: transparent;
-      border: none;
-      span {
-        margin-right: 10px;
-        margin-top: 5px;
-        font-size: 20px;
+        }
       }
     }
-
-  }
-
-  a{
-    margin-top: 10px;
-    margin-right: 10px;
-    position: relative;
-    img{
-      margin:0;
-      width: 100%;
-      height: 150px;
+    label  {
+      color : white;
     }
-    &:hover{
-      background-color: black;
-      img {
-        opacity: 0.5
+    a{
+      margin-top: 10px;
+      margin-right: 10px;
+      position: relative;
+      background: gray;
+      img{
+        margin:0;
+        width: 100%;
+      }
+      &:hover{
+        background-color: black;
+        img {
+          opacity: 0.5
+        }
+        .badge {
+          position: absolute;
+          top:50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          display: block;
+          font-size: 20px;
+          background-color: transparent;
+        }
       }
       .badge {
-        position: absolute;
-        top:68px;
-        left:63px;
-        display: block;
-        font-size: 20px;
-        background-color: transparent;
+        display:none;
       }
     }
-    .badge {
-      display:none;
+  }
+}
+
+@media (max-width: 768px) {
+  .col-md-8 {
+    width: 94%;
+    height: 75%;
+    margin-bottom: 7%;
+  }
+  #thumbnails {
+    display: block;
+    border: darkgrey solid 2px;
+    padding: 10px 20px 0 20px;
+    .icons {
+      display: block;
+      button {
+        border: none;
+        background: transparent;
+        color: darkgrey;
+      }
+    }
+    div {
+      display: inline-block;
+      label {
+        color: white;
+      }
+      a {
+        width: 70px;
+        height: 70px;
+        margin-top: 10px;
+        margin-right: 10px;
+        position: relative;
+        background: gray;
+        img{
+          margin:0;
+          width: 100%;
+          height: 100%;
+        }
+        &:hover{
+          background-color: black;
+          img {
+            opacity: 0.5
+          }
+          .badge {
+            position: absolute;
+            top:50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: block;
+            font-size: 20px;
+            background-color: transparent;
+          }
+        }
+        .badge {
+          display:none;
+        }
+      }
+    }
+    .deleteAlbum_buttons {
+      display: none;
     }
   }
-
 }
+@media (min-width:768px) and (max-width:969px) {
+  .thumbnail_fix;
+  #thumbnails {
+    width: 15%;
+    label{
+      font-size: 20px;
+    }
+    img {
+      height: 50px;
+    }
+  }
+}
+@media (min-width: 970px) {
+  .thumbnail_fix;
+  #thumbnails {
+    width: 19%;
+    img {
+      height: 150px;
+    }
+  }
+}
+
 
 .pac-container {
   background-color: #FFF;
@@ -122,6 +244,9 @@ body {
   //bootstrap moadl's z-index is set by default to 1050..
   position: fixed;
   float: left;
+}
+.modal-title {
+  margin-left: 13px;
 }
 .modal-body> {
   p {

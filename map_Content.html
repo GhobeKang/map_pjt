@@ -13,40 +13,51 @@
 </head>
 
 <body>
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Brand</a>
+<!--<nav class="navbar navbar-default navbar-fixed-top">-->
+    <!--<div class="container-fluid">-->
+        <!--&lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;-->
+        <!--<div class="navbar-header">-->
+            <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">-->
+                <!--<span class="sr-only">Toggle navigation</span>-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+                <!--<span class="icon-bar"></span>-->
+            <!--</button>-->
+            <!--<a class="navbar-brand" href="#">Brand</a>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;-->
+        <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
+
+            <!--<ul class="nav navbar-nav">-->
+                <!--<li><a href="home.html"> Home <span class="sr-only">(current)</span></a></li>-->
+                <!--<li class="active"><a href="#">Map</a></li>-->
+            <!--</ul>-->
+        <!--</div>&lt;!&ndash; /.navbar-collapse &ndash;&gt;-->
+    <!--</div>&lt;!&ndash; /.container-fluid &ndash;&gt;-->
+<!--</nav>-->
+<!--<div class="divider"></div>-->
+<div class="backImg"></div>
+<div class="pageTitle">
+    <p>_ PinTo</p>
+</div>
+
+<div class="container" id="mainContainer">
+    <nav class="top-nav">
+        <div id="homeLink">
+            <span class="glyphicon glyphicon-home"><a href="home.html">&nbsp;To Home</a></span>
+        </div>
+        <div id="LogOut">
+            <span class="glyphicon glyphicon-fire">&nbsp;LogOut</span>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col-md-8 col-lg-8 col-sm-8">
+            <div id="mapDisplayed"></div>
+
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#"> Home <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Map</a></li>
-            </ul>
-            <form class="navbar-form navbar-right" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
-<div class="divider"></div>
-<div class="backImg"></div>
-<div class="container-fluid" id="mainContainer">
-    <div class="row">
-        <div class="col-md-4" id="thumbnails" :data-images="images">
+        <div class="col-md-4 col-lg-8 col-sm-8" id="thumbnails" :data-images="images">
             <div class="icons">
                 <button data-toggle="modal" data-target="#addModal" type="button"><span class="glyphicon glyphicon-plus"></span></button>
                 <button type="button"><span class="glyphicon glyphicon-minus" @click="removeAlbum"></span></button>
@@ -69,11 +80,6 @@
                     <span>Delete</span>
                 </button>
             </div>
-        </div>
-
-        <div class="col-md-8">
-            <div id="mapDisplayed"></div>
-
         </div>
     </div>
 </div>
@@ -98,7 +104,7 @@
             </div>
             <div class="modal-body">
                 <p>Search Location</p>
-                <input v-model='location' id="inputLocationName" type="text">
+                <input v-model='location' id="inputLocationName" type="text" @keyup.enter="fireClick">
                 <button type="button" id="SearchBtn">Search</button>
                 <div class="searchResultDisplayed">
                     <div id="searchMap">
@@ -163,20 +169,60 @@
 
 
 <script>
+    var init;
+    var auth;
+    var store;
+    var database;
 
     var map;
     var geocoder;
     var autocomplete;
-    var auth;
+
     var initCenterPoint = new google.maps.LatLng(37.54235, 126.9352);
-    var thumbnail_vue;
+
     var modalMap;
     var centerHeight = window.innerHeight/2;
     var centerWidth = window.innerWidth/2;
+    var initialize = function() {
+        var deferred = $.Deferred();
 
+        var config = {
+            apiKey: "AIzaSyBJiUtsVJoQGr9Mfdci7aTXi8iQVTg9KaU",
+            authDomain: "picturemap-1513519046916.firebaseapp.com",
+            projectId: "picturemap-1513519046916",
+            storageBucket: "picturemap-1513519046916.appspot.com",
+            databaseURL: "https://picturemap-1513519046916.firebaseio.com/"
+        };
+
+        init = firebase.initializeApp(config);
+        auth = init.auth();
+        store = init.storage();
+        database = init.database();
+        if (auth !==null && store !== null && database !== null){
+
+            if (auth.currentUser !== null) {
+                var curUser = auth.currentUser;
+                var path = store.ref('/user/'+curUser.uid);
+            }
+
+            init.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    console.log('user persistence is working');
+                    deferred.resolve();
+                }else {
+                    console.log('user is null');
+                }
+            });
+
+        }
+
+        return deferred.promise()
+    };
+
+    initialize().done(function() {
         $.getScript('./src/dropzoneInit.js', function() {
             console.log('dropzone initialization is done');
-        }).done(function() {
+        }).then(function() {
 
             map = new google.maps.Map(document.getElementById('mapDisplayed'), {
                 center: initCenterPoint,
@@ -184,291 +230,283 @@
             });
 
             var startMarker = new google.maps.Marker({
-               position: initCenterPoint,
-               map: map,
-               icon: './img/cutepenguin.gif'
+                position: initCenterPoint,
+                map: map,
+                icon: './img/cutepenguin.gif'
             });
             map.addListener('drag',function() {
                 var center = map.getCenter();
                 startMarker.setPosition(center);
             });
 
-            setTimeout(function(){
-                auth = init.auth();
-                // auth connection is flicker... i should check this part later...
-                if (auth.currentUser !== null) {
-                    var curUser = auth.currentUser;
-                    var path = store.ref('/user/'+curUser.uid);
-                    console.log(path);
-                }
-                thumbnail_vue = new Vue({
-                    el: '#thumbnails',
-                    data: {
-                        images: [],
-                        checkedItems: []
-                    },
-                    components: {
-                        thumbnail : {
-                            props: ['contentTitle','imageUrl','totalContents','totalImages','databaseTitle','location'
-                            ,'geo'],
-                            computed: {
-                                fullLength: function() {
-                                    var contents_Num = this.totalContents;
-                                    var imageWidth = $('.slide>img').width();
-                                    return contents_Num * imageWidth;
-                                }
-                            },
-                            data : function() {
-                                return {
-                                    checked: []
-                                }
-                            },
-                            template : `<div>
-                                            <input class=removeCheck type="checkbox" v-bind:value="databaseTitle" id=":contentTitle" v-model="checked">
-                                            <label for=":contentTitle">{{contentTitle}}</label>
-                                            <a href="#" class="thumbnail" @click="showImages" @mouseover="moveToLocation">
-                                                <img v-bind:src="imageUrl" alt="...">
-                                                <span class="badge">+{{totalContents}}</span>
-                                            </a>
-                                        </div>`,
-                            watch: {
-                                checked: function(val, oldVal) {
-                                    if (val.length !== 0) {
-                                        this.$emit('checked', val["0"]);
-                                    }else {
-                                        this.$emit('checked', oldVal["0"]);
-                                    }
-                                }
-                            },
-                            methods: {
-                                moveToLocation: function() {
-                                    map.setCenter({lat: this.geo.lat, lng: this.geo.lng });
-                                },
-                                showImages: function() {
-                                    showing_vue.loadingTotalImages(this.totalImages, function() {
-                                        $('.dragdealer').attr('tabindex', -1).focus();
-                                        $('.dragdealer').css('display', 'block');
-                                    });
-                                }
-                            }
-                        }
-                    },
-                    methods: {
-                        checkedContentCollect: function(checked) {
-                            for (var i=0; i<this.checkedItems.length; i++) {
-                                if (this.checkedItems[i] === checked) {
-                                    this.checkedItems[i] = null;
-                                    return;
-                                }
-                            }
-                            this.checkedItems.push(checked);
-                        },
-                        cancelAlbum: function() {
-                            $('.deleteAlbum_buttons').css('display', 'none');
-                            $('.removeCheck').css('display', 'none');
-                        },
-                        deleteAlbum: function() {
-                            var database = init.database();
-                            var store = init.storage();
-                            var contentTitle = this.checkedItems;
-
-                            for (var title in contentTitle) {
-                                if (contentTitle[title] !== null) {
-                                    database.ref('/'+auth.currentUser.uid+'/'+contentTitle[title]).remove()
-                                        .then(function() {
-                                            console.log('deleted album')
-                                            setTimeout(window.location.reload(), 200);
-                                        })
-                                    //var storeDelFolder = store.ref('/user/'+auth.currentUser.uid+'/'+contentTitle[title]);
-                                }
-                            }
-                        },
-                        removeAlbum: function() {
-                            $('.deleteAlbum_buttons').css('display', 'block');
-                            $('.removeCheck').css('display', 'inline');
-                        },
-                        imagesLoad : function(callback) {
-                            var database = init.database();
-                            var contentTitle = '';
-                            var databaseTitle = '';
-                            var location = '';
-                            var geo = "";
-
-                            if (auth.currentUser !== null) {
-                                var databaseRef = database.ref('/'+auth.currentUser.uid);
-                                databaseRef.once('value').then(function(data){
-
-                                    data.forEach(function(datasnapshot){
-                                        databaseTitle = datasnapshot.key;
-                                        var resultArray = [];
-                                        datasnapshot.forEach(function(content) {
-                                            geo = content.child('geometry').val();
-                                            contentTitle = content.child('title').val();
-                                            location = content.child('location').val();
-                                            content.child('downloadURL').forEach(function(urls){
-                                                resultArray.push(urls.val());
-                                            });
-                                            var initMarker = new google.maps.Marker({
-                                                clickable: true,
-                                                map: map,
-                                                position: ({lat:geo.lat, lng:geo.lng}),
-                                                animation: google.maps.Animation.DROP,
-                                                icon: './img/cuteneko.png'
-                                            });
-                                            var infoContent = '<div>' +
-                                                '<p><strong style="font-size:20px; font-family: miseng"><span><img src=""></span>Pinut  ['+location+']</strong></p>' +
-                                                '<p>'+content.child('desc').val()+'</p>' +
-                                                '</div>';
-                                            var infoWindow = new google.maps.InfoWindow({
-                                                content: infoContent
-                                            });
-
-                                            initMarker.addListener('mouseover', function(event){
-                                                infoWindow.open(map,initMarker);
-                                            });
-                                            initMarker.addListener('mouseout', function(event){
-                                                infoWindow.close();
-                                            })
-                                        });
-                                        thumbnail_vue.images.push({
-                                            title: contentTitle,
-                                            dbTitle: databaseTitle,
-                                            representedImage: resultArray[0],
-                                            counter: resultArray.length,
-                                            totalImageOfthis: resultArray,
-                                            location : location,
-                                            geo : geo
-                                        });
-                                    });
-                                }).then(function() {
-                                    if (typeof callback === 'function'){
-                                        callback();
-                                    }
-                                })
-                            }
-                        }
-                    },
-                    mounted: function() {
-                        this.imagesLoad(function() {
-                            console.log('its done');
-                        });
-                    },
-                });
-
-
-                var showing_vue = new Vue({
-                    el: '#image-carousel',
-                    data: {
-                        images: [],
-                        counter: 0
-                    },
-                    components: {
-                        gallerythumbnail: {
-                            props: ['imageUrl', 'imageCounter'],
-                            computed: {
-                                counterCal: function () {
-                                    console.log(this.imageUrl);
-                                    var fixedString = 'img' + this.imageCounter;
-                                    return fixedString;
-                                },
-                            },
-                            template: `<div class="slide" :class="counterCal"><img :src="imageUrl"></div>`
-
-                        }
-                    },
-                    methods: {
-                        loadingTotalImages: function (totalImages, callback) {
-                            showing_vue.images = totalImages;
-
-                            var beforePosition = 0;
-                            var imagesNum = totalImages.length -1;
-                            var xStart = 0;
-                            var xMove= 0;
-                            var xOffset;
-                            var isDragging = false;
-
-
-                            $('.dragdealer').css('position', 'absolute');
-
-                            $('.dragdealer').on('keyup', function(event) {
-                                console.log(event.which);
-                                if (event.which == 27) {
-                                    $('.dragdealer').css('display', 'none');
-                                }
-                            });
-                            $('.handle').on('mousedown', function (event) {
-                                xStart = event.pageX;
-                                isDragging = true;
-                                console.log('mouse down event');
-                            });
-                            $('.handle').on('mousemove', function (event) {
-                                console.log(isDragging);
-                                if (isDragging) {
-                                    xMove = event.pageX;
-                                    xOffset = (beforePosition + (xMove - xStart));
-                                    $('.handle').css('transform', 'translate3d('+xOffset+'px, 0 ,0)');
-                                }
-                            });
-                            $(document).on('mouseup', function (event) {
-                                var imageOffset = $('.current')["0"].offsetLeft;
-                                var imageSize = $('.current')["0"].offsetWidth;
-                                var xEnd = event.pageX;
-                                var minMoved = imageSize * 0.5;
-                                var distance = xStart - xMove;
-                                beforePosition = -imageOffset;
-                                if (Math.abs(distance) > minMoved) {
-                                    if(xStart > xEnd) {
-                                        xOffset = - imageOffset - imageSize;
-                                        beforePosition = xOffset;
-
-                                        if ($('.current')["0"].nextSibling){
-                                            var next = "." + $('.current')["0"].nextSibling.classList["1"];
-                                            $('.current').removeClass('current');
-                                            $(next).addClass('current');
-                                        }
-                                    }else{
-                                        xOffset = - imageOffset + imageSize;
-                                        beforePosition = xOffset;
-
-                                        if ($('.current')["0"].previousSibling){
-                                            var prev = "." + $('.current')["0"].previousSibling.classList["1"];
-                                            $('.current').removeClass('current');
-                                            $(prev).addClass('current');
-                                        }
-                                    }
-
-                                }else {
-                                    xOffset = - imageOffset
-                                }
-
-                                if(xOffset > 0) {
-                                    xOffset = 0;
-                                }else if(xOffset < -(imageSize * imagesNum)) {
-                                    xOffset = -(imageSize * imagesNum)
-                                }
-
-                                $('.handle').css('transform', 'translate3d('+xOffset+'px, 0 ,0)');
-                                isDragging = false;
-                                console.log('mouse up event');
-                            });
-
-                            if (typeof callback === 'function') {
-                                callback();
-                            }
-                        },
-
-                    },
-
-                    updated: function () {
-                        this.$nextTick(function () {
-                            $('.slide:first').addClass('current');
-                        });
-                    }
-                })
-            }, 800);
-
         });
 
+        var thumbnail_vue = new Vue({
+            el: '#thumbnails',
+            data: {
+                images: [],
+                checkedItems: []
+            },
+            components: {
+                thumbnail : {
+                    props: ['contentTitle','imageUrl','totalContents','totalImages','databaseTitle','location'
+                        ,'geo'],
+                    computed: {
+                        fullLength: function() {
+                            var contents_Num = this.totalContents;
+                            var imageWidth = $('.slide>img').width();
+                            return contents_Num * imageWidth;
+                        }
+                    },
+                    data : function() {
+                        return {
+                            checked: []
+                        }
+                    },
+                    template : `<div>
+                                    <input class=removeCheck type="checkbox" v-bind:value="databaseTitle" id=":contentTitle" v-model="checked">
+                                    <label for=":contentTitle">{{contentTitle}}</label>
+                                    <a href="#" class="thumbnail" @click="showImages" @mouseover="moveToLocation">
+                                        <img v-bind:src="imageUrl" alt="...">
+                                        <span class="badge">+{{totalContents}}</span>
+                                    </a>
+                                </div>`,
+                    watch: {
+                        checked: function(val, oldVal) {
+                            if (val.length !== 0) {
+                                this.$emit('checked', val["0"]);
+                            }else {
+                                this.$emit('checked', oldVal["0"]);
+                            }
+                        }
+                    },
+                    methods: {
+                        moveToLocation: function() {
+                            map.setCenter({lat: this.geo.lat, lng: this.geo.lng });
+                        },
+                        showImages: function() {
+                            showing_vue.loadingTotalImages(this.totalImages, function() {
+                                $('.dragdealer').attr('tabindex', -1).focus();
+                                $('.dragdealer').css('display', 'block');
+                            });
+                        }
+                    }
+                }
+            },
+            methods: {
+                checkedContentCollect: function(checked) {
+                    for (var i=0; i<this.checkedItems.length; i++) {
+                        if (this.checkedItems[i] === checked) {
+                            this.checkedItems[i] = null;
+                            return;
+                        }
+                    }
+                    this.checkedItems.push(checked);
+                },
+                cancelAlbum: function() {
+                    $('.deleteAlbum_buttons').css('display', 'none');
+                    $('.removeCheck').css('display', 'none');
+                },
+                deleteAlbum: function() {
+                    var database = init.database();
+                    var store = init.storage();
+                    var contentTitle = this.checkedItems;
+
+                    for (var title in contentTitle) {
+                        if (contentTitle[title] !== null) {
+                            database.ref('/'+auth.currentUser.uid+'/'+contentTitle[title]).remove()
+                                .then(function() {
+                                    console.log('deleted album')
+                                    setTimeout(window.location.reload(), 200);
+                                })
+                            //var storeDelFolder = store.ref('/user/'+auth.currentUser.uid+'/'+contentTitle[title]);
+                        }
+                    }
+                },
+                removeAlbum: function() {
+                    $('.deleteAlbum_buttons').css('display', 'block');
+                    $('.removeCheck').css('display', 'inline');
+                },
+                imagesLoad : function(callback) {
+                    var contentTitle = '';
+                    var databaseTitle = '';
+                    var location = '';
+                    var geo = "";
+                    console.log(auth);
+                    if (auth.currentUser !== null) {
+
+                        var databaseRef = database.ref('/'+auth.currentUser.uid);
+                        databaseRef.once('value').then(function(data){
+
+                            data.forEach(function(datasnapshot){
+                                databaseTitle = datasnapshot.key;
+                                var resultArray = [];
+                                datasnapshot.forEach(function(content) {
+                                    geo = content.child('geometry').val();
+                                    contentTitle = content.child('title').val();
+                                    location = content.child('location').val();
+                                    content.child('downloadURL').forEach(function(urls){
+                                        resultArray.push(urls.val());
+                                    });
+                                    var initMarker = new google.maps.Marker({
+                                        clickable: true,
+                                        map: map,
+                                        position: ({lat:geo.lat, lng:geo.lng}),
+                                        animation: google.maps.Animation.DROP,
+                                        icon: './img/bluePin.png'
+                                    });
+                                    var infoContent = '<div>' +
+                                        '<p><strong style="font-size:20px; font-family: miseng"><span><img src=""></span>Pinto  ['+location+']</strong></p>' +
+                                        '<p><strong>Piece Name : </strong>'+content.child('title').val()+'</p>' +
+                                        '<p><strong>Detail : </strong>'+content.child('desc').val()+'</p>' +
+                                        '</div>';
+                                    var infoWindow = new google.maps.InfoWindow({
+                                        content: infoContent
+                                    });
+
+                                    initMarker.addListener('mouseover', function(event){
+                                        infoWindow.open(map,initMarker);
+                                    });
+                                    initMarker.addListener('mouseout', function(event){
+                                        infoWindow.close();
+                                    })
+                                });
+                                thumbnail_vue.images.push({
+                                    title: contentTitle,
+                                    dbTitle: databaseTitle,
+                                    representedImage: resultArray[0],
+                                    counter: resultArray.length,
+                                    totalImageOfthis: resultArray,
+                                    location : location,
+                                    geo : geo
+                                });
+                            });
+                        }).then(function() {
+                            if (typeof callback === 'function'){
+                                callback();
+                            }
+                        })
+                    }
+                }
+            },
+            mounted: function() {
+                this.imagesLoad(function() {
+                    console.log('its done')
+                })
+            },
+        });
+
+
+
+        var showing_vue = new Vue({
+            el: '#image-carousel',
+            data: {
+                images: [],
+                counter: 0
+            },
+            components: {
+                gallerythumbnail: {
+                    props: ['imageUrl', 'imageCounter'],
+                    computed: {
+                        counterCal: function () {
+                            console.log(this.imageUrl);
+                            var fixedString = 'img' + this.imageCounter;
+                            return fixedString;
+                        },
+                    },
+                    template: `<div class="slide" :class="counterCal"><img :src="imageUrl"></div>`
+
+                }
+            },
+            methods: {
+                loadingTotalImages: function (totalImages, callback) {
+                    showing_vue.images = totalImages;
+
+                    var beforePosition = 0;
+                    var imagesNum = totalImages.length -1;
+                    var xStart = 0;
+                    var xMove= 0;
+                    var xOffset;
+                    var isDragging = false;
+
+
+                    $('.dragdealer').css('position', 'absolute');
+
+                    $('.dragdealer').on('keyup', function(event) {
+                        console.log(event.which);
+                        if (event.which == 27) {
+                            $('.dragdealer').css('display', 'none');
+                        }
+                    });
+                    $('.handle').on('mousedown', function (event) {
+                        xStart = event.pageX;
+                        isDragging = true;
+                        console.log('mouse down event');
+                    });
+                    $('.handle').on('mousemove', function (event) {
+                        console.log(isDragging);
+                        if (isDragging) {
+                            xMove = event.pageX;
+                            xOffset = (beforePosition + (xMove - xStart));
+                            $('.handle').css('transform', 'translate3d('+xOffset+'px, 0 ,0)');
+                        }
+                    });
+                    $(document).on('mouseup', function (event) {
+                        var imageOffset = $('.current')["0"].offsetLeft;
+                        var imageSize = $('.current')["0"].offsetWidth;
+                        var xEnd = event.pageX;
+                        var minMoved = imageSize * 0.5;
+                        var distance = xStart - xMove;
+                        beforePosition = -imageOffset;
+                        if (Math.abs(distance) > minMoved) {
+                            if(xStart > xEnd) {
+                                xOffset = - imageOffset - imageSize;
+                                beforePosition = xOffset;
+
+                                if ($('.current')["0"].nextSibling){
+                                    var next = "." + $('.current')["0"].nextSibling.classList["1"];
+                                    $('.current').removeClass('current');
+                                    $(next).addClass('current');
+                                }
+                            }else{
+                                xOffset = - imageOffset + imageSize;
+                                beforePosition = xOffset;
+
+                                if ($('.current')["0"].previousSibling){
+                                    var prev = "." + $('.current')["0"].previousSibling.classList["1"];
+                                    $('.current').removeClass('current');
+                                    $(prev).addClass('current');
+                                }
+                            }
+
+                        }else {
+                            xOffset = - imageOffset
+                        }
+
+                        if(xOffset > 0) {
+                            xOffset = 0;
+                        }else if(xOffset < -(imageSize * imagesNum)) {
+                            xOffset = -(imageSize * imagesNum)
+                        }
+
+                        $('.handle').css('transform', 'translate3d('+xOffset+'px, 0 ,0)');
+                        isDragging = false;
+                        console.log('mouse up event');
+                    });
+
+                    if (typeof callback === 'function') {
+                        callback();
+                    }
+                },
+
+            },
+
+            updated: function () {
+                this.$nextTick(function () {
+                    $('.slide:first').addClass('current');
+                });
+            }
+        })
 
 
         var modal_vue = new Vue({
@@ -482,6 +520,10 @@
             },
 
             methods: {
+                fireClick: function() {
+                    document.getElementById('SearchBtn').focus();
+                    $('#SearchBtn').trigger('click');
+                },
                 cancel: function() {
                     myDropzone.removeAllFiles();
                 },
@@ -564,11 +606,6 @@
         });
         $('#addModal').on('show.bs.modal', function() {
 
-            $('#inputLocationName').on('keyup', function(event) {
-                if (event.which == 13) {
-                    $('#SearchBtn').trigger('click');
-                }
-            });
             $('#SearchBtn').on('click', function() {
                 var address = modal_vue.location;
                 geocoder = new google.maps.Geocoder();
@@ -618,6 +655,12 @@
                 autocomplete.setBounds(circleBoundary.getBounds());
             });
         });
+    });
+    $('#LogOut').on('click',function() {
+        auth.signOut().then(function() {
+            location.href= 'home.html';
+        })
+    })
 
 </script>
 
