@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="17af52c6-6c84-4550-a05f-1d112f5aa7ee" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/masonry.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/home.html" afterPath="$PROJECT_DIR$/home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/home_style.css" afterPath="$PROJECT_DIR$/home_style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/home_style.less" afterPath="$PROJECT_DIR$/home_style.less" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/map_Content.html" afterPath="$PROJECT_DIR$/map_Content.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/map_less.css" afterPath="$PROJECT_DIR$/map_less.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/map_less.less" afterPath="$PROJECT_DIR$/map_less.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dropzoneInit.js" afterPath="$PROJECT_DIR$/src/dropzoneInit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/firebaseInit.js" afterPath="$PROJECT_DIR$/src/firebaseInit.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -30,8 +26,8 @@
           <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/home.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-63">
-                  <caret line="114" column="17" lean-forward="true" selection-start-line="114" selection-start-column="17" selection-end-line="114" selection-end-column="17" />
+                <state relative-caret-position="2166">
+                  <caret line="114" column="17" lean-forward="false" selection-start-line="114" selection-start-column="17" selection-end-line="114" selection-end-column="17" />
                   <folding>
                     <element signature="e#2305#2312#1" expanded="true" />
                     <marker date="1514648924981" expanded="true" signature="5096:5129" ph="..." />
@@ -44,14 +40,14 @@
           <file leaf-file-name="map_Content.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/map_Content.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-2813">
-                  <caret line="357" column="50" lean-forward="true" selection-start-line="357" selection-start-column="50" selection-end-line="357" selection-end-column="50" />
+                <state relative-caret-position="2737">
+                  <caret line="515" column="29" lean-forward="true" selection-start-line="515" selection-start-column="29" selection-end-line="515" selection-end-column="29" />
                   <folding>
                     <element signature="e#2058#2064#0" expanded="true" />
-                    <element signature="e#2175#2181#0" expanded="true" />
-                    <marker date="1514714312251" expanded="true" signature="10162:10753" ph="..." />
-                    <marker date="1514714312251" expanded="true" signature="10509:10714" ph="..." />
-                    <marker date="1514714312251" expanded="true" signature="15112:15147" ph="..." />
+                    <element signature="e#2172#2178#0" expanded="true" />
+                    <marker date="1514876262101" expanded="true" signature="10540:11131" ph="..." />
+                    <marker date="1514876262101" expanded="true" signature="10887:11092" ph="..." />
+                    <marker date="1514876262101" expanded="true" signature="16447:16482" ph="..." />
                   </folding>
                 </state>
               </provider>
@@ -74,8 +70,18 @@
           <file leaf-file-name="map_less.less" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/map_less.less">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="776">
-                  <caret line="215" column="3" lean-forward="true" selection-start-line="215" selection-start-column="3" selection-end-line="215" selection-end-column="3" />
+                <state relative-caret-position="360">
+                  <caret line="368" column="14" lean-forward="false" selection-start-line="368" selection-start-column="14" selection-end-line="368" selection-end-column="14" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="masonry.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/lib/masonry.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="76">
+                  <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
                   <folding />
                 </state>
               </provider>
@@ -85,7 +91,7 @@
             <entry file="file://$PROJECT_DIR$/map_less.css">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="0">
-                  <caret line="0" column="3801" lean-forward="false" selection-start-line="0" selection-start-column="3801" selection-end-line="0" selection-end-column="3801" />
+                  <caret line="0" column="3808" lean-forward="false" selection-start-line="0" selection-start-column="3808" selection-end-line="0" selection-end-column="3808" />
                   <folding />
                 </state>
               </provider>
@@ -128,7 +134,7 @@
           <file leaf-file-name="home_style.less" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/home_style.less">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="627">
+                <state relative-caret-position="2109">
                   <caret line="111" column="17" lean-forward="true" selection-start-line="111" selection-start-column="17" selection-end-line="111" selection-end-column="17" />
                   <folding />
                 </state>
@@ -143,16 +149,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>beforePosition</find>
-      <find>remove</find>
-      <find>Album</find>
       <find>deleteAlbum</find>
       <find>image-</find>
       <find>title</find>
@@ -180,6 +183,9 @@
       <find>bad</find>
       <find>thumbnail</find>
       <find>v-bind</find>
+      <find>store</find>
+      <find>curr</find>
+      <find>gallerythumbnail</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -192,14 +198,17 @@
         <option value="$PROJECT_DIR$/target-url.js" />
         <option value="$PROJECT_DIR$/src/dragdealer.css" />
         <option value="$PROJECT_DIR$/map_less.css" />
-        <option value="www.gstatic.com/firebasejs/4.2.0/firebase-auth.js" />
         <option value="ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" />
         <option value="$PROJECT_DIR$/mapStyle.less" />
         <option value="$PROJECT_DIR$/src/dropzoneInit.js" />
         <option value="$PROJECT_DIR$/src/firebaseInit.js" />
         <option value="$PROJECT_DIR$/home.html" />
         <option value="$PROJECT_DIR$/home_style.less" />
+        <option value="$PROJECT_DIR$/lib/masonry.js" />
         <option value="$PROJECT_DIR$/map_less.less" />
+        <option value="chrome-extension://mdppnmkhoflepinhojdkmkanhhlkginn/quicksearch/js/quicksearch.contentscript.min.js" />
+        <option value="www.gstatic.com/firebasejs/4.2.0/firebase-auth.js" />
+        <option value="maps.googleapis.com/maps-api-v3/api/js/31/3/intl/ko_ALL/common.js" />
         <option value="$PROJECT_DIR$/map_Content.html" />
       </list>
     </option>
@@ -476,15 +485,17 @@
       <workItem from="1514215191326" duration="41987000" />
       <workItem from="1514371644407" duration="2525000" />
       <workItem from="1514375258643" duration="64686000" />
-      <workItem from="1514536842502" duration="34602000" />
+      <workItem from="1514536842502" duration="47982000" />
+      <workItem from="1514787297191" duration="4296000" />
+      <workItem from="1514817583085" duration="12513000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="363901000" />
+    <option name="totallyTimeSpent" value="394090000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15729167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -495,7 +506,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39915073" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39915073" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -513,29 +524,19 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="1" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/map_Content.html</url>
+          <line>488</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/map_less.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dropzoneInit.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="779">
-          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/firebaseInit.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
@@ -580,10 +581,10 @@
           <caret line="95" column="43" lean-forward="true" selection-start-line="95" selection-start-column="43" selection-end-line="95" selection-end-column="43" />
           <folding>
             <element signature="e#2058#2064#0" expanded="true" />
-            <element signature="e#2175#2181#0" expanded="true" />
-            <marker date="1514714312251" expanded="true" signature="10162:10753" ph="..." />
-            <marker date="1514714312251" expanded="true" signature="10509:10714" ph="..." />
-            <marker date="1514714312251" expanded="true" signature="15112:15147" ph="..." />
+            <element signature="e#2172#2178#0" expanded="true" />
+            <marker date="1514876262101" expanded="true" signature="10540:11131" ph="..." />
+            <marker date="1514876262101" expanded="true" signature="10887:11092" ph="..." />
+            <marker date="1514876262101" expanded="true" signature="16447:16482" ph="..." />
           </folding>
         </state>
       </provider>
@@ -658,10 +659,10 @@
           <caret line="321" column="66" lean-forward="false" selection-start-line="321" selection-start-column="66" selection-end-line="321" selection-end-column="66" />
           <folding>
             <element signature="e#2058#2064#0" expanded="true" />
-            <element signature="e#2175#2181#0" expanded="true" />
-            <marker date="1514714312251" expanded="true" signature="10162:10753" ph="..." />
-            <marker date="1514714312251" expanded="true" signature="10509:10714" ph="..." />
-            <marker date="1514714312251" expanded="true" signature="15112:15147" ph="..." />
+            <element signature="e#2172#2178#0" expanded="true" />
+            <marker date="1514876262101" expanded="true" signature="10540:11131" ph="..." />
+            <marker date="1514876262101" expanded="true" signature="10887:11092" ph="..." />
+            <marker date="1514876262101" expanded="true" signature="16447:16482" ph="..." />
           </folding>
         </state>
       </provider>
@@ -731,10 +732,10 @@
           <caret line="146" column="7" lean-forward="true" selection-start-line="146" selection-start-column="7" selection-end-line="146" selection-end-column="7" />
           <folding>
             <element signature="e#2058#2064#0" expanded="true" />
-            <element signature="e#2175#2181#0" expanded="true" />
-            <marker date="1514714312251" expanded="true" signature="10162:10753" ph="..." />
-            <marker date="1514714312251" expanded="true" signature="10509:10714" ph="..." />
-            <marker date="1514714312251" expanded="true" signature="15112:15147" ph="..." />
+            <element signature="e#2172#2178#0" expanded="true" />
+            <marker date="1514876262101" expanded="true" signature="10540:11131" ph="..." />
+            <marker date="1514876262101" expanded="true" signature="10887:11092" ph="..." />
+            <marker date="1514876262101" expanded="true" signature="16447:16482" ph="..." />
           </folding>
         </state>
       </provider>
@@ -797,17 +798,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/dragdealer.css" />
-    <entry file="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVwk_iAbB5EqaN02HdCgo4CEKVepMIz7I&amp;libraries=places">
-      <provider selected="true" editor-type-id="httpFileEditor">
-        <state />
-      </provider>
-    </entry>
     <entry file="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-      <provider selected="true" editor-type-id="httpFileEditor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="https://www.gstatic.com/firebasejs/4.2.0/firebase-auth.js">
       <provider selected="true" editor-type-id="httpFileEditor">
         <state />
       </provider>
@@ -825,7 +816,7 @@
     <entry file="file://$PROJECT_DIR$/map_less.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="3801" lean-forward="false" selection-start-line="0" selection-start-column="3801" selection-end-line="0" selection-end-column="3801" />
+          <caret line="0" column="3808" lean-forward="false" selection-start-line="0" selection-start-column="3808" selection-end-line="0" selection-end-column="3808" />
           <folding />
         </state>
       </provider>
@@ -851,8 +842,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-63">
-          <caret line="114" column="17" lean-forward="true" selection-start-line="114" selection-start-column="17" selection-end-line="114" selection-end-column="17" />
+        <state relative-caret-position="2166">
+          <caret line="114" column="17" lean-forward="false" selection-start-line="114" selection-start-column="17" selection-end-line="114" selection-end-column="17" />
           <folding>
             <element signature="e#2305#2312#1" expanded="true" />
             <marker date="1514648924981" expanded="true" signature="5096:5129" ph="..." />
@@ -863,7 +854,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/home_style.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
+        <state relative-caret-position="2109">
           <caret line="111" column="17" lean-forward="true" selection-start-line="111" selection-start-column="17" selection-end-line="111" selection-end-column="17" />
           <folding />
         </state>
@@ -879,6 +870,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/masonry.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/map_less.less">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -887,16 +886,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="https://maps.googleapis.com/maps-api-v3/api/js/31/3/intl/ko_ALL/common.js">
+      <provider selected="true" editor-type-id="httpFileEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="https://www.gstatic.com/firebasejs/4.2.0/firebase-auth.js">
+      <provider selected="true" editor-type-id="httpFileEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVwk_iAbB5EqaN02HdCgo4CEKVepMIz7I&amp;libraries=places">
+      <provider selected="true" editor-type-id="httpFileEditor">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/map_Content.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2813">
-          <caret line="357" column="50" lean-forward="true" selection-start-line="357" selection-start-column="50" selection-end-line="357" selection-end-column="50" />
+        <state relative-caret-position="2737">
+          <caret line="515" column="29" lean-forward="true" selection-start-line="515" selection-start-column="29" selection-end-line="515" selection-end-column="29" />
           <folding>
             <element signature="e#2058#2064#0" expanded="true" />
-            <element signature="e#2175#2181#0" expanded="true" />
-            <marker date="1514714312251" expanded="true" signature="10162:10753" ph="..." />
-            <marker date="1514714312251" expanded="true" signature="10509:10714" ph="..." />
-            <marker date="1514714312251" expanded="true" signature="15112:15147" ph="..." />
+            <element signature="e#2172#2178#0" expanded="true" />
+            <marker date="1514876262101" expanded="true" signature="10540:11131" ph="..." />
+            <marker date="1514876262101" expanded="true" signature="10887:11092" ph="..." />
+            <marker date="1514876262101" expanded="true" signature="16447:16482" ph="..." />
           </folding>
         </state>
       </provider>

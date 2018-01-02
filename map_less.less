@@ -48,7 +48,7 @@ body {
   margin-top: 1%;
   position: relative;
   display: block;
-  border: solid lightgrey 2px;
+  border-bottom: solid lightgrey 2px;
 
   div {
     margin: 12px 0 0 17px;
@@ -362,17 +362,19 @@ body {
   user-select: none;
   margin: 5px;
 }
-.current>img {
-  padding: 5px;
-  border: red dashed 2px;
-}
+
 .slide>img {
+  opacity: 0.4;
   width: 2.5%;
   position: relative;
   vertical-align: middle;
   //top: 200px;
   //left: 468px;
-
+}
+.current>img {
+  opacity: 1;
+  padding: 5px;
+  border: red dashed 2px;
 }
 #searchMap {
   height: 300px;
@@ -421,3 +423,13 @@ label {
   display: inline;
   margin-right: 5px;
 }
+
+.grid-item {
+  float: right;
+  width: 33.33%;
+  img {
+    display: block;
+
+  }
+}
+

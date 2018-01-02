@@ -45,7 +45,7 @@
 <div class="container" id="mainContainer">
     <nav class="top-nav">
         <div id="homeLink">
-            <span class="glyphicon glyphicon-home"><a href="home.html">&nbsp;To Home</a></span>
+            <span class="glyphicon glyphicon-home"><a href="home.html">&nbsp;Home</a></span>
         </div>
         <div id="LogOut">
             <span class="glyphicon glyphicon-fire">&nbsp;LogOut</span>
@@ -61,6 +61,7 @@
             <div class="icons">
                 <button data-toggle="modal" data-target="#addModal" type="button"><span class="glyphicon glyphicon-plus"></span></button>
                 <button type="button"><span class="glyphicon glyphicon-minus" @click="removeAlbum"></span></button>
+                <button type="button"><span class="glyphicon glyphicon-th-large" @click="allImagesShowing"></span></button>
             </div>
             <template v-for="content in images">
                 <thumbnail :content-Title="content.title" :image-Url="content.representedImage" :total-Contents="content.counter"
@@ -156,6 +157,12 @@
 
     </div>
 </div>
+<div class="container-fluid hidden" id="gridWindow">
+    <div class="grid">
+
+    </div>
+</div>
+
 <script src="lib/dropzone.js"></script>
 <script src="https://unpkg.com/vue"></script>
 <script src="lib/dragdealer.js"></script>
@@ -166,7 +173,8 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVwk_iAbB5EqaN02HdCgo4CEKVepMIz7I&libraries=geometry"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVwk_iAbB5EqaN02HdCgo4CEKVepMIz7I&libraries=places"></script>
 <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
-
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 
 <script>
     var init;
@@ -294,6 +302,22 @@
                 }
             },
             methods: {
+                allImagesShowing : function() {
+                    var allImages = [];
+                    var locationofDB = database.ref('/'+auth.currentUser.uid+'/allImages');
+                    locationofDB.once('value').then(function(snap) {
+                        snap.forEach(function(result) {
+                            for (var index in result.val()) {
+                                allImages.push(result.val()[index]);
+                            }
+                        })
+                    }).then(function(){
+                        showing_vue.loadingTotalImages(allImages, function() {
+                            $('.dragdealer').attr('tabindex', -1).focus();
+                            $('.dragdealer').css('display', 'block');
+                        });
+                    })
+                },
                 checkedContentCollect: function(checked) {
                     for (var i=0; i<this.checkedItems.length; i++) {
                         if (this.checkedItems[i] === checked) {
@@ -337,15 +361,17 @@
 
                         var databaseRef = database.ref('/'+auth.currentUser.uid);
                         databaseRef.once('value').then(function(data){
-
+                            //title
                             data.forEach(function(datasnapshot){
-                                databaseTitle = datasnapshot.key;
-                                var resultArray = [];
-                                datasnapshot.forEach(function(content) {
-                                    geo = content.child('geometry').val();
-                                    contentTitle = content.child('title').val();
-                                    location = content.child('location').val();
-                                    content.child('downloadURL').forEach(function(urls){
+                                console.log(datasnapshot.key);
+                                if (datasnapshot.hasChild('downloadURL')) {
+                                    databaseTitle = datasnapshot.key;
+                                    var resultArray = [];
+
+                                    geo = datasnapshot.child('geometry').val();
+                                    contentTitle = datasnapshot.child('title').val();
+                                    location = datasnapshot.child('location').val();
+                                    datasnapshot.child('downloadURL').forEach(function(urls){
                                         resultArray.push(urls.val());
                                     });
                                     var initMarker = new google.maps.Marker({
@@ -357,8 +383,8 @@
                                     });
                                     var infoContent = '<div>' +
                                         '<p><strong style="font-size:20px; font-family: miseng"><span><img src=""></span>Pinto  ['+location+']</strong></p>' +
-                                        '<p><strong>Piece Name : </strong>'+content.child('title').val()+'</p>' +
-                                        '<p><strong>Detail : </strong>'+content.child('desc').val()+'</p>' +
+                                        '<p><strong>Piece Name : </strong>'+datasnapshot.child('title').val()+'</p>' +
+                                        '<p><strong>Detail : </strong>'+datasnapshot.child('desc').val()+'</p>' +
                                         '</div>';
                                     var infoWindow = new google.maps.InfoWindow({
                                         content: infoContent
@@ -369,17 +395,22 @@
                                     });
                                     initMarker.addListener('mouseout', function(event){
                                         infoWindow.close();
-                                    })
-                                });
-                                thumbnail_vue.images.push({
-                                    title: contentTitle,
-                                    dbTitle: databaseTitle,
-                                    representedImage: resultArray[0],
-                                    counter: resultArray.length,
-                                    totalImageOfthis: resultArray,
-                                    location : location,
-                                    geo : geo
-                                });
+                                    });
+
+                                    thumbnail_vue.images.push({
+                                        title: contentTitle,
+                                        dbTitle: databaseTitle,
+                                        representedImage: resultArray[0],
+                                        counter: resultArray.length,
+                                        totalImageOfthis: resultArray,
+                                        location : location,
+                                        geo : geo
+                                    });
+                                }else {
+                                    console.log('this is Allimage section, skip');
+                                }
+
+
                             });
                         }).then(function() {
                             if (typeof callback === 'function'){
@@ -426,16 +457,20 @@
                     var imagesNum = totalImages.length -1;
                     var xStart = 0;
                     var xMove= 0;
-                    var xOffset;
+                    var xOffset = 0;
                     var isDragging = false;
 
 
                     $('.dragdealer').css('position', 'absolute');
 
                     $('.dragdealer').on('keyup', function(event) {
-                        console.log(event.which);
+
                         if (event.which == 27) {
                             $('.dragdealer').css('display', 'none');
+                            showing_vue.images = [];
+                            $('.handle').css('transform', 'translate3d(0, 0 ,0)');
+                            $('.handle').off();
+                            $(document).off('mouseup')
                         }
                     });
                     $('.handle').on('mousedown', function (event) {
@@ -444,7 +479,6 @@
                         console.log('mouse down event');
                     });
                     $('.handle').on('mousemove', function (event) {
-                        console.log(isDragging);
                         if (isDragging) {
                             xMove = event.pageX;
                             xOffset = (beforePosition + (xMove - xStart));
@@ -465,6 +499,7 @@
 
                                 if ($('.current')["0"].nextSibling){
                                     var next = "." + $('.current')["0"].nextSibling.classList["1"];
+
                                     $('.current').removeClass('current');
                                     $(next).addClass('current');
                                 }
@@ -474,6 +509,7 @@
 
                                 if ($('.current')["0"].previousSibling){
                                     var prev = "." + $('.current')["0"].previousSibling.classList["1"];
+
                                     $('.current').removeClass('current');
                                     $(prev).addClass('current');
                                 }
@@ -587,7 +623,9 @@
                                     geometry: geometry
                                 };
                                 var databasePath = database.ref('/'+currentUserID+'/'+dbTitle);
-                                databasePath.push().set(inputSet)
+                                var duplicationAllImages = database.ref('/'+currentUserID+'/allImages');
+                                duplicationAllImages.push().set(downloadURL);
+                                databasePath.set(inputSet)
                                     .then(function() {
                                         $('#loadingImage_Back').css('display','none');
                                         $('#afterSaved').css('display', 'block');
