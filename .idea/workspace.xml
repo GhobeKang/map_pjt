@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="17af52c6-6c84-4550-a05f-1d112f5aa7ee" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/masonry.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/home.html" afterPath="$PROJECT_DIR$/home.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/map_Content.html" afterPath="$PROJECT_DIR$/map_Content.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/map_less.css" afterPath="$PROJECT_DIR$/map_less.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/map_less.less" afterPath="$PROJECT_DIR$/map_less.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dropzoneInit.js" afterPath="$PROJECT_DIR$/src/dropzoneInit.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/firebaseInit.js" afterPath="$PROJECT_DIR$/src/firebaseInit.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,12 +28,12 @@
           <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/home.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2166">
-                  <caret line="114" column="17" lean-forward="false" selection-start-line="114" selection-start-column="17" selection-end-line="114" selection-end-column="17" />
+                <state relative-caret-position="227">
+                  <caret line="139" column="54" lean-forward="true" selection-start-line="139" selection-start-column="54" selection-end-line="139" selection-end-column="54" />
                   <folding>
                     <element signature="e#2305#2312#1" expanded="true" />
-                    <marker date="1514648924981" expanded="true" signature="5096:5129" ph="..." />
-                    <marker date="1514648924981" expanded="true" signature="5193:5207" ph="..." />
+                    <marker date="1515562395154" expanded="true" signature="5412:5445" ph="..." />
+                    <marker date="1515562395154" expanded="true" signature="5509:5523" ph="..." />
                   </folding>
                 </state>
               </provider>
@@ -40,14 +42,35 @@
           <file leaf-file-name="map_Content.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/map_Content.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2737">
-                  <caret line="515" column="29" lean-forward="true" selection-start-line="515" selection-start-column="29" selection-end-line="515" selection-end-column="29" />
+                <state relative-caret-position="439">
+                  <caret line="169" column="0" lean-forward="false" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
                   <folding>
                     <element signature="e#2058#2064#0" expanded="true" />
                     <element signature="e#2172#2178#0" expanded="true" />
-                    <marker date="1514876262101" expanded="true" signature="10540:11131" ph="..." />
-                    <marker date="1514876262101" expanded="true" signature="10887:11092" ph="..." />
-                    <marker date="1514876262101" expanded="true" signature="16447:16482" ph="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="showingVue.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/showingVue.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="285">
+                  <caret line="17" column="43" lean-forward="true" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
+                  <folding>
+                    <element signature="e#0#42#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="defaultMapCreate.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/defaultMapCreate.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="380">
+                  <caret line="22" column="17" lean-forward="true" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+                  <folding>
+                    <element signature="e#0#42#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -67,11 +90,11 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="map_less.less" pinned="false" current-in-tab="true">
+          <file leaf-file-name="map_less.less" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/map_less.less">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="360">
-                  <caret line="368" column="14" lean-forward="false" selection-start-line="368" selection-start-column="14" selection-end-line="368" selection-end-column="14" />
+                <state relative-caret-position="5757">
+                  <caret line="303" column="13" lean-forward="false" selection-start-line="303" selection-start-column="13" selection-end-line="303" selection-end-column="13" />
                   <folding />
                 </state>
               </provider>
@@ -81,7 +104,7 @@
             <entry file="file://$PROJECT_DIR$/lib/masonry.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="76">
-                  <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+                  <caret line="4" column="14" lean-forward="false" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
                   <folding />
                 </state>
               </provider>
@@ -100,11 +123,21 @@
           <file leaf-file-name="dropzoneInit.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/dropzoneInit.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="57">
-                  <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+                <state relative-caret-position="532">
+                  <caret line="30" column="12" lean-forward="true" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
                   <folding>
                     <element signature="e#0#42#0" expanded="false" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="532">
+                  <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -112,8 +145,8 @@
           <file leaf-file-name="firebaseInit.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/firebaseInit.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="228">
-                  <caret line="14" column="4" lean-forward="true" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
+                <state relative-caret-position="304">
+                  <caret line="18" column="59" lean-forward="false" selection-start-line="18" selection-start-column="59" selection-end-line="18" selection-end-column="59" />
                   <folding>
                     <element signature="e#0#42#0" expanded="false" />
                   </folding>
@@ -121,22 +154,40 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="dropzone.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/lib/dropzone.js">
+          <file leaf-file-name="home_style.less" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/home_style.less">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2527">
-                  <caret line="133" column="21" lean-forward="false" selection-start-line="133" selection-start-column="21" selection-end-line="133" selection-end-column="21" />
+                <state relative-caret-position="849">
+                  <caret line="111" column="17" lean-forward="true" selection-start-line="111" selection-start-column="17" selection-end-line="111" selection-end-column="17" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="home_style.less" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/home_style.less">
+          <file leaf-file-name="modalVue.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/modalVue.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2109">
-                  <caret line="111" column="17" lean-forward="true" selection-start-line="111" selection-start-column="17" selection-end-line="111" selection-end-column="17" />
-                  <folding />
+                <state relative-caret-position="798">
+                  <caret line="98" column="44" lean-forward="false" selection-start-line="98" selection-start-column="44" selection-end-line="98" selection-end-column="44" />
+                  <folding>
+                    <element signature="e#0#42#0" expanded="false" />
+                    <marker date="1515588413685" expanded="true" signature="745:1120" ph="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="thumbnailVue.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/thumbnailVue.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="473">
+                  <caret line="192" column="17" lean-forward="true" selection-start-line="192" selection-start-column="17" selection-end-line="192" selection-end-column="17" />
+                  <folding>
+                    <element signature="e#0#42#0" expanded="false" />
+                    <marker date="1515594342468" expanded="true" signature="1286:1877" ph="..." />
+                    <marker date="1515594342468" expanded="true" signature="1633:1838" ph="..." />
+                    <marker date="1515594342468" expanded="true" signature="7312:7347" ph="..." />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -156,18 +207,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>deleteAlbum</find>
-      <find>image-</find>
-      <find>title</find>
-      <find>checkedContentCollect</find>
-      <find>location</find>
-      <find>geo</find>
-      <find>images</find>
-      <find>drop</find>
-      <find>marker</find>
-      <find>delete</find>
-      <find>icons</find>
-      <find>circle</find>
       <find>point</find>
       <find>defe</find>
       <find>user</find>
@@ -175,7 +214,6 @@
       <find>pin</find>
       <find>keyup</find>
       <find>submitBtn</find>
-      <find>map</find>
       <find>md</find>
       <find>mounted</find>
       <find>modal</find>
@@ -186,6 +224,19 @@
       <find>store</find>
       <find>curr</find>
       <find>gallerythumbnail</find>
+      <find>preview</find>
+      <find>captionofpicture</find>
+      <find>previe</find>
+      <find>modalMap</find>
+      <find>setPo</find>
+      <find>setCenter</find>
+      <find>database</find>
+      <find>current</find>
+      <find>curUserID</find>
+      <find>curren</find>
+      <find>map</find>
+      <find>modal_</find>
+      <find>conso</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -200,15 +251,20 @@
         <option value="$PROJECT_DIR$/map_less.css" />
         <option value="ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" />
         <option value="$PROJECT_DIR$/mapStyle.less" />
-        <option value="$PROJECT_DIR$/src/dropzoneInit.js" />
-        <option value="$PROJECT_DIR$/src/firebaseInit.js" />
-        <option value="$PROJECT_DIR$/home.html" />
         <option value="$PROJECT_DIR$/home_style.less" />
         <option value="$PROJECT_DIR$/lib/masonry.js" />
-        <option value="$PROJECT_DIR$/map_less.less" />
         <option value="chrome-extension://mdppnmkhoflepinhojdkmkanhhlkginn/quicksearch/js/quicksearch.contentscript.min.js" />
         <option value="www.gstatic.com/firebasejs/4.2.0/firebase-auth.js" />
         <option value="maps.googleapis.com/maps-api-v3/api/js/31/3/intl/ko_ALL/common.js" />
+        <option value="$PROJECT_DIR$/map_less.less" />
+        <option value="$PROJECT_DIR$/src/dropzoneInit.js" />
+        <option value="$PROJECT_DIR$/home.html" />
+        <option value="$PROJECT_DIR$/src/firebaseInit.js" />
+        <option value="$PROJECT_DIR$/src/defaultMapCreate.js" />
+        <option value="$PROJECT_DIR$/src/modalVue.js" />
+        <option value="$PROJECT_DIR$/src/showingVue.js" />
+        <option value="$PROJECT_DIR$/src/main.js" />
+        <option value="$PROJECT_DIR$/src/thumbnailVue.js" />
         <option value="$PROJECT_DIR$/map_Content.html" />
       </list>
     </option>
@@ -243,8 +299,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -356,6 +412,16 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="node.js.path.for.package.jscs" value="project" />
+    <property name="node.js.detected.package.jscs" value="true" />
+    <property name="node.js.selected.package.jscs" value="" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -488,11 +554,16 @@
       <workItem from="1514536842502" duration="47982000" />
       <workItem from="1514787297191" duration="4296000" />
       <workItem from="1514817583085" duration="12513000" />
+      <workItem from="1515071085196" duration="3857000" />
+      <workItem from="1515225156019" duration="29403000" />
+      <workItem from="1515419352652" duration="5104000" />
+      <workItem from="1515428617396" duration="248000" />
+      <workItem from="1515428892417" duration="37744000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="394090000" />
+    <option name="totallyTimeSpent" value="470446000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -506,7 +577,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39915073" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39915073" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -524,79 +595,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/map_Content.html</url>
-          <line>488</line>
-          <properties />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="2" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/firebaseInit.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="5" column="41" lean-forward="false" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/dropzone.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2527">
-          <caret line="133" column="21" lean-forward="false" selection-start-line="133" selection-start-column="21" selection-end-line="133" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="45" column="30" lean-forward="false" selection-start-line="45" selection-start-column="30" selection-end-line="45" selection-end-column="30" />
-          <folding>
-            <element signature="e#2305#2312#1" expanded="true" />
-            <marker date="1514648924981" expanded="true" signature="5096:5129" ph="..." />
-            <marker date="1514648924981" expanded="true" signature="5193:5207" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/dragdealer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3458">
-          <caret line="188" column="11" lean-forward="false" selection-start-line="188" selection-start-column="11" selection-end-line="188" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/map_Content.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1805">
-          <caret line="95" column="43" lean-forward="true" selection-start-line="95" selection-start-column="43" selection-end-line="95" selection-end-column="43" />
-          <folding>
-            <element signature="e#2058#2064#0" expanded="true" />
-            <element signature="e#2172#2178#0" expanded="true" />
-            <marker date="1514876262101" expanded="true" signature="10540:11131" ph="..." />
-            <marker date="1514876262101" expanded="true" signature="10887:11092" ph="..." />
-            <marker date="1514876262101" expanded="true" signature="16447:16482" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/map_less.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3420">
-          <caret line="180" column="20" lean-forward="false" selection-start-line="180" selection-start-column="20" selection-end-line="180" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/dropzoneInit.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="779">
@@ -639,8 +642,8 @@
           <caret line="26" column="30" lean-forward="false" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
           <folding>
             <element signature="e#2305#2312#1" expanded="true" />
-            <marker date="1514648924981" expanded="true" signature="5096:5129" ph="..." />
-            <marker date="1514648924981" expanded="true" signature="5193:5207" ph="..." />
+            <marker date="1515562395154" expanded="true" signature="5412:5445" ph="..." />
+            <marker date="1515562395154" expanded="true" signature="5509:5523" ph="..." />
           </folding>
         </state>
       </provider>
@@ -660,9 +663,6 @@
           <folding>
             <element signature="e#2058#2064#0" expanded="true" />
             <element signature="e#2172#2178#0" expanded="true" />
-            <marker date="1514876262101" expanded="true" signature="10540:11131" ph="..." />
-            <marker date="1514876262101" expanded="true" signature="10887:11092" ph="..." />
-            <marker date="1514876262101" expanded="true" signature="16447:16482" ph="..." />
           </folding>
         </state>
       </provider>
@@ -718,8 +718,8 @@
           <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding>
             <element signature="e#2305#2312#1" expanded="true" />
-            <marker date="1514648924981" expanded="true" signature="5096:5129" ph="..." />
-            <marker date="1514648924981" expanded="true" signature="5193:5207" ph="..." />
+            <marker date="1515562395154" expanded="true" signature="5412:5445" ph="..." />
+            <marker date="1515562395154" expanded="true" signature="5509:5523" ph="..." />
           </folding>
         </state>
       </provider>
@@ -733,9 +733,6 @@
           <folding>
             <element signature="e#2058#2064#0" expanded="true" />
             <element signature="e#2172#2178#0" expanded="true" />
-            <marker date="1514876262101" expanded="true" signature="10540:11131" ph="..." />
-            <marker date="1514876262101" expanded="true" signature="10887:11092" ph="..." />
-            <marker date="1514876262101" expanded="true" signature="16447:16482" ph="..." />
           </folding>
         </state>
       </provider>
@@ -830,58 +827,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/firebaseInit.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="14" column="4" lean-forward="true" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2166">
-          <caret line="114" column="17" lean-forward="false" selection-start-line="114" selection-start-column="17" selection-end-line="114" selection-end-column="17" />
-          <folding>
-            <element signature="e#2305#2312#1" expanded="true" />
-            <marker date="1514648924981" expanded="true" signature="5096:5129" ph="..." />
-            <marker date="1514648924981" expanded="true" signature="5193:5207" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/home_style.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2109">
-          <caret line="111" column="17" lean-forward="true" selection-start-line="111" selection-start-column="17" selection-end-line="111" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dropzoneInit.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/masonry.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
-          <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/map_less.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="4" column="14" lean-forward="false" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -901,16 +850,121 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/map_less.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/require.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dropzoneInit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="30" column="12" lean-forward="true" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="139" column="54" lean-forward="true" selection-start-line="139" selection-start-column="54" selection-end-line="139" selection-end-column="54" />
+          <folding>
+            <element signature="e#2305#2312#1" expanded="true" />
+            <marker date="1515562395154" expanded="true" signature="5412:5445" ph="..." />
+            <marker date="1515562395154" expanded="true" signature="5509:5523" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/defaultMapCreate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="22" column="17" lean-forward="true" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/home_style.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="849">
+          <caret line="111" column="17" lean-forward="true" selection-start-line="111" selection-start-column="17" selection-end-line="111" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/modalVue.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="798">
+          <caret line="98" column="44" lean-forward="false" selection-start-line="98" selection-start-column="44" selection-end-line="98" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+            <marker date="1515588413685" expanded="true" signature="745:1120" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/firebaseInit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="18" column="59" lean-forward="false" selection-start-line="18" selection-start-column="59" selection-end-line="18" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/showingVue.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="17" column="43" lean-forward="true" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thumbnailVue.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="473">
+          <caret line="192" column="17" lean-forward="true" selection-start-line="192" selection-start-column="17" selection-end-line="192" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+            <marker date="1515594342468" expanded="true" signature="1286:1877" ph="..." />
+            <marker date="1515594342468" expanded="true" signature="1633:1838" ph="..." />
+            <marker date="1515594342468" expanded="true" signature="7312:7347" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/map_Content.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2737">
-          <caret line="515" column="29" lean-forward="true" selection-start-line="515" selection-start-column="29" selection-end-line="515" selection-end-column="29" />
+        <state relative-caret-position="439">
+          <caret line="169" column="0" lean-forward="false" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
           <folding>
             <element signature="e#2058#2064#0" expanded="true" />
             <element signature="e#2172#2178#0" expanded="true" />
-            <marker date="1514876262101" expanded="true" signature="10540:11131" ph="..." />
-            <marker date="1514876262101" expanded="true" signature="10887:11092" ph="..." />
-            <marker date="1514876262101" expanded="true" signature="16447:16482" ph="..." />
           </folding>
         </state>
       </provider>

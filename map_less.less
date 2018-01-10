@@ -281,7 +281,7 @@ body {
 }
 .file-row {
   margin: 5px;
-  display: inline-block;
+  display: block;
   span>img {
     border-radius: 8px;
   }
@@ -292,11 +292,29 @@ body {
 #decisionButtons {
   margin-bottom: 10px;
 }
-#preview_box {
-  padding: 5px;
-  border: double black 1px;
-  display: inline-block;
-  border-radius: 10%;
+#previews {
+  margin-top: 10px;
+  .input_caption_box {
+    display: block;
+    position: relative;
+    width: 90%;
+    margin: 8px 0 0 15px;
+    .preview_desc {
+      position: absolute;
+      label {
+        display: inline-block;
+        margin-left: 8px;
+      }
+      input {
+        height: 30px;
+        width: 325px;
+        display: inline-block;
+      }
+      .preview_tag {
+        margin-left: 31px;
+      }
+    }
+  }
 }
 .statementIcons {
   display: inline-grid;

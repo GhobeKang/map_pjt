@@ -67,6 +67,16 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
     <script src="./lib/dragdealer.js"></script>
+    <script>
+        var require = {
+            baseUrl: './src',
+            paths: {
+                jquery : 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min',
+                bootstrap : 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min'
+            }
+        }
+    </script>
+    <script src="./lib/require.js"></script>
 
     <script>
         // Initialize Firebase
@@ -116,9 +126,8 @@
             });
 
         };
-        $.getScript('./src/firebaseInit.js', function() {
-            console.log('firebaseInit complete');
-            auth = init.auth();
+        require(['firebaseInit','bootstrap'], function(firebase){
+            auth = firebase.auth;
 
             auth.onAuthStateChanged(function(user) {
                 if (user) {
@@ -147,8 +156,8 @@
                             })
                     });
 
-                    $('#signinModal').modal('hide');
                     $('.loginForm').addClass('hidden');
+                    $('#signinModal').modal('hide');
                     removeInnerTexts(function() {
 
                     });
@@ -159,7 +168,6 @@
                 }
             })
         });
-
 
         $('#submitBtn').on('click', function() {
             var email = $('#email').val();
