@@ -9,8 +9,9 @@ window.define(['../lib/dropzone'],function(dropzone) {
     var previewTemplate = previewNode.parentNode.innerHTML;
     previewNode.parentNode.removeChild(previewNode);
 
-    var myDropzone = new Dropzone("div#dragndropSection", { // Make the whole body a dropzone
+    var myDropzone = {
         url: "/", // Set the url
+        clickable: true,
         uploadMultiple: true,
         autoQueue: true,
         thumbnailWidth: 80,
@@ -25,9 +26,8 @@ window.define(['../lib/dropzone'],function(dropzone) {
                     $('#defaultMsg').css('display', 'none');
                 }
             });
-
         }
-    });
+    };
     return {
         mydropzone: myDropzone
     }

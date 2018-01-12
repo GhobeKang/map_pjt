@@ -18,7 +18,9 @@ window.define(['./dropzoneInit',
             desc: "",
             title: "",
             geometry: "",
-            counter: 0
+            counter: 0,
+            caption: "",
+            tag: ""
         },
         components: {
             captionofpicture: {
@@ -29,9 +31,9 @@ window.define(['./dropzoneInit',
                     }
                 },
                 template: `<span class="preview_desc">
-                    <label for="preview_caption">caption</label>
+                    <label>caption</label>
                     <input type="text" ref="caption" class="preview_caption" v-bind:value="caption" @input="caption = $event.target.value" >
-                    <label for="preview_tag">tag</label>
+                    <label>tag</label>
                     <input type="text" ref="tag" class="preview_tag" v-model="tag">
                     </span>`,
                 methods: {
@@ -42,9 +44,11 @@ window.define(['./dropzoneInit',
             }
         },
         mounted: function() {
+            var options = dropzone.mydropzone;
+            var initDropzone = new Dropzone('div#dragndropSection', options);
             this.$nextTick(function() {
-                dropzone.mydropzone.on('addedfile', function(file) {
-                    $vm.$emit('counter', modal_vue.counter++)
+                initDropzone.on('addedfile', function(file) {
+                    modalVue.counter++;
                 })
             })
         },
