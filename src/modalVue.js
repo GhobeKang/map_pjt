@@ -9,6 +9,7 @@ window.define(['./dropzoneInit',
     var store = firebase.store;
     var database = firebase.database;
     var auth = firebase.auth;
+    var initDropzone;
 
     var modal_vue = {
         el: '#addModal',
@@ -22,30 +23,9 @@ window.define(['./dropzoneInit',
             caption: "",
             tag: ""
         },
-        components: {
-            captionofpicture: {
-                data: function() {
-                    return {
-                        caption: "",
-                        tag: ""
-                    }
-                },
-                template: `<span class="preview_desc">
-                    <label>caption</label>
-                    <input type="text" ref="caption" class="preview_caption" v-bind:value="caption" @input="caption = $event.target.value" >
-                    <label>tag</label>
-                    <input type="text" ref="tag" class="preview_tag" v-model="tag">
-                    </span>`,
-                methods: {
-                    changed: function(code) {
-                        this.$emit('input', code)
-                    }
-                }
-            }
-        },
         mounted: function() {
             var options = dropzone.mydropzone;
-            var initDropzone = new Dropzone('div#dragndropSection', options);
+            initDropzone = new Dropzone('div#dragndropSection', options);
             this.$nextTick(function() {
                 initDropzone.on('addedfile', function(file) {
                     modalVue.counter++;
@@ -58,20 +38,31 @@ window.define(['./dropzoneInit',
                 $('#SearchBtn').trigger('click');
             },
             cancel: function() {
-                dropzone.mydropzone.removeAllFiles();
+                initDropzone.removeAllFiles();
             },
             start: function() {
+                var __modalVue = this;
                 auth.onAuthStateChanged(function (user){
                     if (user) {
-                        var queuedFiles = dropzone.mydropzone.getQueuedFiles();
+                        var queuedFiles = initDropzone.getQueuedFiles();
                         var currentUserID = user.uid;
 
-                        var location = this.location;
-                        var date = this.date;
-                        var desc = this.desc;
-                        var title = this.title;
-                        var geometry = this.geometry;
+                        var location = __modalVue.location;
+                        var date = __modalVue.date;
+                        var desc = __modalVue.desc;
+                        var title = __modalVue.title;
+                        var geometry = __modalVue.geometry;
+                        var albumNum;
                         var dbTitle;
+
+                        database.ref('/'+currentUserID).once('value').then(function(snapshot) {
+                            if (snapshot.numChildren() === 0) {
+                                albumNum = snapshot.numChildren();
+                            }else {
+                                albumNum = snapshot.numChildren() - 1;
+                            }
+                        });
+
                         if (title.search(' ') !== -1) {
                             dbTitle = title.replace(' ', '-');
                         }else {
@@ -88,8 +79,8 @@ window.define(['./dropzoneInit',
                                 $('#decisionButtons>.start').attr('disabled', 'disabled');
                                 $('#loadingImage_Back').css('display','block');
                                 $('#loadingImage').css({
-                                    top: centerHeight-200,
-                                    left: centerWidth-200
+                                    top: (window.innerHeight/2)-200,
+                                    left: (window.innerWidth/2)-200
                                 });
                                 var downloadURL = [];
                                 var imageStoreProcess = function() {
@@ -115,6 +106,7 @@ window.define(['./dropzoneInit',
                                 };
                                 imageStoreProcess().then(function() {
                                     var inputSet = {
+                                        albumNum: albumNum,
                                         imageInfo: {
                                             caption: "",
                                             downloadURL:downloadURL
@@ -127,7 +119,10 @@ window.define(['./dropzoneInit',
                                     };
                                     var databasePath = database.ref('/'+currentUserID+'/'+dbTitle);
                                     var duplicationAllImages = database.ref('/'+currentUserID+'/allImages');
-                                    duplicationAllImages.push().set(downloadURL);
+                                    duplicationAllImages.push().set({
+                                        downloadURL: downloadURL,
+                                        albumNum : albumNum
+                                    });
                                     databasePath.set(inputSet)
                                         .then(function() {
                                             $('#loadingImage_Back').css('display','none');

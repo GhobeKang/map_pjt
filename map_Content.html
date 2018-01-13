@@ -43,7 +43,7 @@
             <template v-for="content in images">
                 <thumbnail :content-Title="content.title" :image-Url="content.representedImage" :total-Contents="content.counter"
                            :total-Images="content.totalImageOfthis" :database-Title="content.dbTitle" :location="content.location"
-                           :geo="content.geo" @checked="checkedContentCollect">
+                           :geo="content.geo" :caption="content.captions" :album-Num="content.albumNum" @checked="checkedContentCollect">
 
                 </thumbnail>
 
@@ -68,7 +68,7 @@
     </div>
     <div class="handle">
         <template v-for="(val, key) in images">
-            <gallerythumbnail :image-Url="val" :image-Counter="key"></gallerythumbnail>
+            <gallerythumbnail :image-Url="val" :image-Counter="key" :caption="captions" @captionadded="captionAdd"></gallerythumbnail>
         </template>
     </div>
 </div>
@@ -90,7 +90,7 @@
                     </div>
                 </div>
                 <p>title</p>
-                <input v-model.trim="title" id="inputTitle" type="text">
+                <input v-model="title" id="inputTitle" type="text">
                 <p>Date</p>
                 <input type="date" v-model="date" id="inputDate">
                 <p>description</p>

@@ -72,7 +72,8 @@
             baseUrl: './src',
             paths: {
                 jquery : 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min',
-                bootstrap : 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min'
+                bootstrap : 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min',
+                firebase : 'https://www.gstatic.com/firebasejs/4.2.0/firebase'
             }
         }
     </script>
@@ -166,41 +167,42 @@
                     $('#logOutBtn').remove();
                     $('.loginForm').removeClass('hidden');
                 }
-            })
-        });
-
-        $('#submitBtn').on('click', function() {
-            var email = $('#email').val();
-            var pass = $('#password').val();
-            auth.setPersistence('session').then(function() {
-                return auth.signInWithEmailAndPassword(email, pass)
-                    .catch(function(error){
-                        var errorcode = error.code;
-                        if (errorcode === 'auth/user-not-found' || errorcode === 'auth/wrong-password') {
-                            alert('wrong input E-Mail or password, check it again');
-                        }
-                        console.log(error);
+            });
+            $('#submitBtn').on('click', function() {
+                var email = $('#email').val();
+                var pass = $('#password').val();
+                auth.setPersistence('session').then(function() {
+                    return auth.signInWithEmailAndPassword(email, pass)
+                        .catch(function(error){
+                            var errorcode = error.code;
+                            if (errorcode === 'auth/user-not-found' || errorcode === 'auth/wrong-password') {
+                                alert('wrong input E-Mail or password, check it again');
+                            }
+                            console.log(error);
+                        });
                 });
+
             });
 
+            $('#submitBtn_Modal').on('click', function() {
+                var email = $('#email_Modal').val();
+                var pass = $('#password_Modal').val();
+
+                auth.createUserWithEmailAndPassword(email, pass)
+                    .catch(function(error){
+                        var errorcode = error.code;
+                        if (errorcode === 'auth/invalid-email') {
+                            alert('Invalid e-mail form, check it again');
+                        }else if(errorcode === "auth/weak-password") {
+                            alert("Password should be at least 6 characters")
+                        }
+                        console.log(error);
+                    });
+
+            });
         });
 
-        $('#submitBtn_Modal').on('click', function() {
-            var email = $('#email_Modal').val();
-            var pass = $('#password_Modal').val();
 
-            auth.createUserWithEmailAndPassword(email, pass)
-                .catch(function(error){
-                    var errorcode = error.code;
-                    if (errorcode === 'auth/invalid-email') {
-                        alert('Invalid e-mail form, check it again');
-                    }else if(errorcode === "auth/weak-password") {
-                        alert("Password should be at least 6 characters")
-                    }
-                    console.log(error);
-                });
-
-        });
 
         $('#password').on('keyup', function(event) {
             if (event.which == 13) {

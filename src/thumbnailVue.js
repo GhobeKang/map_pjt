@@ -24,7 +24,7 @@ window.define(['firebaseInit','google','defaultMapCreate'],function(firebase, g,
             components: {
                 thumbnail: {
                     props: ['contentTitle', 'imageUrl', 'totalContents', 'totalImages', 'databaseTitle', 'location'
-                        , 'geo'],
+                        , 'geo', 'caption', 'albumNum'],
                     computed: {
                         fullLength: function () {
                             var contents_Num = this.totalContents;
@@ -48,9 +48,15 @@ window.define(['firebaseInit','google','defaultMapCreate'],function(firebase, g,
                     watch: {
                         checked: function (val, oldVal) {
                             if (val.length !== 0) {
-                                this.$emit('checked', val["0"]);
+                                this.$emit('checked', {
+                                    title : val["0"],
+                                    num: this.albumNum
+                                });
                             } else {
-                                this.$emit('checked', oldVal["0"]);
+                                this.$emit('checked', {
+                                    title : oldVal["0"],
+                                    num : this.albumNum
+                                });
                             }
                         }
                     },
@@ -60,7 +66,7 @@ window.define(['firebaseInit','google','defaultMapCreate'],function(firebase, g,
                         },
                         showImages: function () {
 
-                            showingVue.loadingTotalImages(this.totalImages, function () {
+                            showingVue.loadingTotalImages(this.totalImages, this.caption, function () {
                                 $('.dragdealer').attr('tabindex', -1).focus();
                                 $('.dragdealer').css('display', 'block');
                             });
@@ -88,10 +94,13 @@ window.define(['firebaseInit','google','defaultMapCreate'],function(firebase, g,
                 },
                 checkedContentCollect: function (checked) {
                     for (var i = 0; i < this.checkedItems.length; i++) {
-                        if (this.checkedItems[i] === checked) {
-                            this.checkedItems[i] = null;
+                        var oldItem = this.checkedItems[i].title;
+
+                        if (oldItem === checked.title) {
+                            this.checkedItems.splice(i , 1);
                             return;
                         }
+
                     }
                     this.checkedItems.push(checked);
                 },
@@ -100,18 +109,27 @@ window.define(['firebaseInit','google','defaultMapCreate'],function(firebase, g,
                     $('.removeCheck').css('display', 'none');
                 },
                 deleteAlbum: function () {
-                    var database = init.database();
-                    var store = init.storage();
-                    var contentTitle = this.checkedItems;
+                    var checkedItem = this.checkedItems;
 
-                    for (var title in contentTitle) {
-                        if (contentTitle[title] !== null) {
-                            database.ref('/' + curUserID.currentUser.uid + '/' + contentTitle[title]).remove()
+                    for (var index in checkedItem) {
+                        if (checkedItem[index] !== null) {
+                            var albumNum = checkedItem[index].num;
+                            var contentTitle = checkedItem[index].title;
+
+                            database.ref('/' + curUserID.currentUser.uid + '/allImages').once('value')
+                                .then(function(snap){
+                                    snap.forEach(function(e){
+                                        console.log(e.val());
+                                        if(e.val().albumNum === albumNum) {
+                                            snap.ref.remove();
+                                        }
+                                    })
+                                });
+                            database.ref('/' + curUserID.currentUser.uid + '/' + contentTitle).remove()
                                 .then(function () {
-                                    console.log('deleted album')
+                                    console.log('deleted album');
                                     setTimeout(window.location.reload(), 200);
                                 })
-
                         }
                     }
                 },
@@ -124,6 +142,7 @@ window.define(['firebaseInit','google','defaultMapCreate'],function(firebase, g,
                     var databaseTitle = '';
                     var location = '';
                     var geo = "";
+                    var albumNum = 0;
 
                     if (curUser !== null) {
                         curUserID.onAuthStateChanged(function(user){
@@ -135,14 +154,20 @@ window.define(['firebaseInit','google','defaultMapCreate'],function(firebase, g,
 
                                         if (datasnapshot.hasChild('imageInfo')) {
                                             databaseTitle = datasnapshot.key;
-                                            var resultArray = [];
-
+                                            var imageArray = [];
+                                            var captionArray = [];
+                                            albumNum = datasnapshot.child('albumNum').val();
                                             geo = datasnapshot.child('geometry').val();
                                             contentTitle = datasnapshot.child('title').val();
                                             location = datasnapshot.child('location').val();
                                             datasnapshot.child('imageInfo/downloadURL').forEach(function (urls) {
-                                                resultArray.push(urls.val());
+                                                imageArray.push(urls.val());
                                             });
+
+                                            datasnapshot.child('imageInfo/caption').forEach(function (caption) {
+                                                captionArray.push(caption.val());
+                                            });
+
                                             var initMarker = new google.maps.Marker({
                                                 clickable: true,
                                                 map: map,
@@ -167,13 +192,15 @@ window.define(['firebaseInit','google','defaultMapCreate'],function(firebase, g,
                                             });
 
                                             thumbnail_vue.data.images.push({
+                                                albumNum : albumNum,
                                                 title: contentTitle,
                                                 dbTitle: databaseTitle,
-                                                representedImage: resultArray[0],
-                                                counter: resultArray.length,
-                                                totalImageOfthis: resultArray,
+                                                representedImage: imageArray[0],
+                                                counter: imageArray.length,
+                                                totalImageOfthis: imageArray,
                                                 location: location,
-                                                geo: geo
+                                                geo: geo,
+                                                captions: captionArray
                                             });
                                         } else {
                                             console.log('this is Allimage section, skip');
