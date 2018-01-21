@@ -63,7 +63,7 @@ require(['google','bootstrap'], function(g, boot) {
     });
     $('#LogOut').on('click', function () {
         auth.signOut().then(function () {
-            location.href = 'home.html';
+            location.href = '../index.html';
         })
     })
 

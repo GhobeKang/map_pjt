@@ -22,7 +22,7 @@
 <div class="container" id="mainContainer">
     <nav class="top-nav">
         <div id="homeLink">
-            <span class="glyphicon glyphicon-home"><a href="home.html">&nbsp;Home</a></span>
+            <span class="glyphicon glyphicon-home"><a href="index.html">&nbsp;Home</a></span>
         </div>
         <div id="LogOut">
             <span class="glyphicon glyphicon-fire">&nbsp;LogOut</span>
@@ -36,14 +36,17 @@
 
         <div class="col-md-4 col-lg-8 col-sm-8" id="thumbnails" :data-images="images">
             <div class="icons">
+                <!-- modal window popup toggle -->
                 <button data-toggle="modal" data-target="#addModal" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                <!-- removeAlbum process started, remove checkbox is shown and activate buttons to remove albums -->
                 <button type="button"><span class="glyphicon glyphicon-minus" @click="removeAlbum"></span></button>
+                <!-- collected slide show button -->
                 <button type="button"><span class="glyphicon glyphicon-th-large" @click="allImagesShowing"></span></button>
             </div>
             <template v-for="content in images">
-                <thumbnail :content-Title="content.title" :image-Url="content.representedImage" :total-Contents="content.counter"
+                <thumbnail :image-Info="images" :content-Title="content.title" :image-Url="content.representedImage" :total-Contents="content.counter"
                            :total-Images="content.totalImageOfthis" :database-Title="content.dbTitle" :location="content.location"
-                           :geo="content.geo" :caption="content.captions" :album-Num="content.albumNum" @checked="checkedContentCollect">
+                           :geo="content.geo" :caption="content.captions" :album-Num="content.albumNum" :tag="content.tag" @checked="checkedContentCollect">
 
                 </thumbnail>
 
@@ -62,13 +65,21 @@
     </div>
 </div>
 <!--Image gallery showing when clicking a image icon @click="showImages"-->
+
 <div id="image-carousel" class="dragdealer">
-    <div class="imageCarouselTitle">
+    <div class="imageCarouselTitle" v-show="currentView === 'gallerythumbnail'">
         <h1><strong>Pieces of your Journey</strong></h1>
+    </div>
+    <div class="allImageTitle" v-show="currentView === 'gridthumbnail'">
+        <span>&times;</span>
+        <strong>All pieces of Memories</strong><br><small>Travel is only glamorous in retrospect.</small>
     </div>
     <div class="handle">
         <template v-for="(val, key) in images">
-            <gallerythumbnail :image-Url="val" :image-Counter="key" :caption="captions" @captionadded="captionAdd"></gallerythumbnail>
+            <template v-for="(val1, key1) in val.totalImageOfthis">
+                <component :is="currentView" :image-Url="val1" :image-Counter="key1" :image-Info="val" :caption="captions" :tags="tags"
+                           @captionadded="captionAdd" @tagadded="tagAdd"></component>
+            </template>
         </template>
     </div>
 </div>
@@ -151,7 +162,8 @@
             google: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBVwk_iAbB5EqaN02HdCgo4CEKVepMIz7I&libraries=geometry,places',
             jquery: 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min',
             firebase : 'https://www.gstatic.com/firebasejs/4.2.0/firebase',
-            bootstrap : 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min'
+            bootstrap : 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min',
+            elasticsearch : '../lib/elasticsearch.jquery.min'
         },
         shim : {
             'firebase': {
@@ -166,13 +178,11 @@
 <script src="./lib/require.js"></script>
 
 <script>
-    var showingVue;
     var modalVue;
     var thumbnailVue;
-    require(['thumbnailVue', 'modalVue','showingVue'], function(thumbnail, modal, show) {
+    require(['thumbnailVue', 'modalVue'], function(thumbnail, modal) {
 
         modalVue = new Vue(modal.modalVue);
-        showingVue = new Vue(show.show);
         thumbnailVue = new Vue(thumbnail.thumbnailVue);
 
         require(['main'], function(){

@@ -329,23 +329,37 @@ body {
   width: 100%;
   .imageCarouselTitle {
     position: absolute;
-    top: 20%;
+    top: 13%;
     left: 30%;
     color: white;
   }
+  .allImageTitle {
+    position: relative;
+    color: white;
+    display: block;
+    margin-left: 5%;
+    span {
+      float: right;
+      position: relative;
+      margin-right: 5%;
+      font-size: 40px;
+      cursor: pointer;
+      &:hover {
+        color: gray;
+      }
+    }
+    strong {
+      font-size: 50px;
+      font-weight: bold;
+    }
+    small {
+      font-size: 40px;
+      font-weight: 100;
+      color: lightgrey;
+    }
+  }
 }
-.dragdealer .handle {
 
-  position: fixed;
-  top: 50%;
-  left: 40%;
-  transform: translateY(-15%);
-  cursor: pointer;
-  overflow: hidden;
-  width: 800%;
-  height: 100%;
-
-}
 .dragdealer .red-bar {
   width: 100px;
   height: 30px;
@@ -360,6 +374,7 @@ body {
 }
 
 .slide  {
+  top : 1in;
   transform-style: preserve-3d;
   display: inline-block;
   pointer-events: none;
@@ -376,25 +391,42 @@ body {
   textarea {
     display:none;
     position: relative;
-    width: 580px;
-    height: 100px;
+    width: 493px;
+    height: 70px;
+  }
+  input {
+    display: none;
+    position: relative;
+    width: 503px;
   }
   button {
     display:none;
     position: relative;
-
+    float: right;
   }
   img {
     opacity: 0.4;
     width: 100%;
     position: relative;
   }
+  .tag_btn {
+    float: left;
+  }
+  .container_tag {
+    margin-top: 5px;
+  }
+  .container_captionArea {
+    button {
+      top: 16px;
+    }
+    margin-top: 5px;
+  }
 }
 .current {
   span {
     display: inline;
   }
-  textarea, button {
+  textarea, button,input {
     display: inline;
     pointer-events: auto;
   }
@@ -417,9 +449,7 @@ body {
     display: inline-flex;
   }
 }
-label {
-  margin: 0;
-}
+
 #afterSaved {
   display: none;
   color: red;
@@ -445,19 +475,29 @@ label {
     background-image: url(./img/e6fa6b92decd26328f1f3616620b3e89.gif);
   }
 }
-#sampleImage>img {
-  width: 70px;
-  height: 70px;
-  display: inline;
-  margin-right: 5px;
-}
-
-.grid-item {
-  float: right;
-  width: 33.33%;
+.gridthumbnail {
+  display: inline-block;
+  width: 405px;
+  height: 305px;
+  margin: 5px;
+  border: white 2px solid;
   img {
-    display: block;
-
+    position: relative;
+  }
+  .thumbnailInfo {
+    display: none;
+    position: relative;
+    color: white;
+    top: -300px;
+    margin: 22px;
+  }
+  &:hover {
+    .thumbnailInfo {
+      display: table;
+    }
+    img {
+      opacity: 0.5;
+    }
+    background: black;
   }
 }
-

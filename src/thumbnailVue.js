@@ -1,7 +1,9 @@
 /**
  * Created by Ghobe on 2018-01-10.
  */
-window.define(['firebaseInit','google','defaultMapCreate'],function(firebase, g, defaultmap) {
+window.define(['firebaseInit','google','defaultMapCreate','showingVue'],
+    function(firebase, g, defaultmap, show) {
+
     var auth = firebase.auth;
     var database = firebase.database;
     var curUser;
@@ -23,8 +25,8 @@ window.define(['firebaseInit','google','defaultMapCreate'],function(firebase, g,
             },
             components: {
                 thumbnail: {
-                    props: ['contentTitle', 'imageUrl', 'totalContents', 'totalImages', 'databaseTitle', 'location'
-                        , 'geo', 'caption', 'albumNum'],
+                    props: ['imageInfo','contentTitle', 'imageUrl', 'totalContents', 'totalImages', 'databaseTitle', 'location'
+                        , 'geo', 'caption', 'albumNum', 'tag'],
                     computed: {
                         fullLength: function () {
                             var contents_Num = this.totalContents;
@@ -65,8 +67,14 @@ window.define(['firebaseInit','google','defaultMapCreate'],function(firebase, g,
                             map.setCenter({lat: this.geo.lat, lng: this.geo.lng});
                         },
                         showImages: function () {
+                            var showingVue = new Vue(show.show);
+                            if (this.imageInfo.length-1-this.albumNum === this.imageInfo.length-1){
+                                var imageSlice = this.imageInfo.slice(this.imageInfo.length-1);
+                            }else {
+                                var imageSlice = this.imageInfo.slice(this.imageInfo.length-1-this.albumNum,1);
+                            }
 
-                            showingVue.loadingTotalImages(this.totalImages, this.caption, function () {
+                            showingVue.loadingTotalImages(imageSlice, this.caption, this.albumNum, this.tag, function () {
                                 $('.dragdealer').attr('tabindex', -1).focus();
                                 $('.dragdealer').css('display', 'block');
                             });
@@ -76,21 +84,36 @@ window.define(['firebaseInit','google','defaultMapCreate'],function(firebase, g,
             },
             methods: {
                 allImagesShowing: function () {
-                    var allImages = [];
+                    var __this = this;
+                    var showingVue = new Vue(show.show);
 
-                    var locationofDB = database.ref('/' + curUserID.currentUser.uid + '/allImages');
-                    locationofDB.once('value').then(function (snap) {
-                        snap.forEach(function (result) {
-                            for (var index in result.val()) {
-                                allImages.push(result.val()[index]);
-                            }
-                        })
-                    }).then(function () {
-                        showingVue.loadingTotalImages(allImages, function () {
-                            $('.dragdealer').attr('tabindex', -1).focus();
-                            $('.dragdealer').css('display', 'block');
+                    var allImages = [];
+                    var allCaptions = [];
+
+                    // var locationofDB = database.ref('/' + curUserID.currentUser.uid + '/allImages');
+                    // locationofDB.once('value').then(function (snap) {
+                    //     snap.forEach(function (result) {
+                    //         var urls = result.child('downloadURL').val();
+                    //         var albumNum = result.child('albumNum').val();
+                    //         for (var index in urls) {
+                    //             allImages.push(urls[index]);
+                    //         }
+                    //         if (result.hasChild('captions')){
+                    //             var caption = result.child('captions').val();
+                    //             for (var index in caption) {
+                    //                 allCaptions.push(caption[index]);
+                    //             }
+                    //         }
+                    //     })
+                    // }).then(function () {
+                        showingVue.loadGridGallery(allImages, 'gridthumbnail', __this.images, function() {
+
                         });
-                    })
+                        // showingVue.loadingTotalImages(allImages, allCaptions, albumNum , function () {
+                        //     $('.dragdealer').attr('tabindex', -1).focus();
+                        //     $('.dragdealer').css('display', 'block');
+                        // });
+                    // })
                 },
                 checkedContentCollect: function (checked) {
                     for (var i = 0; i < this.checkedItems.length; i++) {
@@ -143,6 +166,7 @@ window.define(['firebaseInit','google','defaultMapCreate'],function(firebase, g,
                     var location = '';
                     var geo = "";
                     var albumNum = 0;
+                    var date = "";
 
                     if (curUser !== null) {
                         curUserID.onAuthStateChanged(function(user){
@@ -156,16 +180,22 @@ window.define(['firebaseInit','google','defaultMapCreate'],function(firebase, g,
                                             databaseTitle = datasnapshot.key;
                                             var imageArray = [];
                                             var captionArray = [];
+                                            var tagArray = [];
                                             albumNum = datasnapshot.child('albumNum').val();
                                             geo = datasnapshot.child('geometry').val();
                                             contentTitle = datasnapshot.child('title').val();
                                             location = datasnapshot.child('location').val();
+                                            date = datasnapshot.child('date').val();
                                             datasnapshot.child('imageInfo/downloadURL').forEach(function (urls) {
                                                 imageArray.push(urls.val());
                                             });
 
                                             datasnapshot.child('imageInfo/caption').forEach(function (caption) {
                                                 captionArray.push(caption.val());
+                                            });
+
+                                            datasnapshot.child('imageInfo/tag').forEach(function (tag) {
+                                                tagArray.push(tag.val());
                                             });
 
                                             var initMarker = new google.maps.Marker({
@@ -200,7 +230,9 @@ window.define(['firebaseInit','google','defaultMapCreate'],function(firebase, g,
                                                 totalImageOfthis: imageArray,
                                                 location: location,
                                                 geo: geo,
-                                                captions: captionArray
+                                                captions: captionArray,
+                                                date : date,
+                                                tag : tagArray
                                             });
                                         } else {
                                             console.log('this is Allimage section, skip');
