@@ -63,7 +63,7 @@
 </div>
     <script src="https://unpkg.com/vue"></script>
     <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
     <script src="./lib/dragdealer.js"></script>
     <script>
@@ -71,10 +71,14 @@
             baseUrl: './src',
             paths: {
                 jquery : 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min',
-                jqueryMobile : '../lib/jqueryMobile',
                 bootstrap : 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min',
                 firebase : 'https://www.gstatic.com/firebasejs/4.2.0/firebase'
             },
+            shim : {
+                bootstrap : {
+                    deps: ['jquery']
+                }
+            }
         }
     </script>
     <script src="./lib/require.js"></script>
@@ -84,50 +88,53 @@
         var centerHeight = ((window.innerHeight/2)/window.innerHeight)*100;
         var centerWidth = ((window.innerWidth/2)/window.innerWidth)*100;
 
-        var auth;
-        var removeInnerTexts = function(callback) {
-            $('.form-control').val("")
-            if (typeof callback === 'function') {
-                callback();
-            }
-        };
-        var slide = function(mountId, callback){
-            var isDragged = false;
-            var startX = 0;
-            var offsetX = 0;
-            var isEnabled = false;
 
-            $(".handle").on('mousedown', function(ev) {
-                startX = ev.pageX;
-                isDragged = true;
-                console.log('click');
-            });
-            $(".handle").on('mousemove', function(ev){
-                if (isDragged) {
-                    var positionX = ev.pageX;
-                    offsetX = positionX - startX;
-                    console.log(offsetX);
-                    $('.slideText').css('transform','translateX('+offsetX+'px)')
+        require(['firebaseInit','bootstrap'], function(firebase){
+            var auth;
+            var removeInnerTexts = function(callback) {
+                $('.form-control').val("");
+                if (typeof callback === 'function') {
+                    callback();
                 }
-            });
-            $(document.body).on('mouseup', function(ev) {
-                isDragged = false;
-                if (offsetX > $('.handle').width()*0.8) {
-                    isEnabled = true;
-                    $('.slideText').css('animation', 'fadeOut 2s');
-                    $('.slideText').css('transform', 'translateX(0px)');
-                }else {
-                    $('.slideText').css('transform', 'translateX(0px)');
-                }
-                if (isEnabled) {
-                    if (typeof callback === 'function') {
-                        callback();
+            };
+            var slide = function(mountId, callback){
+                var isDragged = false;
+                var startX = 0;
+                var offsetX = 0;
+                var isEnabled = false;
+
+                $(".handle").on('mousedown touchstart', function(ev) {
+                    startX = ev.pageX;
+                    isDragged = true;
+                    console.log('click');
+                });
+                $(".handle").on('mousemove touchmove', function(ev){
+                    ev.preventDefault();
+                    if (isDragged) {
+                        var positionX = ev.pageX;
+                        offsetX = positionX - startX;
+                        console.log(offsetX);
+                        $('.slideText').css('transform','translateX('+offsetX+'px)')
                     }
-                }
-            });
+                });
+                $(document.body).on('mouseup touchend', function(ev) {
+                    isDragged = false;
+                    if (offsetX > $('.handle').width()*0.8) {
+                        isEnabled = true;
+                        $('.slideText').css('animation', 'fadeOut 2s');
+                        $('.slideText').css('transform', 'translateX(0px)');
+                    }else {
+                        $('.slideText').css('transform', 'translateX(0px)');
+                    }
+                    if (isEnabled) {
+                        if (typeof callback === 'function') {
+                            callback();
+                        }
+                    }
+                });
 
-        };
-        require(['firebaseInit','bootstrap', 'jqueryMobile'], function(firebase, Mjquery){
+            };
+
             auth = firebase.auth;
 
             auth.onAuthStateChanged(function(user) {
@@ -200,15 +207,17 @@
                     });
 
             });
+
+            $('#password').on('keyup', function(event) {
+                if (event.which == 13) {
+                    $('#submitBtn').trigger('click');
+                }
+            })
         });
 
 
 
-        $('#password').on('keyup', function(event) {
-            if (event.which == 13) {
-                $('#submitBtn').trigger('click');
-            }
-        })
+
 
 
     </script>
