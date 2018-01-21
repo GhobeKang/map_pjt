@@ -30,7 +30,7 @@
         </div>
     </form>
 
-    <div id="signinModal" class="modal fade">
+    <div id="signinModal" class="modal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-title">
@@ -64,7 +64,6 @@
     <script src="https://unpkg.com/vue"></script>
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
     <script src="./lib/dragdealer.js"></script>
     <script>
@@ -72,8 +71,15 @@
             baseUrl: './src',
             paths: {
                 jquery : 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min',
+                jqueryMobile : 'http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min',
                 bootstrap : 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min',
                 firebase : 'https://www.gstatic.com/firebasejs/4.2.0/firebase'
+            },
+            shim : {
+                jqueryMobile : {
+                    deps : ['jquery'],
+                    exports : 'Mjquery'
+                }
             }
         }
     </script>
@@ -127,7 +133,7 @@
             });
 
         };
-        require(['firebaseInit','bootstrap'], function(firebase){
+        require(['firebaseInit','bootstrap', 'jqueryMobile'], function(firebase, Mjquery){
             auth = firebase.auth;
 
             auth.onAuthStateChanged(function(user) {

@@ -7,13 +7,17 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
     });
 
     client.search({
-        index: 'album',
-        type: 'seoul city hall',
-        body: {
-            q: {albumNum: 2}
+        index: 'albums',
+        _source :true,
+        body:{
+            "query": {
+                "match": {
+                    "albumNum": 0
+                }
+            }
         }
-    }).then(function(erro, response){
-        console.log(response)
+    }).then(function(root, prev){
+        console.log(root)
     });
     return client
 })
