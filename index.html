@@ -71,16 +71,10 @@
             baseUrl: './src',
             paths: {
                 jquery : 'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min',
-                jqueryMobile : 'http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min',
+                jqueryMobile : '../lib/jqueryMobile',
                 bootstrap : 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min',
                 firebase : 'https://www.gstatic.com/firebasejs/4.2.0/firebase'
             },
-            shim : {
-                jqueryMobile : {
-                    deps : ['jquery'],
-                    exports : 'Mjquery'
-                }
-            }
         }
     </script>
     <script src="./lib/require.js"></script>
