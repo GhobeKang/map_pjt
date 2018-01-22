@@ -15,75 +15,6 @@
   width: 100%;
   opacity: 0.6;
 }
-.loginForm {
-  display: block;
-  position: absolute;
-  margin : 10% 0 0 32%;
-  width: 37%;
-  height: 64%;
-  #loginContainer {
-    position:absolute;
-    top: 50%;
-    left: 16%;
-    .input-group {
-      margin-top : 10px;
-    }
-  }
-  #email {
-    display: block;
-    height: 50px;
-    width: 250px;
-    text-align: center;
-  }
-  #password {
-    display: block;
-    height: 50px;
-    width: 267px;
-    text-align: center;
-  }
-  button {
-    margin-top: 10px;
-    width: 155px;
-    height: 40px;
-  }
-}
-.modal-dialog {
-  position: absolute;
-  .modal-content {
-    width: 65%;
-    .modal-title {
-      text-align: center;
-    }
-    .modal-body {
-      form {
-        .input-group {
-          margin-top: 10px;
-          #email_Modal {
-            display: block;
-            height: 50px;
-            width: 289px;
-            text-align: center;
-          }
-          #password_Modal {
-            display: block;
-            height: 50px;
-            width: 306px;
-            text-align: center;
-          }
-        }
-        button {
-          margin-top: 10px;
-          position: relative;
-          left: 65%;
-          width: 123px;
-          height: 40px;
-        }
-      }
-    }
-
-  }
-}
-
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity: 1;}
@@ -92,75 +23,312 @@
   from {opacity: 1; transform: translateX(500px)}
   to {opacity: 0; transform: translateX(0px);}
 }
-#welcomeMsg {
-  font-family: blackNapkin;
-  animation: fadeIn 4s;
-  position: fixed;
-  width: 100%;
-  margin-top: 20%;
-  text-align: center;
-}
 
-#slideGetIn {
-  position: relative;
-  width: 600px;
-  height: auto;
-  margin: 0 auto;
-  .handle {
-    margin-top: 10%;
+// large device
+@media (min-width: 970px) {
+  .loginForm {
+    display: block;
+    position: absolute;
+    margin : 10% 0 0 32%;
+    width: 37%;
+    height: 64%;
+    #loginContainer {
+      position:absolute;
+      top: 50%;
+      left: 16%;
+      .input-group {
+        margin-top : 10px;
+      }
+    }
+    #email {
+      display: block;
+      height: 50px;
+      width: 250px;
+      text-align: center;
+    }
+    #password {
+      display: block;
+      height: 50px;
+      width: 267px;
+      text-align: center;
+    }
+    button {
+      margin-top: 10px;
+      width: 155px;
+      height: 40px;
+    }
+  }
+  .modal-dialog {
+    position: absolute;
+    .modal-content {
+      width: 65%;
+      .modal-title {
+        text-align: center;
+      }
+      .modal-body {
+        form {
+          .input-group {
+            margin-top: 10px;
+            #email_Modal {
+              display: block;
+              height: 50px;
+              width: 289px;
+              text-align: center;
+            }
+            #password_Modal {
+              display: block;
+              height: 50px;
+              width: 306px;
+              text-align: center;
+            }
+          }
+          button {
+            margin-top: 10px;
+            position: relative;
+            left: 65%;
+            width: 123px;
+            height: 40px;
+          }
+        }
+      }
+
+    }
+  }
+
+  #welcomeMsg {
+    font-family: blackNapkin;
+    animation: fadeIn 4s;
+    position: fixed;
+    width: 100%;
+    margin-top: 20%;
+    text-align: center;
+    p {
+      font-size: 35px;
+      color : #FFFFFF;
+      strong {
+        color : #FFB400;
+      }
+    }
+  }
+
+  #slideGetIn {
+    position: relative;
     width: 600px;
-    height: 80px;
+    height: auto;
+    margin: 0 auto;
+    .handle {
+      margin-top: 10%;
+      width: 600px;
+      height: 80px;
+      position: absolute;
+      display: block;
+      cursor: pointer;
+      user-select: none;
+      border: solid 2px whitesmoke;
+      border-radius: 30px;
+      background: rgba(200,200,200,0.5);
+      .slideText {
+        &:hover {
+          color: gold;
+        }
+        font-family: crayon;
+        overflow: hidden;
+        margin-top: 12px;
+        padding-left: 10px;
+        display: flex;
+        font-size: 35px;
+        text-align: center;
+        width: 100%;
+        heigth: 100%;
+        color: #282828;
+      }
+    }
+  }
+  #logOutBtn {
+    position: absolute;
+    display: inline-flex;
+    top: 10px;
+    left: 93%;
+    border-radius: 10px;
+    background : transparent;
+    color: lightgray;
+    width: 73px;
+    height: 30px;
+    text-align: center;
+  }
+  .alert {
+    width: 500px;
+    height: 120px;
     position: absolute;
     display: block;
-    cursor: pointer;
-    user-select: none;
-    border: solid 2px whitesmoke;
-    border-radius: 30px;
-    background: rgba(200,200,200,0.5);
-    .slideText {
-      &:hover {
-        color: gold;
-      }
-      font-family: crayon;
-      overflow: hidden;
-      margin-top: 12px;
-      padding-left: 10px;
-      display: flex;
-      font-size: 35px;
-      text-align: center;
-      width: 100%;
-      heigth: 100%;
-      color: #282828;
+    top: 10%;
+    left: 32%;
+    font-size: 20px;
+    text-align: center;
+    button {
+      margin-top: 20px;
+      width: 100px;
+    }
+    .close{
+      width:0;
+      margin:0 10px 0 0;
     }
   }
 }
-#logOutBtn {
-  position: absolute;
-  display: inline-flex;
-  top: 10px;
-  left: 93%;
-  border-radius: 10px;
-  background : transparent;
-  color: lightgray;
-  width: 73px;
-  height: 30px;
-  text-align: center;
+// midium device
+@media (min-width: 769px) and (max-width: 969px) {
+
 }
-.alert {
-  width: 500px;
-  height: 120px;
-  position: absolute;
-  display: block;
-  top: 10%;
-  left: 32%;
-  font-size: 20px;
-  text-align: center;
-  button {
-    margin-top: 20px;
-    width: 100px;
+
+// small device
+@media (max-width: 768px) {
+  .loginForm {
+    display: block;
+    position: absolute;
+    margin : 50% 0 0 0;
+    width: 100%;
+    height: 64%;
+    #loginContainer {
+      position:absolute;
+      top: 50%;
+      left: 16%;
+      .input-group {
+        margin-top : 10px;
+      }
+    }
+    #email {
+      display: block;
+      height: 50px;
+      width: 250px;
+      text-align: center;
+    }
+    #password {
+      display: block;
+      height: 50px;
+      width: 267px;
+      text-align: center;
+    }
+    button {
+      margin-top: 10px;
+      width: 155px;
+      height: 40px;
+    }
   }
-  .close{
-    width:0;
-    margin:0 10px 0 0;
+  .modal-dialog {
+    position: absolute;
+    .modal-content {
+      width: 65%;
+      .modal-title {
+        text-align: center;
+      }
+      .modal-body {
+        form {
+          .input-group {
+            margin-top: 10px;
+            #email_Modal {
+              display: block;
+              height: 50px;
+              width: 289px;
+              text-align: center;
+            }
+            #password_Modal {
+              display: block;
+              height: 50px;
+              width: 306px;
+              text-align: center;
+            }
+          }
+          button {
+            margin-top: 10px;
+            position: relative;
+            left: 65%;
+            width: 123px;
+            height: 40px;
+          }
+        }
+      }
+
+    }
+  }
+
+  #welcomeMsg {
+    font-family: blackNapkin;
+    animation: fadeIn 4s;
+    position: fixed;
+    width: 100%;
+    margin-top: 53%;
+    text-align: center;
+    p {
+      font-size: 25px;
+      color : #FFFFFF;
+      strong {
+        color : #FFB400;
+      }
+    }
+  }
+
+  #slideGetIn {
+    position: relative;
+    width: 600px;
+    height: auto;
+    margin: 0 auto;
+    .handle {
+      margin-top: 10%;
+      width: 441px;
+      height: 70px;
+      position: absolute;
+      display: block;
+      cursor: pointer;
+      user-select: none;
+      border: solid 2px whitesmoke;
+      border-radius: 30px;
+      background: rgba(200,200,200,0.5);
+      .slideText {
+        &:hover {
+          color: gold;
+        }
+        font-family: crayon;
+        overflow: hidden;
+        margin-top: 12px;
+        padding-left: 10px;
+        display: flex;
+        font-size: 35px;
+        text-align: center;
+        width: 100%;
+        heigth: 100%;
+        color: #282828;
+      }
+    }
+  }
+  #logOutBtn {
+    position: absolute;
+    display: inline-flex;
+    top: 10px;
+    left: 80%;
+    border-radius: 10px;
+    background : transparent;
+    color: lightgray;
+    width: 73px;
+    height: 30px;
+    text-align: center;
+  }
+  .alert {
+    width: 500px;
+    height: 120px;
+    position: absolute;
+    display: block;
+    top: 10%;
+    left: 32%;
+    font-size: 20px;
+    text-align: center;
+    button {
+      margin-top: 20px;
+      width: 100px;
+    }
+    .close{
+      width:0;
+      margin:0 10px 0 0;
+    }
   }
 }
+
