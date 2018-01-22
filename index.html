@@ -107,6 +107,7 @@
                 var isEnabled = false;
 
                 $(".handle").on('mousedown touchstart', function(ev) {
+                    ev.preventDefault();
                     startX = ev.pageX;
                     isDragged = true;
                     console.log('click');
