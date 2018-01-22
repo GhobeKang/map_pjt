@@ -23,13 +23,11 @@
   from {opacity: 1; transform: translateX(500px)}
   to {opacity: 0; transform: translateX(0px);}
 }
-
-// large device
-@media (min-width: 970px) {
+@media (min-width: 769px) {
   .loginForm {
     display: block;
     position: absolute;
-    margin : 10% 0 0 32%;
+    margin : 30% 0 0 0;
     width: 37%;
     height: 64%;
     #loginContainer {
@@ -175,23 +173,18 @@
     }
   }
 }
-// midium device
-@media (min-width: 769px) and (max-width: 969px) {
-
-}
-
-// small device
-@media (max-width: 969px) {
+// mobile devices
+@media (max-width: 768px) {
   .loginForm {
     display: block;
     position: absolute;
-    margin : 50% 0 0 0;
-    width: 100%;
+    margin : 83% 0 0 0;
+    width: 37%;
     height: 64%;
     #loginContainer {
       position:absolute;
       top: 50%;
-      left: 16%;
+      left: 27%;
       .input-group {
         margin-top : 10px;
       }
@@ -217,7 +210,7 @@
   .modal-dialog {
     position: absolute;
     .modal-content {
-      width: 65%;
+      width: 100%;
       .modal-title {
         text-align: center;
       }
@@ -256,7 +249,7 @@
     animation: fadeIn 4s;
     position: fixed;
     width: 100%;
-    margin-top: 53%;
+    margin-top: 20%;
     text-align: center;
     p {
       font-size: 25px;
@@ -274,8 +267,8 @@
     margin: 0 auto;
     .handle {
       margin-top: 10%;
-      width: 441px;
-      height: 70px;
+      width: 600px;
+      height: 80px;
       position: absolute;
       display: block;
       cursor: pointer;
@@ -304,7 +297,7 @@
     position: absolute;
     display: inline-flex;
     top: 10px;
-    left: 80%;
+    left: 93%;
     border-radius: 10px;
     background : transparent;
     color: lightgray;
@@ -330,5 +323,5 @@
       margin:0 10px 0 0;
     }
   }
-}
 
+}
