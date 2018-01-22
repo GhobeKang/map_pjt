@@ -107,15 +107,25 @@
                 var isEnabled = false;
 
                 $(".handle").on('mousedown touchstart', function(ev) {
+
                     ev.preventDefault();
-                    startX = ev.pageX;
+                    if (ev.type === 'touchstart') {
+                        startX = ev.originalEvent.touches["0"].pageX;
+                    }else {
+                        startX = ev.pageX;
+                    }
                     isDragged = true;
-                    console.log('click');
+                    console.log(startX);
                 });
                 $(".handle").on('mousemove touchmove', function(ev){
                     ev.preventDefault();
                     if (isDragged) {
-                        var positionX = ev.pageX;
+                        var positionX;
+                        if (ev.type === 'touchmove') {
+                            positionX = ev.originalEvent.touches["0"].pageX;
+                        }else {
+                            positionX = ev.pageX;
+                        }
                         offsetX = positionX - startX;
                         console.log(offsetX);
                         $('.slideText').css('transform','translateX('+offsetX+'px)')
