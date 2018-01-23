@@ -263,14 +263,26 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                         __this.$destroy();
                     }
                 });
-                $('.handle').on('mousedown', function (event) {
-                    xStart = event.pageX;
+                $('.handle').on('mousedown touchstart', function (event) {
+
+                    if (event.type === 'touchstart') {
+                        event.preventDefault();
+                        xStart = event.originalEvent.touches['0'].pageX;
+                    }else {
+                        xStart = event.pageX;
+                    }
                     isDragging = true;
                     console.log('mouse down event');
                 });
-                $('.handle').on('mousemove', function (event) {
+                $('.handle').on('mousemove touchmove', function (event) {
+
                     if (isDragging) {
-                        xMove = event.pageX;
+                        if (event.type === 'touchmove') {
+                            event.preventDefault();
+                            xMove = event.originalEvent.touches['0'].pageX;
+                        }else {
+                            xMove = event.pageX;
+                        }
                         var movedDistance = xStart - xMove;
                         var transformYaxis = Math.abs(movedDistance * 0.1);
                         xOffset = (beforePosition + (xMove - xStart));
@@ -278,10 +290,16 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                         $('.current').css('transform', 'translateY('+transformYaxis+'%)');
                     }
                 });
-                $(document).on('mouseup', function (event) {
+                $(document).on('mouseup touchend', function (event) {
                     var imageOffset = $('.current')["0"].offsetLeft;
                     var imageSize = $('.current')["0"].offsetWidth;
-                    var xEnd = event.pageX;
+                    var xEnd;
+                    console.log(event);
+                    if (event.type === 'touchend') {
+                        xEnd = event.changedTouches['0'].pageX;
+                    }else {
+                        xEnd = event.pageX;
+                    }
                     var minMoved = imageSize * 0.5;
                     var distance = xStart - xMove;
 

@@ -108,8 +108,8 @@
 
                 $(".handle").on('mousedown touchstart', function(ev) {
 
-                    ev.preventDefault();
                     if (ev.type === 'touchstart') {
+                        ev.preventDefault();
                         startX = ev.originalEvent.touches["0"].pageX;
                     }else {
                         startX = ev.pageX;
@@ -118,10 +118,11 @@
                     console.log(startX);
                 });
                 $(".handle").on('mousemove touchmove', function(ev){
-                    ev.preventDefault();
+
                     if (isDragged) {
                         var positionX;
                         if (ev.type === 'touchmove') {
+                            ev.preventDefault();
                             positionX = ev.originalEvent.touches["0"].pageX;
                         }else {
                             positionX = ev.pageX;
