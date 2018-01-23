@@ -42,7 +42,8 @@ body {
   font-family: miseng;
   font-size: 25px;
 }
-.top-nav {
+
+.top-navConfig {
   height: 50px;
   width: 100%;
   margin-top: 1%;
@@ -72,39 +73,15 @@ body {
     cursor: pointer;
   }
 }
-#mainContainer {
-  left: 50%;
-  transform: translateX(-50%);
-  height:70%;
-  width: 80%;
-  top: 13%;
-  position: absolute;
-  .row {
-    height: 100%;
-  }
-}
 
-.col-md-8 {
-  height:100%;
-  width: 76%;
-  padding: 0;
 
-  #mapDisplayed {
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-    left: 20px;
-    top: 20px;
-    box-shadow:14px 14px 10px grey;
-    border: solid 2px #464646;
-  }
-}
+
 .thumbnail_fix {
   #thumbnails {
     float: left;
     border: double darkgrey 5px;
     height: 100%;
-    margin: 22px 0 0 30px;
+    margin: 22px 0 0 0;
     display: inline-block;
     overflow-y: scroll;
     .icons {
@@ -155,19 +132,255 @@ body {
   }
 }
 
-@media (max-width: 768px) {
-  .col-md-8 {
-    width: 94%;
-    height: 75%;
-    margin-bottom: 7%;
+// @maincontainerConfig
+.mainContainerConfig {
+  left: 50%;
+  transform: translateX(-50%);
+  height:70%;
+  width: 80%;
+  top: 13%;
+  position: absolute;
+  .row {
+    height: 100%;
   }
+}
+
+// @mapContainer variable
+.mapdisplayConfig {
+  #mapDisplayed {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    top: 20px;
+    box-shadow:14px 14px 10px grey;
+    border: solid 2px #464646;
+  }
+}
+
+// @slide show default config
+.slideConfig {
+
+  top : 1in;
+  transform-style: preserve-3d;
+  display: inline-block;
+  pointer-events: none;
+  user-select: none;
+  margin: 5px;
+  position: relative;
+  height: 350px;
+  width: 580px;
+  span {
+    display: none;
+    position: relative;
+    color: white;
+  }
+  textarea {
+    display:none;
+    position: relative;
+    width: 493px;
+    height: 70px;
+  }
+  input {
+    display: none;
+    position: relative;
+    width: 503px;
+  }
+  button {
+    display:none;
+    position: relative;
+    float: right;
+  }
+  img {
+    opacity: 0.4;
+    width: 100%;
+    position: relative;
+  }
+  .tag_btn {
+    float: left;
+  }
+  .container_tag {
+    margin-top: 5px;
+  }
+  .container_captionArea {
+    button {
+      top: 16px;
+    }
+    margin-top: 5px;
+  }
+}
+
+// @current slide of slides configuration
+.currentSlideConfig {
+
+  span {
+    display: inline;
+  }
+  textarea, button,input {
+    display: inline;
+    pointer-events: auto;
+  }
+  img {
+    opacity: 1;
+    padding: 5px;
+    border: red dashed 2px;
+  }
+
+}
+
+//image-carousel style
+.handleConfig {
+  display: none;
+  background: rgba(0,0,0,0.8);
+  position: relative;
+  height: 100%;
+  width: 100%;
+  .imageCarouselTitle {
+    position: absolute;
+    top: 13%;
+    left: 30%;
+    color: white;
+  }
+  .allImageTitle {
+    position: relative;
+    color: white;
+    display: block;
+    margin-left: 5%;
+    span {
+      float: right;
+      position: relative;
+      margin-right: 5%;
+      font-size: 40px;
+      cursor: pointer;
+      &:hover {
+        color: gray;
+      }
+    }
+    strong {
+      font-size: 50px;
+      font-weight: bold;
+    }
+    small {
+      font-size: 40px;
+      font-weight: 100;
+      color: lightgrey;
+    }
+  }
+}
+// @All images shown to grid
+.gridConfig {
+  display: inline-block;
+  width: 405px;
+  height: 305px;
+  margin: 5px;
+  border: white 2px solid;
+  img {
+    position: relative;
+  }
+  .thumbnailInfo {
+    display: none;
+    position: relative;
+    color: white;
+    top: -300px;
+    margin: 22px;
+  }
+  &:hover {
+    .thumbnailInfo {
+      display: table;
+    }
+    img {
+      opacity: 0.5;
+    }
+    background: black;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .top-nav {
+    .top-navConfig;
+    div {
+      font-size: 17px;
+    }
+  }
+
+  #mainContainer {
+    .mainContainerConfig;
+    top: 17%;
+  }
+  #mapContainer {
+    height: 70%;
+    .mapdisplayConfig
+  }
+
+  .slide {
+    .slideConfig;
+    width: 370px;
+    height: 220px;
+    textarea {
+      width: 279px;
+      height: 50px;
+    }
+    input {
+      width: 293px;
+    }
+    .container_captionArea {
+      button {
+        top : 8px;
+      }
+    }
+  }
+  .current {
+    .currentSlideConfig
+  }
+
+  .dragdealer {
+    .handleConfig;
+    .imageCarouselTitle {
+      position: absolute;
+      top: 13%;
+      left: 25px;
+      color: white;
+    }
+    .allImageTitle {
+      strong {
+        font-size: 40px;
+      }
+      small  {
+        font-size: 30px;
+      }
+    }
+  }
+  .handle {
+    left: 6%;
+    height: 84%;
+  }
+  .gridthumbnail {
+    .gridConfig;
+    width: 191px;
+    height: 191px;
+    img {
+      width: 186px;
+      height: 186px;
+    }
+    .thumbnailInfo {
+      top: -181px;
+      p {
+        font-size: 18px;
+      }
+    }
+  }
+
   #thumbnails {
+
     display: block;
     border: darkgrey solid 2px;
-    padding: 10px 20px 0 20px;
+    padding: 1px 20px 0 12px;
+    height: 25%;
+    top: 36px;
     .icons {
       display: block;
       button {
+        font-size: 15px;
         border: none;
         background: transparent;
         color: darkgrey;
@@ -177,14 +390,16 @@ body {
       display: inline-block;
       label {
         color: white;
+        margin-bottom: 0;
+        bottom: 80px;
+        position: relative;
       }
       a {
-        width: 70px;
-        height: 70px;
-        margin-top: 10px;
-        margin-right: 10px;
+        width: 220px;
+        height: 80px;
         position: relative;
         background: gray;
+        display: inline-block;
         img{
           margin:0;
           width: 100%;
@@ -216,6 +431,39 @@ body {
   }
 }
 @media (min-width:768px) and (max-width:969px) {
+  .top-nav {
+    .top-navConfig;
+  }
+  #mainContainer {
+    .mainContainerConfig;
+  }
+
+  #mapContainer {
+    height: 80%;
+    .mapdisplayConfig
+  }
+  .slide {
+    .slideConfig;
+  }
+  .current {
+    .currentSlideConfig;
+  }
+  .dragdealer {
+    .handleConfig;
+  }
+  .handle {
+    left: 40%;
+    height: 100%;
+  }
+  .gridthumbnail {
+    .gridConfig;
+     width: 405px;
+     height: 305px;
+     img {
+       width: 400px;
+       height: 300px;
+     }
+  }
   .thumbnail_fix;
   #thumbnails {
     width: 15%;
@@ -228,6 +476,43 @@ body {
   }
 }
 @media (min-width: 970px) {
+  .top-nav {
+    .top-navConfig;
+  }
+
+  #mainContainer {
+    .mainContainerConfig;
+  }
+  #mapContainer {
+    height: 100%;
+    .mapdisplayConfig
+  }
+
+  .slide {
+    .slideConfig;
+  }
+  .current {
+    .currentSlideConfig;
+  }
+  .dragdealer {
+    .handleConfig;
+  }
+
+  .handle {
+    left: 40%;
+    height: 100%;
+  }
+
+  .gridthumbnail {
+    .gridConfig;
+    width: 405px;
+    height: 305px;
+    img {
+      width: 400px;
+      height: 300px;
+    }
+  }
+
   .thumbnail_fix;
   #thumbnails {
     width: 19%;
@@ -248,7 +533,7 @@ body {
 .modal-title {
   margin-left: 13px;
 }
-.modal-body> {
+.modal-body {
   p {
     font-size: 20px;
     font-weight: bold;
@@ -320,122 +605,9 @@ body {
   overflow: scroll;
 }
 
-//image-carousel style
-.dragdealer {
-  display: none;
-  background: rgba(0,0,0,0.8);
-  position: relative;
-  height: 100%;
-  width: 100%;
-  .imageCarouselTitle {
-    position: absolute;
-    top: 13%;
-    left: 30%;
-    color: white;
-  }
-  .allImageTitle {
-    position: relative;
-    color: white;
-    display: block;
-    margin-left: 5%;
-    span {
-      float: right;
-      position: relative;
-      margin-right: 5%;
-      font-size: 40px;
-      cursor: pointer;
-      &:hover {
-        color: gray;
-      }
-    }
-    strong {
-      font-size: 50px;
-      font-weight: bold;
-    }
-    small {
-      font-size: 40px;
-      font-weight: 100;
-      color: lightgrey;
-    }
-  }
-}
 
-.dragdealer .red-bar {
-  width: 100px;
-  height: 30px;
-  background: #CC0000;
-  color: #FFF;
-  font-size: 14px;
-  line-height: 30px;
-  text-align: center;
-}
-.dragdealer .disabled {
-  background: #898989;
-}
 
-.slide  {
-  top : 1in;
-  transform-style: preserve-3d;
-  display: inline-block;
-  pointer-events: none;
-  user-select: none;
-  margin: 5px;
-  position: relative;
-  height: 350px;
-  width: 580px;
-  span {
-    display: none;
-    position: relative;
-    color: white;
-  }
-  textarea {
-    display:none;
-    position: relative;
-    width: 493px;
-    height: 70px;
-  }
-  input {
-    display: none;
-    position: relative;
-    width: 503px;
-  }
-  button {
-    display:none;
-    position: relative;
-    float: right;
-  }
-  img {
-    opacity: 0.4;
-    width: 100%;
-    position: relative;
-  }
-  .tag_btn {
-    float: left;
-  }
-  .container_tag {
-    margin-top: 5px;
-  }
-  .container_captionArea {
-    button {
-      top: 16px;
-    }
-    margin-top: 5px;
-  }
-}
-.current {
-  span {
-    display: inline;
-  }
-  textarea, button,input {
-    display: inline;
-    pointer-events: auto;
-  }
-  img {
-    opacity: 1;
-    padding: 5px;
-    border: red dashed 2px;
-  }
-}
+
 #searchMap {
   height: 300px;
   width: auto;
@@ -475,29 +647,4 @@ body {
     background-image: url(./img/e6fa6b92decd26328f1f3616620b3e89.gif);
   }
 }
-.gridthumbnail {
-  display: inline-block;
-  width: 405px;
-  height: 305px;
-  margin: 5px;
-  border: white 2px solid;
-  img {
-    position: relative;
-  }
-  .thumbnailInfo {
-    display: none;
-    position: relative;
-    color: white;
-    top: -300px;
-    margin: 22px;
-  }
-  &:hover {
-    .thumbnailInfo {
-      display: table;
-    }
-    img {
-      opacity: 0.5;
-    }
-    background: black;
-  }
-}
+

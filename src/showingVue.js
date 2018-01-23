@@ -37,7 +37,7 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                     }
                 },
                 template: `<div class="gridthumbnail">
-                                <img :src="imageUrl" class="gridItem" width="400px" height="300px">
+                                <img :src="imageUrl" class="gridItem">
                                 <div class="thumbnailInfo">
                                     <p>Title : {{imageInfo.title}}</p>
                                     <p>When : {{imageInfo.date}}</p>
@@ -217,7 +217,6 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                     transform: 'translateY(0)',
                     cursor: 'auto',
                     width: '96%',
-                    height: '100%',
                     overflowY : 'scroll'
                 });
                 $('.dragdealer').css('position', 'absolute');
@@ -241,7 +240,6 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                 $('.handle').css({
                     position: 'fixed',
                     top: '50%',
-                    left: '40%',
                     transform: 'translateY(-15%)',
                     cursor: 'pointer',
                     overflow: 'hidden',
