@@ -213,7 +213,6 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                     position: 'relative',
                     margin: '0 4% auto',
                     top: '0',
-                    left: '0',
                     transform: 'translateY(0)',
                     cursor: 'auto',
                     width: '96%',
