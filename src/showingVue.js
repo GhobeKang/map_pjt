@@ -213,6 +213,7 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                     position: 'relative',
                     margin: '0 4% auto',
                     top: '0',
+                    left : '0',
                     transform: 'translateY(0)',
                     cursor: 'auto',
                     width: '96%',
@@ -266,7 +267,7 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                 $('.handle').on('mousedown touchstart', function (event) {
 
                     if (event.type === 'touchstart') {
-                        event.preventDefault();
+
                         xStart = event.originalEvent.touches['0'].pageX;
                     }else {
                         xStart = event.pageX;
