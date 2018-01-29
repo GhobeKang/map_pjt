@@ -6,7 +6,7 @@ window.define(['./dropzoneInit',
     'jquery',
     './firebaseInit',
     './elasticsearchClient'
-], function(dropzone, jquery, firebase, client){
+], function(dropzone, jquery, firebase, elastic){
     var store = firebase.store;
     var database = firebase.database;
     var auth = firebase.auth;
@@ -118,12 +118,8 @@ window.define(['./dropzoneInit',
                                         title : title,
                                         geometry: geometry
                                     };
-                                    client.create({
-                                        index: 'albums',
-                                        type: title,
-                                        id : albumNum,
-                                        body: inputSet
-                                    });
+
+                                    elastic.addAlbum(albumNum, inputSet);
 
                                     var databasePath = database.ref('/'+currentUserID+'/'+dbTitle);
                                     var duplicationAllImages = database.ref('/'+currentUserID+'/allImages');

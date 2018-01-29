@@ -1,7 +1,7 @@
 /**
  * Created by Ghobe on 2018-01-10.
  */
-window.define(['jquery','firebaseInit'], function($, firebase) {
+window.define(['jquery','firebaseInit','elasticsearchClient'], function($, firebase, elastic) {
     var showing_vue = {
         el: '#image-carousel',
         data: {
@@ -10,7 +10,8 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
             tags: [],
             albumNum: 0,
             counter: 0,
-            currentView: "gallerythumbnail"
+            currentView: "gallerythumbnail",
+            isShowing: false,
         },
         watch: {
             currentView : function() {
@@ -51,7 +52,8 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                 data : function() {
                     return {
                         captionContent : "",
-                        tagContent : ""
+                        tagContent : "",
+                        isFirstAdd : true
                     }
                 },
                 computed: {
@@ -64,6 +66,7 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                         for (var cap in this.caption) {
                             if (this.caption[cap].key_caption === this.imageCounter) {
                                 this.captionContent = this.caption[cap].val_caption;
+                                this.isFirstAdd = false;
                                 result = true;
                             }
                         }
@@ -74,6 +77,7 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                         for (var tag in this.tags) {
                             if (this.tags[tag].key_tag === this.imageCounter) {
                                 this.tagContent = this.tags[tag].val_tag;
+                                this.isFirstAdd = false;
                                 result = true;
                             }
                         }
@@ -87,23 +91,33 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                 },
                 template: `<div class="slide" :class="counterCal"><img :src="imageUrl">
                                 <div class="container_captionArea"  v-if="!isCaption">
-                                    <textarea class="caption"></textarea>
+                                    <textarea class="caption" v-model="captionContent"></textarea>
                                     <button type="button" class="save_caption btn btn-info" @click="saveCaption">Save Caption</button>
                                 </div>
                                 <span v-if="isCaption">{{captionContent}}</span>
                                 <div class="container_tag" v-if="!isTag">
-                                    <input type="text" class="inputtag">
+                                    <input type="text" class="inputtag" v-model="tagContent">
                                     <button type="button" class="save_caption btn btn-info" @click="saveTag">Save Tag</button>
                                 </div>
                                 <br>
-                                <template v-if="isTag" v-for="value in tagToArray">
-                                    <button type="button" class="tag_btn btn btn-default">{{value}}</button>
-                                </template>
+                                <div class="tagbuttons">
+                                    <template v-if="isTag" v-for="value in tagToArray">
+                                        <button type="button" class="tag_btn btn btn-default" @click="tagSearch">{{value}}</button>
+                                    </template>
+                                </div>
                                 </div>`,
                 methods : {
+                    tagSearch : function(event) {
+                        var buttonValue = event.target.innerText;
+
+                        elastic.getElastic(buttonValue, function(data) {
+                            
+                        });
+
+                    },
                     saveTag : function() {
                         var __thisConponent = this;
-                        var tagContent = $('.inputtag').val();
+                        var tagContent = this.tagContent;
                         var tagLocation = this.imageCounter;
                         var __albumNum = this.imageInfo.albumNum;
 
@@ -123,6 +137,13 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                                                         val_tag: tagContent
                                                     };
                                                     captionLoc.child(pushKey).set(tagObject);
+
+                                                    if (__thisConponent.isFirstAdd) {
+                                                        elastic.addElastic(__albumNum, tagLocation, tagContent, 'tag', false);
+                                                        __thisConponent.isFirstAdd = false;
+                                                    }else {
+                                                        elastic.addElastic(__albumNum, tagLocation, tagContent, 'tag', true);
+                                                    }
 
                                                     var allimageTagSave = firebase.database.ref('/' + user.uid + '/allImages');
                                                     allimageTagSave.once('value')
@@ -148,7 +169,7 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                     },
                     saveCaption: function() {
                         var __thisConponent = this;
-                        var captionContent = $('.caption').val();
+                        var captionContent = this.captionContent;
                         var captionLocation = this.imageCounter;
                         var __albumNum = this.imageInfo.albumNum;
 
@@ -167,6 +188,14 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                                                         key_caption: captionLocation,
                                                         val_caption: captionContent
                                                     };
+
+                                                    if (__thisConponent.isFirstAdd) {
+                                                        elastic.addElastic(__albumNum, captionLocation, captionContent, 'caption', false);
+                                                        __thisConponent.isFirstAdd = false;
+                                                    }else {
+                                                        elastic.addElastic(__albumNum, captionLocation, captionContent, 'caption', true);
+                                                    }
+
                                                     captionLoc.child(pushKey).set(captionObject);
 
                                                     var allimageCaptionSave = firebase.database.ref('/' + user.uid + '/allImages');
@@ -244,7 +273,6 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                     cursor: 'pointer',
                     overflow: 'hidden',
                     width: '800%',
-                    height: '100%',
                 });
 
                 $('.dragdealer').css('position', 'absolute');
@@ -285,10 +313,12 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                             xMove = event.pageX;
                         }
                         var movedDistance = xStart - xMove;
+
                         var transformYaxis = Math.abs(movedDistance * 0.1);
                         xOffset = (beforePosition + (xMove - xStart));
                         $('.handle').css('transform', 'translate3d(' + xOffset + 'px, -15% ,0)');
-                        $('.current').css('transform', 'translateY('+transformYaxis+'%)');
+                        $('.current').css('transform', 'perspective(1px) translateZ(-'+(transformYaxis/500)+'px)');
+
                     }
                 });
                 $(document).on('mouseup touchend', function (event) {
@@ -305,10 +335,15 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                     var distance = xStart - xMove;
 
                     beforePosition = -imageOffset;
-                    $('.current').css('transform','translateY(0)');
-                    $('.current').css('top', '-1in');
+
+                    // $('.current').css('top', '-1in');
 
                     if (isDragging) {
+                        $('.current').css({
+                            transform: 'perspective(15px) translateZ(-2px)',
+                            animation: 'slideIn 4s'
+                        });
+
                         if (distance > minMoved) {
                             if (xStart > xEnd) {
                                 xOffset = -imageOffset - imageSize;
@@ -342,7 +377,10 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
                             xOffset = -(imageSize * imagesNum)
                         }
                         $('.handle').css('transform', 'translate3d(' + xOffset + 'px, -15% ,0)');
-                        $('.current').css('top', '0');
+                        $('.current').css({
+                            transform: 'perspective(15px) translateZ(0px)',
+                        });
+
                         isDragging = false;
 
                     }
@@ -365,6 +403,8 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
         },
 
         destroyed: function() {
+            this.isShowing = false;
+
             $('.handle').empty();
 
             $('.handle').append(`<template v-for="(val, key) in images">
@@ -375,10 +415,12 @@ window.define(['jquery','firebaseInit'], function($, firebase) {
         },
 
         updated: function () {
-            this.$nextTick(function () {
-                $('.slide:first').addClass('current');
-                $('.current').css('top','0')
-            });
+            if (!this.isShowing) {
+                this.$nextTick(function () {
+                    $('.slide:first').addClass('current');
+                });
+                this.isShowing = true;
+            }
         }
     };
 

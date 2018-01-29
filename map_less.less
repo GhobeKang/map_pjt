@@ -159,18 +159,24 @@ body {
     border: solid 2px #464646;
   }
 }
-
+@keyframes slideIn {
+  from {transform: perspective(15px) translateZ(0px)}
+  to {transform: perspective(15px) translateZ(-2px)}
+}
+@keyframes slideOut {
+  from {transform: perspective(15px) translateZ(-2px)}
+  to {transform: perspective(15px) translateZ(0px)}
+}
 // @slide show default config
 .slideConfig {
-
-  top : 1in;
   transform-style: preserve-3d;
-  display: inline-block;
+  transform: perspective(15px) translateZ(-2px);
+  display: inline-grid;
   pointer-events: none;
   user-select: none;
   margin: 5px;
   position: relative;
-  height: 350px;
+  height: 485px;
   width: 580px;
   span {
     display: none;
@@ -214,7 +220,8 @@ body {
 
 // @current slide of slides configuration
 .currentSlideConfig {
-
+  animation: slideOut 4s;
+  transform: perspective(15px) translateZ(0px);
   span {
     display: inline;
   }
@@ -228,7 +235,9 @@ body {
     padding: 5px;
     border: red dashed 2px;
   }
-
+  .tagbuttons {
+    display: inline-block;
+  }
 }
 
 //image-carousel style

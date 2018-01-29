@@ -68,10 +68,10 @@ window.define(['firebaseInit','google','defaultMapCreate','showingVue'],
                         },
                         showImages: function () {
                             var showingVue = new Vue(show.show);
-                            if (this.imageInfo.length-1-this.albumNum === this.imageInfo.length-1){
-                                var imageSlice = this.imageInfo.slice(this.imageInfo.length-1);
+                            if (this.albumNum === this.imageInfo.length-1){
+                                var imageSlice = this.imageInfo.slice(this.albumNum);
                             }else {
-                                var imageSlice = this.imageInfo.slice(this.imageInfo.length-1-this.albumNum,1);
+                                var imageSlice = this.imageInfo.slice(this.albumNum,1);
                             }
 
                             showingVue.loadingTotalImages(imageSlice, this.caption, this.albumNum, this.tag, function () {
