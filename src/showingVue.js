@@ -8,10 +8,12 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
             images: [],
             captions: [],
             tags: [],
+            queryresult: [],
             albumNum: 0,
             counter: 0,
             currentView: "gallerythumbnail",
             isShowing: false,
+            isQuery : false
         },
         watch: {
             currentView : function() {
@@ -25,6 +27,19 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
             }
         },
         components: {
+            querythumbnail: {
+                props : ['imageInfo'],
+                template : `<div class="querythumbnail">
+                                <img :src="imageInfo.imageUrl" class="gridItem">
+                                <div class="thumbnailInfo">
+                                    <p>Title : {{imageInfo.title}}</p>
+                                    <p>When : {{imageInfo.date}}</p>
+                                    <p>Where : {{imageInfo.location}}</p>
+                                    <p>{{imageInfo.caption}}</p>
+                                </div>
+                           </div>`,
+
+            },
             gridthumbnail: {
                 props: ['imageUrl', 'imageCounter', 'imageInfo', 'caption'],
                 computed: {
@@ -109,9 +124,43 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
                 methods : {
                     tagSearch : function(event) {
                         var buttonValue = event.target.innerText;
+                        var __this = this;
 
                         elastic.getElastic(buttonValue, function(data) {
-                            
+                            var resultArray = data.hits.hits;
+                            for (var hitCount in resultArray) {
+                                var imageInfo = resultArray[hitCount]._source;
+
+                                var albumNum = imageInfo.albumNum;
+                                var captionString = imageInfo.caption;
+                                var position = imageInfo.position + '';
+                                var tagString = imageInfo.tag;
+
+                                elastic.searchImage(albumNum, position, captionString, tagString,
+                                    function(albumdata, p, caption, tag) {
+                                    var result = albumdata.hits.hits["0"]._source;
+                                    var imageUrlSet = result.imageInfo.downloadURL;
+                                    var title = result.title;
+                                    var date = result.date;
+                                    var location = result.location;
+
+                                    for (var image in imageUrlSet) {
+                                        console.log(p);
+                                        if (image === p) {
+                                            var targetImage = imageUrlSet[image];
+                                            var imageInfoSet = {
+                                                imageUrl : targetImage,
+                                                title : title,
+                                                date : date,
+                                                location : location,
+                                                caption : caption,
+                                                tag : tag
+                                            };
+                                            __this.$emit('searchresult', imageInfoSet);
+                                        }
+                                    }
+                                })
+                            }
                         });
 
                     },
@@ -225,6 +274,20 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
             }
         },
         methods: {
+            closeQueryWindow : function() {
+                this.isQuery = false;
+                $('.queryresultshow').empty();
+                $('.queryresultshow').append(`<div class="queryResultTitle">
+                                                <p>Search result</p>
+                                            </div>
+                                            <div class="queryResultClose">
+                                                <button type="button" class="btn-warning btn" id="resultClose" @click="closeQueryWindow">Close</button>
+                                            </div>
+                                            <template v-for="(val, key) in queryresult">
+                                                <querythumbnail :image-Info="val"></querythumbnail>
+                                            </template>`);
+                this.queryresult = [];
+            },
             closeGallery: function() {
                 $('.dragdealer').css('display', 'none');
                 this.$destroy();
@@ -273,6 +336,7 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
                     cursor: 'pointer',
                     overflow: 'hidden',
                     width: '800%',
+                    "z-index": '-1'
                 });
 
                 $('.dragdealer').css('position', 'absolute');
@@ -398,6 +462,11 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
 
             tagAdd : function(tagObj) {
                 this.tags.push(tagObj);
+            },
+
+            queryGridGallery : function(imageInfoSet) {
+                this.queryresult.push(imageInfoSet);
+                this.isQuery = true;
             }
 
         },
@@ -407,7 +476,7 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
 
             $('.handle').empty();
 
-            $('.handle').append(`<template v-for="(val, key) in images">
+            $('.handle').append(`<template v-for="(val, key) in images" v-if="!isQuery">
             <template v-for="(val1, key1) in val.totalImageOfthis">
                 <component :is="currentView" :image-Url="val1" :image-Counter="key1" :image-Info="val" :caption="captions" @captionadded="captionAdd"></component>
             </template>

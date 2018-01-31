@@ -78,9 +78,22 @@
         <template v-for="(val, key) in images">
             <template v-for="(val1, key1) in val.totalImageOfthis">
                 <component :is="currentView" :image-Url="val1" :image-Counter="key1" :image-Info="val" :caption="captions" :tags="tags"
-                           @captionadded="captionAdd" @tagadded="tagAdd"></component>
+                           @captionadded="captionAdd" @tagadded="tagAdd" @searchresult="queryGridGallery"></component>
             </template>
         </template>
+    </div>
+    <div class="wrap_queryResultWindow" v-if="isQuery">
+        <div class="queryresultshow">
+            <div class="queryResultTitle">
+                <p>Search result</p>
+            </div>
+            <div class="queryResultClose">
+                <button type="button" class="btn-warning btn" id="resultClose" @click="closeQueryWindow">Close</button>
+            </div>
+            <template v-for="(val, key) in queryresult">
+                <querythumbnail :image-Info="val"></querythumbnail>
+            </template>
+        </div>
     </div>
 </div>
 

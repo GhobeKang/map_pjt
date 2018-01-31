@@ -93,7 +93,41 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
         })
     };
 
+    var searchImage = function(searchString, position, caption, tag, callback) {
+        var searchQuery = {
+            query : {
+                bool :{
+                    must : {
+                        term : { albumNum : searchString }
+                    },
+                    filter : {
+                        term : { _type : "albumInfo" }
+                    }
+                }
 
+            }
+        };
+
+        $.ajax({
+            async: true,
+            crossDomain: true,
+            processData : false,
+            url : 'http://localhost:9200/albums/_search/?filter_path=hits.hits._source',
+            data : JSON.stringify(searchQuery),
+            contentType: 'application/json',
+            dataType : 'json',
+            type: 'POST',
+            success: function(data, textStatus, xhr) {
+                if (typeof callback === 'function') {
+                    callback(data, position, caption, tag);
+                }
+            },
+            error: function(jqXHR, textStatus, errorTrown) {
+                console.log(errorTrown, jqXHR)
+            }
+        })
+
+    };
     var getElastic = function(searchString, callback) {
         var searchQuery = {
 
@@ -102,17 +136,18 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
             }
 
         };
+
+
         $.ajax({
             async: true,
             crossDomain: true,
             processData : false,
-            url : 'http://localhost:9200/albums/_search/?filter_path=hit.hit._source',
+            url : 'http://localhost:9200/albums/_search/?filter_path=hits.hits._source',
             data : JSON.stringify(searchQuery),
             contentType: 'application/json',
             dataType : 'json',
             type: 'POST',
             success: function(data, textStatus, xhr) {
-                console.log(data);
                 if (typeof callback === 'function') {
                     callback(data);
                 }
@@ -125,6 +160,7 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
 
 
     return {
+        searchImage : searchImage,
         addAlbum : addAlbumElastic,
         addElastic: addElastic,
         deleteElastic: deleteElastic,
