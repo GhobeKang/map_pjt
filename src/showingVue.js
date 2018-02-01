@@ -396,19 +396,22 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
                         xEnd = event.pageX;
                     }
                     var minMoved = imageSize * 0.5;
-                    var distance = xStart - xMove;
+                    var offset_M = xStart - xMove;
+                    var distance = xStart - xEnd;
 
                     beforePosition = -imageOffset;
 
                     // $('.current').css('top', '-1in');
 
                     if (isDragging) {
-                        $('.current').css({
-                            transform: 'perspective(15px) translateZ(-2px)',
-                            animation: 'slideIn 4s'
-                        });
+                        if (Math.abs(distance) > 10) {
+                            $('.current').css({
+                                transform: 'perspective(15px) translateZ(-2px)',
+                                animation: 'slideIn 4s'
+                            });
+                        }
 
-                        if (distance > minMoved) {
+                        if (offset_M > minMoved) {
                             if (xStart > xEnd) {
                                 xOffset = -imageOffset - imageSize;
                                 beforePosition = xOffset;
@@ -421,7 +424,7 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
                                 }
                             }
 
-                        } else if(distance < -minMoved) {
+                        } else if(offset_M < -minMoved) {
                             xOffset = -imageOffset + imageSize;
                             beforePosition = xOffset;
 

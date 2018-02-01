@@ -16,7 +16,10 @@
 <div class="backImg">
 
 </div>
-<div class="col-md-offset-4 col-sm-offset-4 col-xs-offset-1">
+<div class="col-md-offset-4 col-sm-offset-4 col-xs-offset-2" id="mainContainer">
+    <div class="MainTitle">
+        <p>_ Pinto</p>
+    </div>
     <form class="loginForm">
         <div id="loginContainer">
             <div class="input-group">
@@ -180,6 +183,7 @@
                             })
                     });
 
+                    $('.MainTitle').addClass('hidden');
                     $('.loginForm').addClass('hidden');
                     $('#signinModal').modal('hide');
                     removeInnerTexts(function() {
@@ -188,6 +192,7 @@
                 }else {
                     $('#welcomeMsg').remove();
                     $('#logOutBtn').remove();
+                    $('.MainTitle').removeClass('hidden');
                     $('.loginForm').removeClass('hidden');
                 }
             });

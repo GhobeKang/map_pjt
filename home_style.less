@@ -6,6 +6,15 @@
   font-family: 'blackNapkin';
   src: url(./font/blackNapkin.ttf)
 }
+@font-face {
+  font-family: airways;
+  src: url(./font/Airways.ttf);
+}
+.middleArrange() {
+  position : relative;
+  left : 50%;
+  transform : translate(-50%);
+}
 
 .backImg {
   position: fixed;
@@ -14,7 +23,19 @@
   height: 100%;
   width: 100%;
   opacity: 0.6;
+  z-index : -1;
 }
+.MainTitleConfig {
+  .middleArrange();
+  font-family: airways;
+  p {
+    word-spacing: 5px;
+    font-size : 50px;
+    font-weight : 500;
+    color : antiquewhite;
+  }
+}
+
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity: 1;}
@@ -23,16 +44,25 @@
   from {opacity: 1; transform: translateX(500px)}
   to {opacity: 0; transform: translateX(0px);}
 }
-@media (min-width: 769px) {
+@media (min-width : 1200px) {
+  #mainContainer {
+    width : 30%;
+  }
+  .MainTitle {
+    .MainTitleConfig;
+    padding-top : 10%;
+    p {
+      font-size : 11vw;
+    }
+  }
   .loginForm {
-    display: block;
-    position: absolute;
-    margin : 30% 0 0 0;
-    width: 37%;
+    .middleArrange();
+    position: relative;
+    margin-top : 25%;
+    width: 100%;
     height: 64%;
     #loginContainer {
       position:absolute;
-      left: 16%;
       .input-group {
         margin-top : 10px;
       }
@@ -40,18 +70,176 @@
     #email {
       display: block;
       height: 50px;
-      width: 250px;
+      width: 100%;
       text-align: center;
     }
     #password {
       display: block;
       height: 50px;
-      width: 267px;
+      width: 100%;
       text-align: center;
     }
     button {
       margin-top: 10px;
-      width: 155px;
+      width: 49%;
+      height: 40px;
+    }
+  }
+  .modal-dialog {
+    position: absolute;
+    .modal-content {
+      width: 65%;
+      .modal-title {
+        text-align: center;
+      }
+      .modal-body {
+        form {
+          .input-group {
+            margin-top: 10px;
+            #email_Modal {
+              display: block;
+              height: 50px;
+              width: 289px;
+              text-align: center;
+            }
+            #password_Modal {
+              display: block;
+              height: 50px;
+              width: 306px;
+              text-align: center;
+            }
+          }
+          button {
+            margin-top: 10px;
+            position: relative;
+            left: 65%;
+            width: 123px;
+            height: 40px;
+          }
+        }
+      }
+
+    }
+  }
+
+  #welcomeMsg {
+    font-family: blackNapkin;
+    animation: fadeIn 4s;
+    position: fixed;
+    width: 100%;
+    margin-top: 20%;
+    text-align: center;
+    p {
+      font-size: 35px;
+      color : #FFFFFF;
+      strong {
+        color : #FFB400;
+      }
+    }
+  }
+
+  #slideGetIn {
+    position: relative;
+    width: 600px;
+    height: auto;
+    margin: 0 auto;
+    .handle {
+      margin-top: 10%;
+      width: 600px;
+      height: 80px;
+      position: absolute;
+      display: block;
+      cursor: pointer;
+      user-select: none;
+      border: solid 2px whitesmoke;
+      border-radius: 30px;
+      background: rgba(200,200,200,0.5);
+      .slideText {
+        &:hover {
+          color: gold;
+        }
+        font-family: crayon;
+        overflow: hidden;
+        margin-top: 12px;
+        padding-left: 10px;
+        display: flex;
+        font-size: 35px;
+        text-align: center;
+        width: 100%;
+        heigth: 100%;
+        color: #282828;
+      }
+    }
+  }
+  #logOutBtn {
+    position: absolute;
+    display: inline-flex;
+    top: 10px;
+    left: 93%;
+    border-radius: 10px;
+    background : transparent;
+    color: lightgray;
+    width: 73px;
+    height: 30px;
+    text-align: center;
+  }
+  .alert {
+    width: 500px;
+    height: 120px;
+    position: absolute;
+    display: block;
+    top: 10%;
+    left: 32%;
+    font-size: 20px;
+    text-align: center;
+    button {
+      margin-top: 20px;
+      width: 100px;
+    }
+    .close{
+      width:0;
+      margin:0 10px 0 0;
+    }
+  }
+}
+@media (min-width: 769px) and (max-width : 1200px) {
+  #mainContainer {
+    width : 50%;
+  }
+  .MainTitle {
+    .MainTitleConfig;
+    padding-top : 10%;
+    p {
+      font-size : 11vw;
+    }
+  }
+  .loginForm {
+    .middleArrange();
+    position: relative;
+    margin-top : 25%;
+    width: 100%;
+    height: 64%;
+    #loginContainer {
+      position:absolute;
+      .input-group {
+        margin-top : 10px;
+      }
+    }
+    #email {
+      display: block;
+      height: 50px;
+      width: 31vw;
+      text-align: center;
+    }
+    #password {
+      display: block;
+      height: 50px;
+      width: 32.5vw;
+      text-align: center;
+    }
+    button {
+      margin-top: 10px;
+      width: 18vw;
       height: 40px;
     }
   }
@@ -174,11 +362,18 @@
 }
 // mobile devices
 @media (max-width: 768px) {
+  .MainTitle {
+    .MainTitleConfig;
+    padding-top : 25%;
+    p {
+      font-size : 100px;
+    }
+  }
   .loginForm {
     display: block;
     position: absolute;
-    margin : 83% 0 0 0;
-    width: 37%;
+    margin : 30% 0 0 0;
+    width: 70%;
     height: 30%;
     #loginContainer {
       position:absolute;
@@ -189,18 +384,18 @@
     #email {
       display: block;
       height: 50px;
-      width: 240px;
+      width: 100%;
       text-align: center;
     }
     #password {
       display: block;
       height: 50px;
-      width: 257px;
+      width: 100%;
       text-align: center;
     }
     button {
       margin-top: 10px;
-      width: 149px;
+      width: 49%;
       height: 40px;
     }
   }
