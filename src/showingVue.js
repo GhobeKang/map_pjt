@@ -106,7 +106,7 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
                 },
                 template: `<div class="slide" :class="counterCal"><img :src="imageUrl">
                                 <div class="container_captionArea"  v-if="!isCaption">
-                                    <textarea class="caption" v-model="captionContent"></textarea>
+                                    <textarea class="caption" v-model="captionContent" placeholder="Caption for Picture"></textarea>
                                     <button type="button" class="save_caption btn btn-info" @click="saveCaption">Save Caption</button>
                                 </div>
                                 <span v-if="isCaption">{{captionContent}}</span>
@@ -269,8 +269,12 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
                             }
                         })
                     }
+                },
+                mounted : function() {
+                    this.$nextTick(function() {
+                        $('.slide').unwrap('.wrap_component');
+                    });
                 }
-
             }
         },
         methods: {
@@ -344,6 +348,7 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
                     var ratio = 800*(Math.round(imagesNum / 18) + 1) + '';
                     $('.handle').css('width', ratio+'%');
                 }
+
 
                 $('.dragdealer').on('keyup', function (event) {
 
@@ -454,6 +459,15 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
                     console.log('mouse up event');
                 });
 
+                $('.imageCarouselTitle>span').click(function() {
+                    $('.dragdealer').css('display', 'none');
+                    showing_vue.images = [];
+                    $('.handle').css('transform', 'translate3d(0, -15% ,0)');
+                    $('.handle').off();
+                    $(document).off('mouseup');
+                    __this.$destroy();
+                });
+
                 if (typeof callback === 'function') {
                     callback();
                 }
@@ -479,10 +493,11 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
 
             $('.handle').empty();
 
-            $('.handle').append(`<template v-for="(val, key) in images" v-if="!isQuery">
-            <template v-for="(val1, key1) in val.totalImageOfthis">
-                <component :is="currentView" :image-Url="val1" :image-Counter="key1" :image-Info="val" :caption="captions" @captionadded="captionAdd"></component>
-            </template>
+            $('.handle').append(`<template v-for="(val, key) in images">
+            <div class="wrap_component" v-for="(val1, key1) in val.totalImageOfthis" :key="val1">
+                <component :is="currentView" :tags="tags" :image-Url="val1" :image-Counter="key1" :image-Info="val" :caption="captions"
+                           @captionadded="captionAdd" @tagadded="tagAdd" @searchresult="queryGridGallery"></component>
+            </div>
         </template>`);
         },
 

@@ -68,6 +68,7 @@
 
 <div id="image-carousel" class="dragdealer">
     <div class="imageCarouselTitle" v-show="currentView === 'gallerythumbnail'">
+        <span>&times;</span>
         <h1><strong>Pieces of your Journey</strong></h1>
     </div>
     <div class="allImageTitle" v-show="currentView === 'gridthumbnail'">
@@ -76,10 +77,10 @@
     </div>
     <div class="handle">
         <template v-for="(val, key) in images">
-            <template v-for="(val1, key1) in val.totalImageOfthis">
-                <component :is="currentView" :image-Url="val1" :image-Counter="key1" :image-Info="val" :caption="captions" :tags="tags"
+            <div class="wrap_component" v-for="(val1, key1) in val.totalImageOfthis" :key="val1">
+                <component :is="currentView" :tags="tags" :image-Url="val1" :image-Counter="key1" :image-Info="val" :caption="captions"
                            @captionadded="captionAdd" @tagadded="tagAdd" @searchresult="queryGridGallery"></component>
-            </template>
+            </div>
         </template>
     </div>
     <div class="wrap_queryResultWindow" v-if="isQuery">
