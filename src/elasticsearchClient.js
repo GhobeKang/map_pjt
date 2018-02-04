@@ -41,7 +41,7 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
         }
 
         if (isUpdate) {
-            url = 'http://localhost:9200/albums/subInfo/'+albumNum+'/_update';
+            url = 'http://localhost:9200/albums/subInfo/_update';
             if (where === 'caption') {
                 insertJson = {
                     'doc': {
@@ -56,7 +56,7 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
                 }
             }
         }else {
-            url = 'http://localhost:9200/albums/subInfo/'+albumNum;
+            url = 'http://localhost:9200/albums/subInfo/';
         }
 
 
@@ -89,6 +89,34 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
             },
             error: function(jqXHR, textStatus, errorTrown) {
                 console.log(errorTrown, jqXHR)
+            }
+        })
+    };
+
+    var deleteAlbumElastic = function(albumNum) {
+        var query = {
+            query : {
+                match : {
+                    albumNum : albumNum
+                }
+            }
+        };
+
+        var url = 'http://localhost:9200/albums/_delete_by_query';
+
+        $.ajax({
+            async: true,
+            crossDomain: true,
+            url: url,
+            data: JSON.stringify(query),
+            contentType: 'application/json',
+            dataType: 'json',
+            method: 'POST',
+            success: function(data, textStatus, xhr) {
+                console.log(data);
+            },
+            error: function(jqXHR, textStatus, errorTrown) {
+                console.log(errorTrown, jqXHR);
             }
         })
     };
@@ -164,6 +192,7 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
         addAlbum : addAlbumElastic,
         addElastic: addElastic,
         deleteElastic: deleteElastic,
+        delAlbum : deleteAlbumElastic,
         getElastic : getElastic
     }
 })

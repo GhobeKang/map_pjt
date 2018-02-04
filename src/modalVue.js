@@ -56,85 +56,89 @@ window.define(['./dropzoneInit',
                         var albumNum;
                         var dbTitle;
 
-                        database.ref('/'+currentUserID).once('value').then(function(snapshot) {
-                            if (snapshot.numChildren() === 0) {
-                                albumNum = snapshot.numChildren();
+                        if (!location || !date || !title) {
+                            alert('values of required must fill them in')
+                        }else {
+                            database.ref('/'+currentUserID).once('value').then(function(snapshot) {
+                                if (snapshot.numChildren() === 0) {
+                                    albumNum = snapshot.numChildren();
+                                }else {
+                                    albumNum = snapshot.numChildren() - 1;
+                                }
+                            });
+
+                            if (title.search(' ') !== -1) {
+                                dbTitle = title.replace(' ', '-');
                             }else {
-                                albumNum = snapshot.numChildren() - 1;
+                                dbTitle = title;
                             }
-                        });
 
-                        if (title.search(' ') !== -1) {
-                            dbTitle = title.replace(' ', '-');
-                        }else {
-                            dbTitle = title;
-                        }
-
-                        if (currentUserID === null) {
-                            alert("please log-in")
-                        }else {
-                            var pathRoot = store.ref();
-                            if (!title) {
-                                alert("please input a title to store a conetent into database")
+                            if (currentUserID === null) {
+                                alert("please log-in")
                             }else {
-                                $('#decisionButtons>.start').attr('disabled', 'disabled');
-                                $('#loadingImage_Back').css('display','block');
-                                $('#loadingImage').css({
-                                    top: (window.innerHeight/2)-200,
-                                    left: (window.innerWidth/2)-200
-                                });
-                                var downloadURL = [];
-                                var imageStoreProcess = function() {
-                                    var deferred = $.Deferred();
-                                    var counter = 0;
-
-                                    for (var key in queuedFiles) {
-                                        var pathInStore = pathRoot.child('/user/'+currentUserID+'/'+dbTitle+'/'+queuedFiles[key].upload.filename);
-                                        pathInStore.put(queuedFiles[key]).then(function(snapshot) {
-                                            counter++;
-                                            downloadURL.push(snapshot.metadata.downloadURLs[0]);
-
-                                        },function(error){
-                                            console.log(error);
-                                        }).then(function() {
-                                            if (counter === queuedFiles.length){
-                                                deferred.resolve();
-                                            }
-                                        })
-                                    }
-
-                                    return deferred.promise();
-                                };
-                                imageStoreProcess().then(function() {
-                                    var inputSet = {
-                                        albumNum: albumNum,
-                                        imageInfo: {
-                                            caption: "",
-                                            downloadURL:downloadURL
-                                        },
-                                        location : location,
-                                        date : date,
-                                        desc : desc,
-                                        title : title,
-                                        geometry: geometry
-                                    };
-
-                                    elastic.addAlbum(albumNum, inputSet);
-
-                                    var databasePath = database.ref('/'+currentUserID+'/'+dbTitle);
-                                    var duplicationAllImages = database.ref('/'+currentUserID+'/allImages');
-                                    duplicationAllImages.push().set({
-                                        downloadURL: downloadURL,
-                                        albumNum : albumNum
+                                var pathRoot = store.ref();
+                                if (!title) {
+                                    alert("please input a title to store a conetent into database")
+                                }else {
+                                    $('#decisionButtons>.start').attr('disabled', 'disabled');
+                                    $('#loadingImage_Back').css('display','block');
+                                    $('#loadingImage').css({
+                                        top: (window.innerHeight/2)-200,
+                                        left: (window.innerWidth/2)-200
                                     });
-                                    databasePath.set(inputSet)
-                                        .then(function() {
-                                            $('#loadingImage_Back').css('display','none');
-                                            $('#afterSaved').css('display', 'block');
-                                            console.log('storing into db is successed!');
-                                        })
+                                    var downloadURL = [];
+                                    var imageStoreProcess = function() {
+                                        var deferred = $.Deferred();
+                                        var counter = 0;
 
-                                })
+                                        for (var key in queuedFiles) {
+                                            var pathInStore = pathRoot.child('/user/'+currentUserID+'/'+dbTitle+'/'+queuedFiles[key].upload.filename);
+                                            pathInStore.put(queuedFiles[key]).then(function(snapshot) {
+                                                counter++;
+                                                downloadURL.push(snapshot.metadata.downloadURLs[0]);
+
+                                            },function(error){
+                                                console.log(error);
+                                            }).then(function() {
+                                                if (counter === queuedFiles.length){
+                                                    deferred.resolve();
+                                                }
+                                            })
+                                        }
+
+                                        return deferred.promise();
+                                    };
+                                    imageStoreProcess().then(function() {
+                                        var inputSet = {
+                                            albumNum: albumNum,
+                                            imageInfo: {
+                                                caption: "",
+                                                downloadURL:downloadURL
+                                            },
+                                            location : location,
+                                            date : date,
+                                            desc : desc,
+                                            title : title,
+                                            geometry: geometry
+                                        };
+
+                                        elastic.addAlbum(albumNum, inputSet);
+
+                                        var databasePath = database.ref('/'+currentUserID+'/'+dbTitle);
+                                        var duplicationAllImages = database.ref('/'+currentUserID+'/allImages');
+                                        duplicationAllImages.push().set({
+                                            downloadURL: downloadURL,
+                                            albumNum : albumNum
+                                        });
+                                        databasePath.set(inputSet)
+                                            .then(function() {
+                                                $('#loadingImage_Back').css('display','none');
+                                                $('#afterSaved').css('display', 'block');
+                                                console.log('storing into db is successed!');
+                                            })
+
+                                    })
+                                }
                             }
                         }
                     }

@@ -83,7 +83,7 @@
             </div>
         </template>
     </div>
-    <div class="wrap_queryResultWindow" v-if="isQuery">
+    <div class="wrap_queryResultWindow">
         <div class="queryresultshow">
             <div class="queryResultTitle">
                 <p>Search result</p>
@@ -91,9 +91,9 @@
             <div class="queryResultClose">
                 <button type="button" class="btn-warning btn" id="resultClose" @click="closeQueryWindow">Close</button>
             </div>
-            <template v-for="(val, key) in queryresult">
-                <querythumbnail :image-Info="val"></querythumbnail>
-            </template>
+            <!--<template v-for="(val, key) in queryresult">-->
+                <!--<querythumbnail :image-Info="val"></querythumbnail>-->
+            <!--</template>-->
         </div>
     </div>
 </div>

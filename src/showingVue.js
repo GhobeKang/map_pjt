@@ -60,7 +60,12 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
                                     <p>Where : {{imageInfo.location}}</p>
                                     <p>{{hasCaption}}</p>
                                 </div>
-                           </div>`
+                           </div>`,
+                mounted: function() {
+                    this.$nextTick(function() {
+                        $('.gridthumbnail').unwrap('.wrap_component');
+                    })
+                }
             },
             gallerythumbnail: {
                 props: ['imageUrl', 'imageCounter', 'imageInfo', 'caption', 'tags'],
@@ -279,21 +284,13 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
         },
         methods: {
             closeQueryWindow : function() {
-                this.isQuery = false;
-                $('.queryresultshow').empty();
-                $('.queryresultshow').append(`<div class="queryResultTitle">
-                                                <p>Search result</p>
-                                            </div>
-                                            <div class="queryResultClose">
-                                                <button type="button" class="btn-warning btn" id="resultClose" @click="closeQueryWindow">Close</button>
-                                            </div>
-                                            <template v-for="(val, key) in queryresult">
-                                                <querythumbnail :image-Info="val"></querythumbnail>
-                                            </template>`);
-                this.queryresult = [];
+                $('.wrap_queryResultWindow').css('display', 'none');
+                $('.querythumbnail').detach();
+
             },
             closeGallery: function() {
                 $('.dragdealer').css('display', 'none');
+
                 this.$destroy();
             },
             loadGridGallery : function(totalImages, currentView, imageInfo, callback) {
@@ -370,7 +367,7 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
                         xStart = event.pageX;
                     }
                     isDragging = true;
-                    console.log('mouse down event');
+
                 });
                 $('.handle').on('mousemove touchmove', function (event) {
 
@@ -394,7 +391,7 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
                     var imageOffset = $('.current')["0"].offsetLeft;
                     var imageSize = $('.current')["0"].offsetWidth;
                     var xEnd;
-                    console.log(event);
+
                     if (event.type === 'touchend') {
                         xEnd = event.changedTouches['0'].pageX;
                     }else {
@@ -456,17 +453,20 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
                         isDragging = false;
 
                     }
-                    console.log('mouse up event');
+
                 });
 
                 $('.imageCarouselTitle>span').click(function() {
                     $('.dragdealer').css('display', 'none');
-                    showing_vue.images = [];
+                    __this.images = [];
                     $('.handle').css('transform', 'translate3d(0, -15% ,0)');
                     $('.handle').off();
                     $(document).off('mouseup');
+                    __this.isShowing = false;
                     __this.$destroy();
                 });
+
+                // __this.$forceUpdate();
 
                 if (typeof callback === 'function') {
                     callback();
@@ -482,14 +482,21 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
             },
 
             queryGridGallery : function(imageInfoSet) {
-                this.queryresult.push(imageInfoSet);
-                this.isQuery = true;
+                var __this = this;
+                var imageDOM = '<div class="querythumbnail"><img src="'+imageInfoSet.imageUrl+'" class="gridItem">' +
+                        '<div class="thumbnailInfo">' +
+                    '<p class="thumbnailInfo_title">Title : '+imageInfoSet.title+'</p>' +
+                    '<p class="thumbnailInfo_when">When : '+imageInfoSet.date+'</p>' +
+                    '<p class="thumbnailInfo_where">Where : '+imageInfoSet.location+'</p>' +
+                    '</div></div>';
+                $('.queryresultshow').append(imageDOM);
+                $('.queryResultClose>button').click(__this.closeQueryWindow);
+                $('.wrap_queryResultWindow').css('display','block');
             }
 
         },
 
         destroyed: function() {
-            this.isShowing = false;
 
             $('.handle').empty();
 
@@ -501,12 +508,18 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
         </template>`);
         },
 
+        mounted : function() {
+            this.isShowing = false;
+        },
+
         updated: function () {
+            console.log(this.isShowing);
             if (!this.isShowing) {
                 this.$nextTick(function () {
+                    console.log(this);
                     $('.slide:first').addClass('current');
+                    this.isShowing = true;
                 });
-                this.isShowing = true;
             }
         }
     };

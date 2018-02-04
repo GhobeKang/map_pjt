@@ -1,8 +1,8 @@
 /**
  * Created by Ghobe on 2018-01-10.
  */
-window.define(['firebaseInit','google','defaultMapCreate','showingVue'],
-    function(firebase, g, defaultmap, show) {
+window.define(['firebaseInit','google','defaultMapCreate','showingVue','elasticsearchClient'],
+    function(firebase, g, defaultmap, show, elastic) {
 
     var auth = firebase.auth;
     var database = firebase.database;
@@ -68,6 +68,7 @@ window.define(['firebaseInit','google','defaultMapCreate','showingVue'],
                         },
                         showImages: function () {
                             var showingVue = new Vue(show.show);
+
                             if (this.albumNum === this.imageInfo.length-1){
                                 var imageSlice = this.imageInfo.slice(this.albumNum);
                             }else {
@@ -138,6 +139,8 @@ window.define(['firebaseInit','google','defaultMapCreate','showingVue'],
                         if (checkedItem[index] !== null) {
                             var albumNum = checkedItem[index].num;
                             var contentTitle = checkedItem[index].title;
+
+                            elastic.delAlbum(albumNum);
 
                             database.ref('/' + curUserID.currentUser.uid + '/allImages').once('value')
                                 .then(function(snap){
