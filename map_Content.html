@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <!-- 부가적인 테마 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    <link rel="stylesheet/less" href="map_less.less">
-    <script src="./lib/less.min.js"></script>
+    <link rel="stylesheet" href="map_less.css">
 </head>
 
 <body>
@@ -106,7 +105,7 @@
                 <h1>Add a Repository</h1>
             </div>
             <div class="modal-body">
-                <p>Search Location</p>
+                <p><span>*</span> Search Location</p>
                 <input v-model='location' id="inputLocationName" type="text" @keyup.enter="fireClick">
                 <button type="button" id="SearchBtn">Search</button>
                 <div class="searchResultDisplayed">
@@ -114,9 +113,9 @@
 
                     </div>
                 </div>
-                <p>title</p>
+                <p><span>*</span> title</p>
                 <input v-model="title" id="inputTitle" type="text">
-                <p>Date</p>
+                <p><span>*</span> Date</p>
                 <input type="date" v-model="date" id="inputDate">
                 <p>description</p>
                 <input v-model="desc" id="inputDesc" type="text">

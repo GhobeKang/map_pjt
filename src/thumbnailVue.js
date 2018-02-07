@@ -1,14 +1,16 @@
 /**
  * Created by Ghobe on 2018-01-10.
  */
-window.define(['firebaseInit','google','defaultMapCreate','showingVue','elasticsearchClient'],
-    function(firebase, g, defaultmap, show, elastic) {
+window.define(['firebaseInit','google','defaultMapCreate','showingVue','elasticsearchClient','googlePlaceSearch'],
+    function(firebase, g, defaultmap, show, elastic, placeSearch) {
 
     var auth = firebase.auth;
     var database = firebase.database;
     var curUser;
-
-    var map = defaultmap.map;
+    var map;
+    defaultmap.map(function(val) {
+        map = val;
+    });
 
     auth.onAuthStateChanged(function (user) {
         if (user){
@@ -89,32 +91,11 @@ window.define(['firebaseInit','google','defaultMapCreate','showingVue','elastics
                     var showingVue = new Vue(show.show);
 
                     var allImages = [];
-                    var allCaptions = [];
 
-                    // var locationofDB = database.ref('/' + curUserID.currentUser.uid + '/allImages');
-                    // locationofDB.once('value').then(function (snap) {
-                    //     snap.forEach(function (result) {
-                    //         var urls = result.child('downloadURL').val();
-                    //         var albumNum = result.child('albumNum').val();
-                    //         for (var index in urls) {
-                    //             allImages.push(urls[index]);
-                    //         }
-                    //         if (result.hasChild('captions')){
-                    //             var caption = result.child('captions').val();
-                    //             for (var index in caption) {
-                    //                 allCaptions.push(caption[index]);
-                    //             }
-                    //         }
-                    //     })
-                    // }).then(function () {
                         showingVue.loadGridGallery(allImages, 'gridthumbnail', __this.images, function() {
 
                         });
-                        // showingVue.loadingTotalImages(allImages, allCaptions, albumNum , function () {
-                        //     $('.dragdealer').attr('tabindex', -1).focus();
-                        //     $('.dragdealer').css('display', 'block');
-                        // });
-                    // })
+
                 },
                 checkedContentCollect: function (checked) {
                     for (var i = 0; i < this.checkedItems.length; i++) {
@@ -215,6 +196,12 @@ window.define(['firebaseInit','google','defaultMapCreate','showingVue','elastics
                                                 '</div>';
                                             var infoWindow = new google.maps.InfoWindow({
                                                 content: infoContent
+                                            });
+
+                                            initMarker.addListener('click', function(event) {
+                                                console.log(event);
+                                                placeSearch.searchPlace(event.latLng, map);
+                                                map.setZoom(15);
                                             });
 
                                             initMarker.addListener('mouseover', function (event) {

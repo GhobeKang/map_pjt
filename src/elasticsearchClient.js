@@ -3,7 +3,7 @@
  */
 window.define(['elasticsearch','jquery'], function(elastic, $){
     var addAlbumElastic = function(albumNum, json) {
-        var url = 'http://localhost:9200/albums/albumInfo/'+albumNum+'/';
+        var url = 'http://18.221.145.44:9200/albums/albumInfo/'+albumNum+'/';
 
         $.ajax({
             async: true,
@@ -41,22 +41,40 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
         }
 
         if (isUpdate) {
-            url = 'http://localhost:9200/albums/subInfo/_update';
+            url = 'http://18.221.145.44:9200/albums/_update_by_query';
             if (where === 'caption') {
                 insertJson = {
-                    'doc': {
-                        caption: value
+                    script : {
+                        lang : "painless",
+                        source : "ctx._source.caption = '"+value+"'"
+                    },
+                    query : {
+                        bool : {
+                            must : {
+                                match : { albumNum : albumNum },
+                                match : { position : position }
+                            }
+                        }
                     }
                 }
             }else if (where === 'tag') {
                 insertJson = {
-                    'doc': {
-                        tag: value
+                    script : {
+                        lang : "painless",
+                        source : "ctx._source.tag = '"+value+"'"
+                    },
+                    query : {
+                        bool : {
+                            must : {
+                                match : { albumNum : albumNum },
+                                match : { position : position }
+                            }
+                        }
                     }
                 }
             }
         }else {
-            url = 'http://localhost:9200/albums/subInfo/';
+            url = 'http://18.221.145.44:9200/albums/subInfo/';
         }
 
 
@@ -82,7 +100,7 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
         $.ajax({
             async: true,
             crossDomain: true,
-            url : 'http://localhost:9200/'+index+'/',
+            url : 'http://18.221.145.44:9200/'+index+'/',
             method: 'DELETE',
             success: function(data, textStatus, xhr) {
                 console.log(data);
@@ -102,7 +120,7 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
             }
         };
 
-        var url = 'http://localhost:9200/albums/_delete_by_query';
+        var url = 'http://18.221.145.44:9200/albums/_delete_by_query';
 
         $.ajax({
             async: true,
@@ -140,7 +158,7 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
             async: true,
             crossDomain: true,
             processData : false,
-            url : 'http://localhost:9200/albums/_search/?filter_path=hits.hits._source',
+            url : 'http://18.221.145.44:9200/albums/_search/?filter_path=hits.hits._source',
             data : JSON.stringify(searchQuery),
             contentType: 'application/json',
             dataType : 'json',
@@ -170,7 +188,7 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
             async: true,
             crossDomain: true,
             processData : false,
-            url : 'http://localhost:9200/albums/_search/?filter_path=hits.hits._source',
+            url : 'http://18.221.145.44:9200/albums/_search/?filter_path=hits.hits._source',
             data : JSON.stringify(searchQuery),
             contentType: 'application/json',
             dataType : 'json',

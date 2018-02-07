@@ -16,6 +16,29 @@
   src: url(./font/Airways.ttf);
 }
 
+.placeInfo {
+  font-family: miseng;
+  .placeName {
+    span {
+      font-size : 34px;
+      font-weight : bold;
+    }
+  }
+  .placeLocation {
+    font-size : 25px;
+    font-weight : 200;
+  }
+  .placeImages {
+    display: flex;
+    overflow-x: scroll;
+    border: 2px solid #282828;
+    background-color: #282828;
+    span>img {
+      border: 2px solid #3c3c3c;
+      margin: 5px 5px 10px;
+    }
+  }
+}
 
 .backImg {
   background: url(./img/snow-gif-8.gif) no-repeat;
@@ -642,6 +665,11 @@ body {
 }
 .modal-body {
   p {
+    span {
+      color :red;
+      font-weight : 100;
+      font-family : "Arial Black";
+    }
     font-size: 20px;
     font-weight: bold;
   }

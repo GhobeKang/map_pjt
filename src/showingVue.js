@@ -513,10 +513,8 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
         },
 
         updated: function () {
-            console.log(this.isShowing);
             if (!this.isShowing) {
                 this.$nextTick(function () {
-                    console.log(this);
                     $('.slide:first').addClass('current');
                     this.isShowing = true;
                 });

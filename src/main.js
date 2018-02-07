@@ -5,6 +5,7 @@
 require(['google','bootstrap'], function(g, boot) {
     // t.thumbnailVue.imagesLoad();
     var initCenterPoint = new google.maps.LatLng(37.54235, 126.9352);
+    var geocoder = new google.maps.Geocoder();
 
     $('#addModal').on('hidden.bs.modal', function() {
         window.location.reload();
@@ -13,7 +14,6 @@ require(['google','bootstrap'], function(g, boot) {
 
         $('#SearchBtn').on('click', function() {
             var address = modalVue.location;
-            geocoder = new google.maps.Geocoder();
             geocoder.geocode({
                 address: address
             }, function(result, status) {
@@ -43,17 +43,32 @@ require(['google','bootstrap'], function(g, boot) {
         });
         var option = {
             bounds: circle.getBounds(),
-            type: ['(cities)']
         };
+        var centerMarker = new google.maps.Marker({
+            map: modalMap,
+            position: modalMap.getCenter(),
+            Icon : './img/centerCursor.png'
+        });
         var input = document.getElementById('inputLocationName');
         autocomplete = new google.maps.places.Autocomplete(input, option);
         autocomplete.addListener('place_changed', function() {
             var place = autocomplete.getPlace().formatted_address;
             modalVue.location = place;
         });
+
+        modalMap.addListener('mouseup', function(ev) {
+            var mapCenter = modalMap.getCenter();
+            geocoder.geocode({'location': mapCenter}, function(result, status) {
+                if (status === 'OK') {
+                    modalVue.location = result[1].formatted_address;
+                }
+            })
+        });
+
         modalMap.addListener('center_changed', function() {
 
-            var mapCenter = modalMap.getCenter();
+            var mapCenter = modalMap.getCenter(); // postion of map ltn, ltg set
+            centerMarker.setPosition(mapCenter);
             var circleBoundary = new google.maps.Circle({
                 center: mapCenter,
                 radius: 100000
