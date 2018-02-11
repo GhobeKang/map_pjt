@@ -7,11 +7,13 @@ define(['google'], function() {
             var pos;
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
-                    pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    resolve(pos);
+                    if (position) {
+                        pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        resolve(pos);
+                    }
                 })
             }else {
                 pos = new google.maps.LatLng(37.54235, 126.9352);

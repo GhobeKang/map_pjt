@@ -189,6 +189,7 @@ window.define(['firebaseInit','google','defaultMapCreate','showingVue','elastics
                                                 animation: google.maps.Animation.DROP,
                                                 icon: './img/bluePin.png'
                                             });
+
                                             var infoContent = '<div>' +
                                                 '<p><strong style="font-size:20px; font-family: miseng"><span><img src=""></span>Pinto  [' + location + ']</strong></p>' +
                                                 '<p><strong>Piece Name : </strong>' + datasnapshot.child('title').val() + '</p>' +

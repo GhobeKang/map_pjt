@@ -97,6 +97,10 @@
     </div>
 </div>
 
+<div class="queryresultimage_back">
+    <div class="queryResultImage"></div>
+</div>
+
 
 <div id="addModal" class="modal fade" tabindex="-1">
     <div class="modal-dialog">
@@ -164,6 +168,14 @@
     </div>
 </div>
 
+<div class="footer">
+    <div class="footer_content center-block">
+        <p><strong>Developer Info</strong></p>
+        <p>Developer : Byoung Cheol Kang / Country : Republic of Korea / E-mail : dreamty88@gmail.com</p>
+        <p>Tel : +82 10-6221-9113</p>
+    </div>
+</div>
+
 <script src="https://unpkg.com/vue"></script>
 <script>
     var require = {
@@ -195,7 +207,7 @@
         modalVue = new Vue(modal.modalVue);
         thumbnailVue = new Vue(thumbnail.thumbnailVue);
 
-        require(['main'], function(){
+        require(['modalMapInit'], function(){
 
         })
     });

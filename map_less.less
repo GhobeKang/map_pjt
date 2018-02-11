@@ -16,6 +16,54 @@
   src: url(./font/Airways.ttf);
 }
 
+.footer {
+  width : 100%;
+  height : 7vh;
+  font-family : miseng;
+  position: absolute;
+  top: 93%;
+  line-height: 10px;
+  z-index: 1;
+  padding: 1vh 0 0 11vw;
+  .footer_content {
+    font-size : 1.5vw;
+  }
+}
+.queryresultimage_back {
+  position: absolute;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 10;
+}
+.queryResultImage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 100;
+  width: 50vw;
+  height: 50vh;
+  border: solid 3px black;
+  padding: 5px;
+  background: lightgray;
+  span {
+    position: absolute;
+    color: #FFA2AD;
+    font-size: 3vw;
+    left: 94%;
+    cursor : pointer;
+    &:hover {
+      color : #93DAFF;
+    }
+  }
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
 .placeInfo {
   font-family: miseng;
   .placeName {
@@ -33,9 +81,16 @@
     overflow-x: scroll;
     border: 2px solid #282828;
     background-color: #282828;
-    span>img {
-      border: 2px solid #3c3c3c;
-      margin: 5px 5px 10px;
+    span {
+      width: 17vw;
+      height: 15vh;
+      display: table;
+      img {
+        width: 100%;
+        height: 100%;
+        border: 2px solid #3c3c3c;
+        margin: 5px 5px 10px;
+      }
     }
   }
 }
@@ -80,6 +135,8 @@ body {
       p {
         text-align: center;
         font-size : 40px;
+        color : white;
+        text-shadow: 6px 8px 7px grey;
       }
     }
 
@@ -104,6 +161,7 @@ body {
         border: solid 2px black;
         padding: 5px;
         border-radius : 5%;
+        box-shadow: 4px 3px 22px lightgrey;
       }
       .thumbnailInfo {
         display: none;
@@ -150,7 +208,7 @@ body {
 
 .top-navConfig {
   height: 50px;
-  width: 100%;
+  width: 74vw;
   margin-top: 1%;
   position: relative;
   display: block;
@@ -166,9 +224,11 @@ body {
   div {
     margin: 12px 0 0 17px;
     color: #FFE6EB;
-    font-size: 20px;
     word-spacing: -11px;
     display: inline-flex;
+    span {
+      font-size : 2vw;
+    }
     a {
       color: #FFE6EB;
       text-decoration: none;
@@ -197,6 +257,7 @@ body {
     display: inline-block;
     overflow-y: scroll;
     box-shadow: 8px 8px 30px #282828;
+    line-height: 32px;
     .icons {
       margin-bottom: 5px;
       display: flex;
@@ -443,6 +504,7 @@ body {
 
   .top-nav {
     .top-navConfig;
+    width: 100%;
     div {
       font-size: 30px;
     }
@@ -450,6 +512,7 @@ body {
 
   #mainContainer {
     .mainContainerConfig;
+    width: 99%;
   }
   #mapContainer {
     height: 70%;
@@ -470,6 +533,9 @@ body {
       top: 13%;
       left: 25px;
       color: white;
+      span {
+        left: 7%;
+      }
     }
     .allImageTitle {
       strong {
@@ -506,22 +572,24 @@ body {
     border: darkgrey solid 2px;
     padding: 1px 20px 0 12px;
     height: 30%;
-    top: 36px;
-
+    top: 50px;
+    line-height: 32px;
+    overflow-x : scroll;
     .icons {
       display: block;
       button {
         font-size: 25px;
         border: none;
         background: transparent;
-        color: darkgrey;
+        color: #000069;
       }
     }
     div {
       margin-top : 20px;
       display: inline-block;
       label {
-        color: white;
+        font-size : 44px;
+        color: #000069;
         margin-bottom: 0;
         position: relative;
       }
@@ -570,6 +638,11 @@ body {
   }
   .top-nav {
     .top-navConfig;
+    div {
+      span {
+        font-size : 21px;
+      }
+    }
   }
   #mainContainer {
     .mainContainerConfig;
@@ -623,6 +696,11 @@ body {
 
   .top-nav {
     .top-navConfig;
+    div {
+      span {
+        font-size : 21px;
+      }
+    }
   }
 
   #mainContainer {

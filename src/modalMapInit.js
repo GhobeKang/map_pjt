@@ -2,9 +2,22 @@
  * Created by Ghobe on 2018-01-10.
  */
 
-require(['google','bootstrap'], function(g, boot) {
+require(['google','bootstrap','firebaseInit'], function(g, boot, firebase) {
     // t.thumbnailVue.imagesLoad();
-    var initCenterPoint = new google.maps.LatLng(37.54235, 126.9352);
+    var initCenterPoint;
+    var auth = firebase.auth;
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            initCenterPoint = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+        })
+    }else {
+        initCenterPoint = new google.maps.LatLng(37.54235, 126.9352);
+    }
+
     var geocoder = new google.maps.Geocoder();
 
     $('#addModal').on('hidden.bs.modal', function() {
@@ -78,7 +91,7 @@ require(['google','bootstrap'], function(g, boot) {
     });
     $('#LogOut').on('click', function () {
         auth.signOut().then(function () {
-            location.href = '../index.html';
+            location.href = './index.html';
         })
     })
 

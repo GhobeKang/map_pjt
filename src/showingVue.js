@@ -131,43 +131,49 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
                         var buttonValue = event.target.innerText;
                         var __this = this;
 
-                        elastic.getElastic(buttonValue, function(data) {
-                            var resultArray = data.hits.hits;
-                            for (var hitCount in resultArray) {
-                                var imageInfo = resultArray[hitCount]._source;
+                        firebase.auth.onAuthStateChanged(function(user) {
+                            if (user) {
+                                var USER_ID = user.uid;
+                                elastic.getElastic(buttonValue, USER_ID, function(data) {
+                                    var resultArray = data.hits.hits;
+                                    for (var hitCount in resultArray) {
+                                        var imageInfo = resultArray[hitCount]._source;
 
-                                var albumNum = imageInfo.albumNum;
-                                var captionString = imageInfo.caption;
-                                var position = imageInfo.position + '';
-                                var tagString = imageInfo.tag;
+                                        var userid = imageInfo.userid;
+                                        var albumNum = imageInfo.albumNum;
+                                        var captionString = imageInfo.caption;
+                                        var position = imageInfo.position;
+                                        var tagString = imageInfo.tag;
 
-                                elastic.searchImage(albumNum, position, captionString, tagString,
-                                    function(albumdata, p, caption, tag) {
-                                    var result = albumdata.hits.hits["0"]._source;
-                                    var imageUrlSet = result.imageInfo.downloadURL;
-                                    var title = result.title;
-                                    var date = result.date;
-                                    var location = result.location;
+                                        elastic.searchImage(albumNum, userid, position, captionString, tagString,
+                                            function(albumdata, p, caption, tag) {
+                                                var result = albumdata.hits.hits["0"]._source;
+                                                var imageUrlSet = result.imageInfo.downloadURL;
+                                                var title = result.title;
+                                                var date = result.date;
+                                                var location = result.location;
 
-                                    for (var image in imageUrlSet) {
-                                        console.log(p);
-                                        if (image === p) {
-                                            var targetImage = imageUrlSet[image];
-                                            var imageInfoSet = {
-                                                imageUrl : targetImage,
-                                                title : title,
-                                                date : date,
-                                                location : location,
-                                                caption : caption,
-                                                tag : tag
-                                            };
-                                            __this.$emit('searchresult', imageInfoSet);
-                                        }
+                                                for (var image in imageUrlSet) {
+
+                                                    if (image == p) {
+
+                                                        var targetImage = imageUrlSet[image];
+                                                        var imageInfoSet = {
+                                                            imageUrl : targetImage,
+                                                            title : title,
+                                                            date : date,
+                                                            location : location,
+                                                            caption : caption,
+                                                            tag : tag
+                                                        };
+                                                        __this.$emit('searchresult', imageInfoSet);
+                                                    }
+                                                }
+                                            })
                                     }
-                                })
+                                });
                             }
-                        });
-
+                        })
                     },
                     saveTag : function() {
                         var __thisConponent = this;
@@ -193,10 +199,10 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
                                                     captionLoc.child(pushKey).set(tagObject);
 
                                                     if (__thisConponent.isFirstAdd) {
-                                                        elastic.addElastic(__albumNum, tagLocation, tagContent, 'tag', false);
+                                                        elastic.addElastic(__albumNum, tagLocation, tagContent, 'tag', false, user.uid);
                                                         __thisConponent.isFirstAdd = false;
                                                     }else {
-                                                        elastic.addElastic(__albumNum, tagLocation, tagContent, 'tag', true);
+                                                        elastic.addElastic(__albumNum, tagLocation, tagContent, 'tag', true, user.uid);
                                                     }
 
                                                     var allimageTagSave = firebase.database.ref('/' + user.uid + '/allImages');
@@ -465,8 +471,6 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
                     __this.isShowing = false;
                     __this.$destroy();
                 });
-
-                // __this.$forceUpdate();
 
                 if (typeof callback === 'function') {
                     callback();

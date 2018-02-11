@@ -1,7 +1,7 @@
 /**
  * Created by Ghobe on 2018-02-06.
  */
-define(['google'], function() {
+define(['google','queryResultImageModalVue'], function(g, queryresultimagevue) {
     var placePinInfo = function(placePin, searchResult) {
         var placeName = searchResult.name;
         var placeLocation = searchResult.formatted_address;
@@ -15,8 +15,8 @@ define(['google'], function() {
         if (searchResult.photos) {
             for (var i=0 ; i<searchResult.photos.length ; i++) {
                 placePhotos.push(searchResult.photos[i].getUrl({
-                    maxWidth: 200,
-                    maxHeight: 100
+                    maxWidth: 900,
+                    maxHeight: 500
                 }));
             }
         }
@@ -66,6 +66,13 @@ define(['google'], function() {
 
                             placePin.addListener('click', function() {
                                 info.open(map,placePin);
+                                $('.placeImages>span>img').click(function(event){
+                                    var imageUrl = event.currentTarget.attributes["0"].value;
+                                    var queryResultImageVue = new Vue( queryresultimagevue.vue);
+                                    queryResultImageVue.queryResultImageTrans(imageUrl);
+                                    queryResultImageVue.$mount('.queryResultImage');
+                                    $('.queryresultimage_back').css('display', 'block');
+                                })
                             });
                         }
                     }
