@@ -182,6 +182,7 @@ window.define(['firebaseInit','google','defaultMapCreate','showingVue','elastics
                                                 tagArray.push(tag.val());
                                             });
 
+                                            console.log(map);
                                             var initMarker = new google.maps.Marker({
                                                 clickable: true,
                                                 map: map,
@@ -228,8 +229,6 @@ window.define(['firebaseInit','google','defaultMapCreate','showingVue','elastics
                                         } else {
                                             console.log('this is Allimage section, skip');
                                         }
-
-
                                     });
                                 }).then(function () {
                                     if (typeof callback === 'function') {

@@ -118,7 +118,6 @@
                         startX = ev.pageX;
                     }
                     isDragged = true;
-                    console.log(startX);
                 });
                 $(".handle").on('mousemove touchmove', function(ev){
 
@@ -131,7 +130,6 @@
                             positionX = ev.pageX;
                         }
                         offsetX = positionX - startX;
-                        console.log(offsetX);
                         $('.slideText').css('transform','translateX('+offsetX+'px)')
                     }
                 });
@@ -155,8 +153,23 @@
 
             auth = firebase.auth;
 
+            // if firebase auth status changed event is triggered, null -> user
+            // after registered a new account, will be logined automatically after sign in
             auth.onAuthStateChanged(function(user) {
                 if (user) {
+                    if (!navigator.geolocation) {
+                        alert("this browser doesn't support a navigator geolocation")
+                    }else {
+                        var success = function(pos) {
+                            var location = {
+                                lat : pos.coords.latitude,
+                                lng : pos.coords.longitude
+                            };
+                            console.log(location);
+                        };
+                        navigator.geolocation.getCurrentPosition(success);
+                    }
+
                     var userID = auth.currentUser.email;
                     var welcomeMsgAppend = function() {
                         var deferred = $.Deferred();
@@ -196,6 +209,8 @@
                     $('.loginForm').removeClass('hidden');
                 }
             });
+
+            // login button event
             $('#submitBtn').on('click', function() {
                 var email = $('#email').val();
                 var pass = $('#password').val();
@@ -212,6 +227,7 @@
 
             });
 
+            // in modal page, register account
             $('#submitBtn_Modal').on('click', function() {
                 var email = $('#email_Modal').val();
                 var pass = $('#password_Modal').val();
@@ -229,17 +245,13 @@
 
             });
 
+            // in password input box, enter key event
             $('#password').on('keyup', function(event) {
                 if (event.which == 13) {
                     $('#submitBtn').trigger('click');
                 }
             })
         });
-
-
-
-
-
 
     </script>
 </body>
