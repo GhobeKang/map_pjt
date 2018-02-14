@@ -2,13 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Map content</title>
+    <title>== Storing pictures Service depended on Map Position ==</title>
 
     <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <!-- 부가적인 테마 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="map_less.css">
+    <script type="text/x-template" id="usageVueTemplate">
+        <div class="container guideImages">
+            <h1><strong>Pinto Service User Guide</strong></h1>
+            <small>easy way to store pictures and make a album</small>
+            <br>
+            <div class="indexButtons">
+                <button type=button class="btn default-btn"><a href="#1">home Navigation bar</a></button>
+                <button type=button class="btn default-btn"><a href="#2">PhotoMap</a></button>
+                <button type=button class="btn default-btn"><a href="#3">PhotoMap_popupWindow</a></button>
+                <button type=button class="btn default-btn"><a href="#4">NearBy Place Search</a></button>
+                <button type=button class="btn default-btn"><a href="#5">Albums</a></button>
+                <button type=button class="btn default-btn"><a href="#6">Add_Album</a></button>
+                <button type=button class="btn default-btn"><a href="#7">SlideShow</a></button>
+                <button type=button class="btn default-btn"><a href="#8">Tag</a></button>
+            </div>
+            <p id="1">1. Navigation Bar</p>
+            <img src="./img/guideImages/homenav.png">
+            <p id="2">2. PhotoMap</p>
+            <img src="./img/guideImages/photomap.png">
+            <p id="3">3. PhotoMap blue Pin Click Event</p>
+            <img src="./img/guideImages/phtomapPopupWindow.gif">
+            <p id="4">4. PhotoMap Green Pin Click Event</p>
+            <img src="./img/guideImages/greenpinPopupWindow.gif">
+            <p id="5">5. Albums</p>
+            <img src="./img/guideImages/thumbnailVue.png">
+            <p id="6">6. Add Album</p>
+            <img src="./img/guideImages/modalVue.png">
+            <p id="7">7. Album SlideShow</p>
+            <img src="./img/guideImages/slideshow.png">
+            <p id="8">8. Album Image Tag</p>
+            <img src="./img/guideImages/resultWindow.png">
+        </div>
+</script>
 </head>
 
 <body>
@@ -23,10 +56,19 @@
         <div id="homeLink">
             <span class="glyphicon glyphicon-home"><a href="index.html">&nbsp;Home</a></span>
         </div>
+        <div id="usageLink">
+            <span class="glyphicon glyphicon-question-sign">&nbsp;Usage</span>
+        </div>
+        <div id="photoMap">
+            <span class="glyphicon glyphicon-plane">&nbsp;PhotoMap</span>
+        </div>
         <div id="LogOut">
             <span class="glyphicon glyphicon-fire">&nbsp;LogOut</span>
         </div>
     </nav>
+    <template class="usageVueMount">
+
+    </template>
     <div class="row">
         <div class="col-md-9 col-lg-9 col-sm-12 col-xs-12" id="mapContainer">
             <div id="mapDisplayed"></div>
@@ -207,10 +249,12 @@
         modalVue = new Vue(modal.modalVue);
         thumbnailVue = new Vue(thumbnail.thumbnailVue);
 
-        require(['modalMapInit'], function(){
+        require(['modalMapInit', 'navigationEvents'], function(){
 
         })
     });
+
+
 </script>
 
 </body>

@@ -182,7 +182,6 @@ window.define(['firebaseInit','google','defaultMapCreate','showingVue','elastics
                                                 tagArray.push(tag.val());
                                             });
 
-                                            console.log(map);
                                             var initMarker = new google.maps.Marker({
                                                 clickable: true,
                                                 map: map,
@@ -195,22 +194,29 @@ window.define(['firebaseInit','google','defaultMapCreate','showingVue','elastics
                                                 '<p><strong style="font-size:20px; font-family: miseng"><span><img src=""></span>Pinto  [' + location + ']</strong></p>' +
                                                 '<p><strong>Piece Name : </strong>' + datasnapshot.child('title').val() + '</p>' +
                                                 '<p><strong>Detail : </strong>' + datasnapshot.child('desc').val() + '</p>' +
-                                                '</div>';
+                                                '</div>' +
+                                                '<button type="button" class="btn default-btn infowWindowSearchBtn">NearBy Search</button>' +
+                                                '<div class="infoWindowThumbnailImages">';
+
+                                            // if (!imageArray.length === 0) {
+                                                for (var idx in imageArray) {
+                                                    infoContent += '<img class="infoWindowImage" src='+imageArray[idx]+'>'
+                                                }
+                                            // }
+                                            infoContent += '</div>';
+
                                             var infoWindow = new google.maps.InfoWindow({
                                                 content: infoContent
                                             });
 
                                             initMarker.addListener('click', function(event) {
-                                                console.log(event);
-                                                placeSearch.searchPlace(event.latLng, map);
-                                                map.setZoom(15);
-                                            });
-
-                                            initMarker.addListener('mouseover', function (event) {
+                                                var __event = event;
                                                 infoWindow.open(map, initMarker);
-                                            });
-                                            initMarker.addListener('mouseout', function (event) {
-                                                infoWindow.close();
+                                                $('.infowWindowSearchBtn').click(function(event) {
+                                                    infoWindow.close();
+                                                    placeSearch.searchPlace(__event.latLng, map);
+                                                    map.setZoom(15);
+                                                });
                                             });
 
                                             thumbnail_vue.data.images.push({

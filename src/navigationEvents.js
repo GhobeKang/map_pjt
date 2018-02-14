@@ -1,0 +1,25 @@
+/**
+ * Created by Ghobe on 2018-02-13.
+ */
+define(['jquery','usageVue'], function($, vue){
+
+    var usageVue;
+
+    $('#usageLink').on('click', function(e) {
+        $('.row').addClass('hidden');
+        usageVue = new Vue(vue.usageVue);
+        usageVue.$mount('.usageVueMount');
+    });
+
+    $('#photoMap').on('click', function(e) {
+        $('.row').removeClass('hidden');
+        usageVue.$destroy();
+    });
+
+    $('#LogOut').on('click', function (e) {
+        auth.signOut().then(function () {
+            location.href = './index.html';
+        })
+    })
+
+});

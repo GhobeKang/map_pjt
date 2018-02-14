@@ -89,11 +89,6 @@ require(['google','bootstrap','firebaseInit'], function(g, boot, firebase) {
             autocomplete.setBounds(circleBoundary.getBounds());
         });
     });
-    $('#LogOut').on('click', function () {
-        auth.signOut().then(function () {
-            location.href = './index.html';
-        })
-    })
 
 });
 

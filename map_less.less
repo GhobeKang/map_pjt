@@ -15,6 +15,69 @@
   font-family: airways;
   src: url(./font/Airways.ttf);
 }
+#usageLink, #photoMap {
+  cursor : pointer;
+  &:hover {
+    color : white;
+  }
+}
+.guideImages {
+  position: relative;
+  top: 10px;
+  overflow-y: scroll;
+  width : 90%;
+  height: 100%;
+  .indexButtons {
+    position: relative;
+    display: inline;
+    button {
+      box-shadow: 5px 8px 10px #282828;
+      background: white;
+      a {
+        color : black;
+        font-size : 1vw;
+      }
+    }
+  }
+  p {
+    font-size : 45px;
+    font-weight: bold;
+  }
+  img {
+    width: 80%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    padding: 10px;
+    border: solid 2px #8c8c8c;
+    background: #3c3c3c;
+  }
+}
+
+
+
+.infowWindowSearchBtnCfg {
+  font-family: miseng;
+  font-size : 15px;
+  position : absolute;
+  left: 30vw;
+  top: 4vh;
+}
+
+.infoWindowThumbnailImagesCfg {
+  width: 100%;
+  height: 20vh;
+  overflow-x: scroll;
+  display: inline-flex;
+  border: 2px solid #282828;
+  background-color: #282828;
+  .infoWindowImage {
+    width: 40%;
+    height: 100%;
+    padding : 5px;
+    border: 2px solid #3c3c3c;
+  }
+}
 
 .footer {
   width : 100%;
@@ -465,12 +528,14 @@ body {
 // @All images shown to grid
 .gridConfig {
   display: inline-block;
-  width: 405px;
-  height: 305px;
+  width: 22vw;
+  height: 34vh;
   margin: 5px;
   border: white 2px solid;
   img {
     position: relative;
+    width: 21.7vw;
+    height: 33.5vh;
   }
   .thumbnailInfo {
     display: none;
@@ -492,6 +557,15 @@ body {
 
 
 @media only screen and (min-device-width: 400px) and (max-device-width: 768px){
+  .infowWindowSearchBtn {
+    .infowWindowSearchBtnCfg;
+    left : 82%;
+    top : 10%;
+  }
+  .infoWindowThumbnailImages {
+    .infoWindowThumbnailImagesCfg;
+    height: 11vh;
+  }
   .wrap_queryResultWindow {
     .queryResultConfig
   }
@@ -552,16 +626,15 @@ body {
   }
   .gridthumbnail {
     .gridConfig;
-    width: 191px;
-    height: 191px;
+    width: 96%;
     img {
-      width: 186px;
-      height: 186px;
+      width: 100%;
+      height: 100%;
     }
     .thumbnailInfo {
-      top: -181px;
+      top: -312px;
       p {
-        font-size: 18px;
+        font-size: 43px;
       }
     }
   }
@@ -630,6 +703,12 @@ body {
   }
 }
 @media only screen and  (min-device-width:768px) {
+  .infowWindowSearchBtn {
+    .infowWindowSearchBtnCfg;
+  }
+  .infoWindowThumbnailImages {
+    .infoWindowThumbnailImagesCfg;
+  }
   .wrap_queryResultWindow {
     .queryResultConfig
   }
@@ -686,6 +765,12 @@ body {
   }
 }
 @media only screen and  (min-device-width: 970px) {
+  .infowWindowSearchBtn {
+    .infowWindowSearchBtnCfg;
+  }
+  .infoWindowThumbnailImages {
+    .infoWindowThumbnailImagesCfg;
+  }
   .wrap_queryResultWindow {
     .queryResultConfig
   }
