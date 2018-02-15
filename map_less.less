@@ -100,7 +100,9 @@
   background: rgba(0,0,0,0.7);
   z-index: 10;
 }
-.queryResultImage {
+
+
+.queryResultImageCfg {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -127,7 +129,8 @@
   }
 }
 
-.placeInfo {
+// nearby google place search result infoWindow configuration
+.placeInfoCfg {
   font-family: miseng;
   .placeName {
     span {
@@ -214,7 +217,7 @@ body {
     }
     .querythumbnail {
       width: 100%;
-      height : 30%;
+      height : 38%;
       padding: 20px;
 
       img {
@@ -435,7 +438,8 @@ body {
   }
   img {
     opacity: 0.4;
-    width: 100%;
+    width: 31vw;
+    height: 47vh;
     position: relative;
   }
   .tag_btn {
@@ -488,6 +492,7 @@ body {
     left: 30%;
     color: white;
     width: 100%;
+    z-index:-1;
     span {
       float: right;
       position: relative;
@@ -498,12 +503,32 @@ body {
         color: gray;
       }
     }
+    .travelQuote {
+      font-size : 30px;
+      color: #FFBDA3;
+      width: 67vw;
+      height: 7vh;
+    }
+    .travelQuoteAuthor {
+      color: #FFE0C6;
+      font-size : 25px;
+    }
   }
   .allImageTitle {
     position: relative;
     color: white;
     display: block;
     margin-left: 5%;
+    .travelQuote {
+      font-size : 30px;
+      color: #FFBDA3;
+      width: 67vw;
+      height: 7vh;
+    }
+    .travelQuoteAuthor {
+      color: #FFE0C6;
+      font-size : 25px;
+    }
     span {
       float: right;
       position: relative;
@@ -517,11 +542,6 @@ body {
     strong {
       font-size: 50px;
       font-weight: bold;
-    }
-    small {
-      font-size: 40px;
-      font-weight: 100;
-      color: lightgrey;
     }
   }
 }
@@ -555,8 +575,24 @@ body {
   }
 }
 
-
-@media only screen and (min-device-width: 400px) and (max-device-width: 768px){
+// mobile device
+@media only screen and (min-device-width: 320px) and (max-device-width: 768px){
+  .queryResultImage {
+    .queryResultImageCfg;
+    width: 97%;
+    span {
+      font-size: 11vw;
+      left: 91%;
+    }
+  }
+  .placeInfo {
+    .placeInfoCfg;
+    .placeImages {
+      span {
+        height: 9vh;
+      }
+    }
+  }
   .infowWindowSearchBtn {
     .infowWindowSearchBtnCfg;
     left : 82%;
@@ -567,7 +603,20 @@ body {
     height: 11vh;
   }
   .wrap_queryResultWindow {
-    .queryResultConfig
+    .queryResultConfig;
+    .queryresultshow {
+      width: 70vw;
+      .queryResultClose {
+        top: 90%;
+        left: 89%;
+        button {
+          width: 75px;
+          height: 50px;
+          font-size: 26px;
+        }
+      }
+    }
+
   }
   .pageTitle {
     .pageTitleConfig;
@@ -595,9 +644,32 @@ body {
 
   .slide {
     .slideConfig;
+    width: 80vw;
+    img {
+      width: 82vw;
+    }
+    textarea,input {
+      width: 80%;
+    }
+    button {
+      font-size : 30px;
+    }
   }
   .current {
-    .currentSlideConfig
+    .currentSlideConfig;
+    span {
+      font-size : 50px;
+      width: 100%;
+      height: 8vh;
+      overflow-y: scroll;
+      pointer-events: auto;
+    }
+    .tagbuttons {
+      .tag_btn {
+        font-size : 36px;
+        height: 60px;
+      }
+    }
   }
 
   .dragdealer {
@@ -608,20 +680,33 @@ body {
       left: 25px;
       color: white;
       span {
-        left: 7%;
+        left: 23%;
+        font-size : 70px;
       }
+      p {
+        font-size : 60px;
+      }
+      .travelQuote {
+        font-size : 60px;
+        line-height: 38px;
+        height: 10vh;
+      }
+      .travelQuoteAuthor {
+        font-size : 50px;
+      }
+
     }
     .allImageTitle {
-      strong {
-        font-size: 40px;
+      span {
+        font-size : 95px;
       }
-      small  {
-        font-size: 30px;
+      strong {
+        font-size: 88px;
       }
     }
   }
   .handle {
-    left: 40%;
+    left: 2%;
     height: 84%;
   }
   .gridthumbnail {
@@ -702,7 +787,16 @@ body {
     }
   }
 }
+
+
+// middle size device Tab, iPad
 @media only screen and  (min-device-width:768px) {
+  .queryResultImage {
+    .queryResultImageCfg;
+  }
+  .placeInfo {
+    .placeInfoCfg;
+  }
   .infowWindowSearchBtn {
     .infowWindowSearchBtnCfg;
   }
@@ -736,9 +830,17 @@ body {
   }
   .current {
     .currentSlideConfig;
+    span {
+      font-size : 30px;
+      width: 100%;
+      height: 10vh;
+      overflow-y: scroll;
+      pointer-events: auto;
+    }
   }
   .dragdealer {
     .handleConfig;
+
   }
   .handle {
     left: 40%;
@@ -764,7 +866,15 @@ body {
     }
   }
 }
+
+// large size devices, PC
 @media only screen and  (min-device-width: 970px) {
+  .queryResultImage {
+    .queryResultImageCfg;
+  }
+  .placeInfo {
+    .placeInfoCfg;
+  }
   .infowWindowSearchBtn {
     .infowWindowSearchBtnCfg;
   }
@@ -772,7 +882,7 @@ body {
     .infoWindowThumbnailImagesCfg;
   }
   .wrap_queryResultWindow {
-    .queryResultConfig
+    .queryResultConfig;
   }
 
   .pageTitle {
@@ -801,9 +911,22 @@ body {
   }
   .current {
     .currentSlideConfig;
+    span {
+      font-size : 30px;
+      width: 100%;
+      height: 10vh;
+      overflow-y: scroll;
+      pointer-events: auto;
+    }
   }
   .dragdealer {
     .handleConfig;
+    .imageCarouselTitle {
+      p {
+        font-size : 60px;
+        font-weight: bold;
+      }
+    }
   }
 
   .handle {

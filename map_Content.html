@@ -87,7 +87,8 @@
             <template v-for="content in images">
                 <thumbnail :image-Info="images" :content-Title="content.title" :image-Url="content.representedImage" :total-Contents="content.counter"
                            :total-Images="content.totalImageOfthis" :database-Title="content.dbTitle" :location="content.location"
-                           :geo="content.geo" :caption="content.captions" :album-Num="content.albumNum" :tag="content.tag" @checked="checkedContentCollect">
+                           :geo="content.geo" :caption="content.captions" :album-Num="content.albumNum" :tag="content.tag"
+                           :quotes="content.quotes" @checked="checkedContentCollect">
 
                 </thumbnail>
 
@@ -110,16 +111,21 @@
 <div id="image-carousel" class="dragdealer">
     <div class="imageCarouselTitle" v-show="currentView === 'gallerythumbnail'">
         <span>&times;</span>
-        <h1><strong>Pieces of your Journey</strong></h1>
+        <p>Pieces of your Journey</p>
+        <p class="travelQuote"></p>
+        <p class="travelQuoteAuthor"></p>
     </div>
     <div class="allImageTitle" v-show="currentView === 'gridthumbnail'">
         <span>&times;</span>
-        <strong>All pieces of Memories</strong><br><small>Travel is only glamorous in retrospect.</small>
+        <strong>All pieces of Memories</strong>
+        <p class="travelQuote"></p>
+        <p class="travelQuoteAuthor"></p>
     </div>
     <div class="handle">
         <template v-for="(val, key) in images">
             <div class="wrap_component" v-for="(val1, key1) in val.totalImageOfthis" :key="val1">
-                <component :is="currentView" :tags="tags" :image-Url="val1" :image-Counter="key1" :image-Info="val" :caption="captions"
+                <component :is="currentView" :tags="tags" :image-Url="val1" :image-Counter="key1"
+                           :image-Info="val" :caption="captions"
                            @captionadded="captionAdd" @tagadded="tagAdd" @searchresult="queryGridGallery"></component>
             </div>
         </template>

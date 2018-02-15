@@ -9,6 +9,7 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
             captions: [],
             tags: [],
             queryresult: [],
+            quotes : [],
             albumNum: 0,
             counter: 0,
             currentView: "gallerythumbnail",
@@ -24,6 +25,25 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
                     $('.imageCarouselTitle').css('display','none');
                     $('.allImageTitle').css('display','block');
                 }
+            },
+            quotes: function() {
+                console.log(this.quotes);
+                if (this.quotes !== 'undefined') {
+                    console.log(this);
+                    this.randomQuotes;
+                }
+            }
+        },
+        computed: {
+            randomQuotes : function() {
+                var __this = this;
+                var random = parseInt(Math.random()*20);
+                var quote = __this.quotes[random].content;
+                var author = __this.quotes[random].author;
+
+                $('.travelQuote').text(quote);
+                $('.travelQuoteAuthor').text(author);
+
             }
         },
         components: {
@@ -119,7 +139,6 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
                                     <input type="text" class="inputtag" v-model="tagContent">
                                     <button type="button" class="save_caption btn btn-info" @click="saveTag">Save Tag</button>
                                 </div>
-                                <br>
                                 <div class="tagbuttons">
                                     <template v-if="isTag" v-for="value in tagToArray">
                                         <button type="button" class="tag_btn btn btn-default" @click="tagSearch">{{value}}</button>
@@ -321,13 +340,14 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
                 $('.dragdealer').css('position', 'absolute');
                 $('.dragdealer').css('display', 'block');
             },
-            loadingTotalImages: function (totalImages, captions, albumNum, tag, callback) {
+            loadingTotalImages: function (totalImages, captions, albumNum, tag, quotes, callback) {
                 var __this = this;
                 this.currentView = 'gallerythumbnail';
                 this.images = totalImages;
                 this.captions = captions;
                 this.tags = tag;
                 this.albumNum = albumNum;
+                this.quotes = quotes;
 
                 var beforePosition = 0;
                 var imagesNum = totalImages[0].totalImageOfthis.length - 1;
@@ -503,13 +523,15 @@ window.define(['jquery','firebaseInit','elasticsearchClient'], function($, fireb
         destroyed: function() {
 
             $('.handle').empty();
-
+            $('.handle').attr('style','');
             $('.handle').append(`<template v-for="(val, key) in images">
             <div class="wrap_component" v-for="(val1, key1) in val.totalImageOfthis" :key="val1">
-                <component :is="currentView" :tags="tags" :image-Url="val1" :image-Counter="key1" :image-Info="val" :caption="captions"
+                <component :is="currentView" :tags="tags" :image-Url="val1" :image-Counter="key1"
+                           :image-Info="val" :caption="captions"
                            @captionadded="captionAdd" @tagadded="tagAdd" @searchresult="queryGridGallery"></component>
             </div>
         </template>`);
+
         },
 
         mounted : function() {

@@ -28,7 +28,7 @@ window.define(['firebaseInit','google','defaultMapCreate','showingVue','elastics
             components: {
                 thumbnail: {
                     props: ['imageInfo','contentTitle', 'imageUrl', 'totalContents', 'totalImages', 'databaseTitle', 'location'
-                        , 'geo', 'caption', 'albumNum', 'tag'],
+                        , 'geo', 'caption', 'albumNum', 'tag', 'quotes'],
                     computed: {
                         fullLength: function () {
                             var contents_Num = this.totalContents;
@@ -77,7 +77,8 @@ window.define(['firebaseInit','google','defaultMapCreate','showingVue','elastics
                                 var imageSlice = this.imageInfo.slice(this.albumNum,1);
                             }
 
-                            showingVue.loadingTotalImages(imageSlice, this.caption, this.albumNum, this.tag, function () {
+                            showingVue.loadingTotalImages(imageSlice, this.caption, this.albumNum, this.tag,
+                                this.quotes, function () {
                                 $('.dragdealer').attr('tabindex', -1).focus();
                                 $('.dragdealer').css('display', 'block');
                             });
@@ -151,6 +152,13 @@ window.define(['firebaseInit','google','defaultMapCreate','showingVue','elastics
                     var geo = "";
                     var albumNum = 0;
                     var date = "";
+                    var quotes = [];
+
+                    database.ref('/quote/quotes/').once('value').then(function(quotesArray) {
+                        quotesArray.forEach(function(quote) {
+                            quotes.push(quote.val());
+                        })
+                    });
 
                     if (curUser !== null) {
                         curUserID.onAuthStateChanged(function(user){
@@ -230,7 +238,8 @@ window.define(['firebaseInit','google','defaultMapCreate','showingVue','elastics
                                                 geo: geo,
                                                 captions: captionArray,
                                                 date : date,
-                                                tag : tagArray
+                                                tag : tagArray,
+                                                quotes : quotes
                                             });
                                         } else {
                                             console.log('this is Allimage section, skip');
