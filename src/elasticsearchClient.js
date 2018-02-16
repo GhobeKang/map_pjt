@@ -111,11 +111,15 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
         })
     };
 
-    var deleteAlbumElastic = function(albumNum) {
+    var deleteAlbumElastic = function(albumNum, userid) {
         var query = {
             query : {
-                match : {
-                    albumNum : albumNum
+                bool : {
+                    must :
+                        [
+                            {match : {albumNum : albumNum}},
+                            {match : {userid : userid}}
+                        ]
                 }
             }
         };
@@ -175,7 +179,7 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
 
     };
     var getElastic = function(searchString, userid, callback) {
-        console.log(userid);
+
         var searchQuery = {
             query : {
                 bool: {

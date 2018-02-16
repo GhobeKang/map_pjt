@@ -122,7 +122,7 @@ window.define(['firebaseInit','google','defaultMapCreate','showingVue','elastics
                             var albumNum = checkedItem[index].num;
                             var contentTitle = checkedItem[index].title;
 
-                            elastic.delAlbum(albumNum);
+                            elastic.delAlbum(albumNum, user.uid);
 
                             database.ref('/' + curUserID.currentUser.uid + '/allImages').once('value')
                                 .then(function(snap){
