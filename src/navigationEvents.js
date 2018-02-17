@@ -1,9 +1,10 @@
 /**
  * Created by Ghobe on 2018-02-13.
  */
-define(['jquery','usageVue'], function($, vue){
+define(['jquery','usageVue', 'firebaseInit'], function($, vue, firebase){
 
     var usageVue;
+    var auth = firebase.auth;
 
     $('#usageLink').on('click', function(e) {
         $('.row').addClass('hidden');

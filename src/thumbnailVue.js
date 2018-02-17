@@ -8,6 +8,7 @@ window.define(['firebaseInit','google','defaultMapCreate','showingVue','elastics
     var database = firebase.database;
     var curUser;
     var map;
+
     defaultmap.map(function(val) {
         map = val;
     });
@@ -17,6 +18,7 @@ window.define(['firebaseInit','google','defaultMapCreate','showingVue','elastics
             curUser = user;
         }
     });
+
         var curUserID = auth;
 
         var thumbnail_vue = {

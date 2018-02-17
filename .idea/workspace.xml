@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="17af52c6-6c84-4550-a05f-1d112f5aa7ee" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/img/guideImages/greenpinPopupWindow.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/img/guideImages/grrenpinPopupWindow.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/img/guideImages/phtomapPopupWindow.gif" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/map_Content.html" afterPath="$PROJECT_DIR$/map_Content.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/map_less.css" afterPath="$PROJECT_DIR$/map_less.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/map_less.less" afterPath="$PROJECT_DIR$/map_less.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/elasticsearchClient.js" afterPath="$PROJECT_DIR$/src/elasticsearchClient.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/navigationEvents.js" afterPath="$PROJECT_DIR$/src/navigationEvents.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thumbnailVue.js" afterPath="$PROJECT_DIR$/src/thumbnailVue.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -30,11 +26,21 @@
           <file leaf-file-name="navigationEvents.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/navigationEvents.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="247">
-                  <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
+                <state relative-caret-position="133">
+                  <caret line="9" column="30" lean-forward="true" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
                   <folding>
                     <element signature="e#0#42#0" expanded="false" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="firebaseInit.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/firebaseInit.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="475">
+                  <caret line="25" column="16" lean-forward="true" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -68,8 +74,8 @@
           <file leaf-file-name="defaultMapCreate.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/defaultMapCreate.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="532">
-                  <caret line="28" column="28" lean-forward="false" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
+                <state relative-caret-position="589">
+                  <caret line="43" column="19" lean-forward="false" selection-start-line="43" selection-start-column="19" selection-end-line="43" selection-end-column="19" />
                   <folding />
                 </state>
               </provider>
@@ -78,7 +84,7 @@
           <file leaf-file-name="modalVue.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/modalVue.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2508">
+                <state relative-caret-position="834">
                   <caret line="134" column="42" lean-forward="false" selection-start-line="134" selection-start-column="42" selection-end-line="134" selection-end-column="42" />
                   <folding>
                     <element signature="e#0#42#0" expanded="false" />
@@ -90,24 +96,14 @@
           <file leaf-file-name="thumbnailVue.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/thumbnailVue.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="323">
-                  <caret line="37" column="22" lean-forward="true" selection-start-line="37" selection-start-column="22" selection-end-line="37" selection-end-column="22" />
+                <state relative-caret-position="665">
+                  <caret line="37" column="24" lean-forward="false" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
                   <folding>
                     <element signature="e#0#42#0" expanded="false" />
-                    <marker date="1518747080425" expanded="true" signature="1471:2062" ph="..." />
-                    <marker date="1518747080425" expanded="true" signature="1818:2023" ph="..." />
-                    <marker date="1518747080425" expanded="true" signature="9582:9617" ph="..." />
+                    <marker date="1518777835150" expanded="true" signature="1473:2064" ph="..." />
+                    <marker date="1518777835150" expanded="true" signature="1820:2025" ph="..." />
+                    <marker date="1518777835150" expanded="true" signature="9584:9619" ph="..." />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="modalMapInit.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/modalMapInit.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1710">
-                  <caret line="90" column="7" lean-forward="false" selection-start-line="90" selection-start-column="7" selection-end-line="90" selection-end-column="7" />
-                  <folding />
                 </state>
               </provider>
             </entry>
@@ -115,8 +111,8 @@
           <file leaf-file-name="googlePlaceSearch.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/googlePlaceSearch.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="627">
-                  <caret line="35" column="29" lean-forward="false" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
+                <state relative-caret-position="114">
+                  <caret line="8" column="24" lean-forward="true" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
                   <folding>
                     <element signature="e#0#42#0" expanded="false" />
                   </folding>
@@ -137,23 +133,23 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+          <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="228">
-                  <caret line="30" column="37" lean-forward="true" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
+                <state relative-caret-position="209">
+                  <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
                   <folding>
-                    <element signature="e#2954#2961#1" expanded="true" />
+                    <element signature="e#2948#2955#1" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="elasticsearchClient.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="elasticsearchClient.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/elasticsearchClient.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="340">
-                  <caret line="119" column="58" lean-forward="false" selection-start-line="119" selection-start-column="58" selection-end-line="119" selection-end-column="58" />
+                <state relative-caret-position="815">
+                  <caret line="111" column="6" lean-forward="true" selection-start-line="111" selection-start-column="6" selection-end-line="111" selection-end-column="6" />
                   <folding>
                     <element signature="e#0#42#0" expanded="false" />
                   </folding>
@@ -165,11 +161,11 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="map_less.less" pinned="false" current-in-tab="false">
+          <file leaf-file-name="map_less.less" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/map_less.less">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="665">
-                  <caret line="658" column="24" lean-forward="true" selection-start-line="658" selection-start-column="24" selection-end-line="658" selection-end-column="24" />
+                <state relative-caret-position="361">
+                  <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -187,11 +183,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="map_Content.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="map_Content.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/map_Content.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="551">
-                  <caret line="29" column="43" lean-forward="true" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
+                <state relative-caret-position="304">
+                  <caret line="16" column="38" lean-forward="true" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
                   <folding>
                     <element signature="e#2687#2693#0" expanded="true" />
                     <element signature="e#2813#2819#0" expanded="true" />
@@ -219,7 +215,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>label</find>
       <find>imagec</find>
       <find>thumb</find>
       <find>imageCarouselTitle</find>
@@ -249,6 +244,7 @@
       <find>placeimages</find>
       <find>searchimage</find>
       <find>handleConfig</find>
+      <find>airway</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -280,17 +276,17 @@
         <option value="$PROJECT_DIR$/src/googlePlaceSearch.js" />
         <option value="$PROJECT_DIR$/src/queryResultImageModalVue.js" />
         <option value="$PROJECT_DIR$/src/modalVue.js" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/src/modalMapInit.js" />
         <option value="$PROJECT_DIR$/src/usageVue.html" />
         <option value="$PROJECT_DIR$/src/uasgeVue.vue" />
-        <option value="$PROJECT_DIR$/src/navigationEvents.js" />
         <option value="$PROJECT_DIR$/src/usageVue.js" />
         <option value="$PROJECT_DIR$/src/showingVue.js" />
-        <option value="$PROJECT_DIR$/map_less.less" />
-        <option value="$PROJECT_DIR$/src/thumbnailVue.js" />
         <option value="$PROJECT_DIR$/src/elasticsearchClient.js" />
         <option value="$PROJECT_DIR$/map_Content.html" />
+        <option value="$PROJECT_DIR$/src/thumbnailVue.js" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/src/navigationEvents.js" />
+        <option value="$PROJECT_DIR$/map_less.less" />
       </list>
     </option>
   </component>
@@ -389,57 +385,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="img" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="map_pjt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="map_pjt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="img" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="guideImages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="map_pjt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="map_pjt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="font" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="map_pjt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="map_pjt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="font" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jonathan-s-harris_colored-crayons" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -623,15 +569,15 @@
       <workItem from="1517457927742" duration="9088000" />
       <workItem from="1517498220572" duration="114573000" />
       <workItem from="1518244314318" duration="70076000" />
-      <workItem from="1518746325015" duration="2159000" />
+      <workItem from="1518746325015" duration="9038000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="943558000" />
+    <option name="totallyTimeSpent" value="950437000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="2" width="1932" height="1045" extended-state="1" />
+    <frame x="-7" y="2" width="1932" height="1045" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15762004" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -670,7 +616,7 @@
         <state relative-caret-position="798">
           <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding>
-            <element signature="e#2954#2961#1" expanded="true" />
+            <element signature="e#2948#2955#1" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -858,33 +804,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/queryResultImageModalVue.vue" />
-    <entry file="file://$PROJECT_DIR$/src/firebaseInit.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/googlePlaceSearch.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="35" column="29" lean-forward="false" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/modalVue.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2508">
-          <caret line="134" column="42" lean-forward="false" selection-start-line="134" selection-start-column="42" selection-end-line="134" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/modalMapInit.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1710">
@@ -916,21 +835,77 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/defaultMapCreate.js">
+    <entry file="file://$PROJECT_DIR$/map_Content.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="28" column="28" lean-forward="false" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
+        <state relative-caret-position="304">
+          <caret line="16" column="38" lean-forward="true" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
+          <folding>
+            <element signature="e#2687#2693#0" expanded="true" />
+            <element signature="e#2813#2819#0" expanded="true" />
+            <element signature="e#2927#2933#0" expanded="true" />
+            <element signature="e#3041#3047#0" expanded="true" />
+            <element signature="e#5372#5379#1" expanded="true" />
+            <element signature="e#5601#5608#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/googlePlaceSearch.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="8" column="24" lean-forward="true" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/elasticsearchClient.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="815">
+          <caret line="111" column="6" lean-forward="true" selection-start-line="111" selection-start-column="6" selection-end-line="111" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/modalVue.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="834">
+          <caret line="134" column="42" lean-forward="false" selection-start-line="134" selection-start-column="42" selection-end-line="134" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thumbnailVue.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="665">
+          <caret line="37" column="24" lean-forward="false" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+            <marker date="1518777835150" expanded="true" signature="1473:2064" ph="..." />
+            <marker date="1518777835150" expanded="true" signature="1820:2025" ph="..." />
+            <marker date="1518777835150" expanded="true" signature="9584:9619" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/firebaseInit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="25" column="16" lean-forward="true" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/navigationEvents.js">
+    <entry file="file://$PROJECT_DIR$/src/defaultMapCreate.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="15" column="28" lean-forward="false" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="589">
+          <caret line="43" column="19" lean-forward="false" selection-start-line="43" selection-start-column="19" selection-end-line="43" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -958,59 +933,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/src/navigationEvents.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="30" column="37" lean-forward="true" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
+        <state relative-caret-position="133">
+          <caret line="9" column="30" lean-forward="true" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
           <folding>
-            <element signature="e#2954#2961#1" expanded="true" />
+            <element signature="e#0#42#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thumbnailVue.js">
+    <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="37" column="22" lean-forward="true" selection-start-line="37" selection-start-column="22" selection-end-line="37" selection-end-column="22" />
+        <state relative-caret-position="209">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding>
-            <element signature="e#0#42#0" expanded="false" />
-            <marker date="1518747080425" expanded="true" signature="1471:2062" ph="..." />
-            <marker date="1518747080425" expanded="true" signature="1818:2023" ph="..." />
-            <marker date="1518747080425" expanded="true" signature="9582:9617" ph="..." />
+            <element signature="e#2948#2955#1" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/map_less.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
-          <caret line="658" column="24" lean-forward="true" selection-start-line="658" selection-start-column="24" selection-end-line="658" selection-end-column="24" />
+        <state relative-caret-position="361">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/elasticsearchClient.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="119" column="58" lean-forward="false" selection-start-line="119" selection-start-column="58" selection-end-line="119" selection-end-column="58" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/map_Content.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="29" column="43" lean-forward="true" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
-          <folding>
-            <element signature="e#2687#2693#0" expanded="true" />
-            <element signature="e#2813#2819#0" expanded="true" />
-            <element signature="e#2927#2933#0" expanded="true" />
-            <element signature="e#3041#3047#0" expanded="true" />
-            <element signature="e#5372#5379#1" expanded="true" />
-            <element signature="e#5601#5608#1" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

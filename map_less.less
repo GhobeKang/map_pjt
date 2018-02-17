@@ -1,20 +1,21 @@
 @font-face {
   font-family: whatever;
-  src: url(./font/whatever.ttf);
+  src: url(./font/whatever.ttf) format('truetype');
   font-size: 50px;
 }
 @font-face {
   font-family: whatever-bold;
-  src: url(./font/whatever_bold.ttf);
+  src: url(./font/whatever_bold.ttf) format('truetype');
 }
 @font-face {
   font-family: miseng;
-  src: url(./font/SDMisaeng.ttf);
+  src: url(./font/SDMisaeng.ttf) format('truetype');
 }
 @font-face {
   font-family: airways;
-  src: url(./font/Airways.ttf);
+  src: url(./font/Airways.ttf) format('truetype');
 }
+
 #usageLink, #photoMap {
   cursor : pointer;
   &:hover {
@@ -177,7 +178,7 @@
   z-index : 1;
 }
 body {
-  font-family: miseng;
+  font-family: whatever;
   font-size: 25px;
 }
 .queryResultConfig {
