@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="17af52c6-6c84-4550-a05f-1d112f5aa7ee" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/map_less.css" afterPath="$PROJECT_DIR$/map_less.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/map_less.less" afterPath="$PROJECT_DIR$/map_less.less" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -162,8 +160,8 @@
           <file leaf-file-name="map_less.less" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/map_less.less">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="247">
-                  <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+                <state relative-caret-position="-670">
+                  <caret line="188" column="16" lean-forward="true" selection-start-line="188" selection-start-column="16" selection-end-line="188" selection-end-column="16" />
                   <folding />
                 </state>
               </provider>
@@ -577,12 +575,12 @@
       <workItem from="1517457927742" duration="9088000" />
       <workItem from="1517498220572" duration="114573000" />
       <workItem from="1518244314318" duration="70076000" />
-      <workItem from="1518746325015" duration="9878000" />
+      <workItem from="1518746325015" duration="10065000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="951277000" />
+    <option name="totallyTimeSpent" value="951464000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="2" width="1932" height="1045" extended-state="0" />
@@ -968,8 +966,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/map_less.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+        <state relative-caret-position="-670">
+          <caret line="188" column="16" lean-forward="true" selection-start-line="188" selection-start-column="16" selection-end-line="188" selection-end-column="16" />
           <folding />
         </state>
       </provider>
