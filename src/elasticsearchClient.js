@@ -2,8 +2,15 @@
  * Created by Ghobe on 2018-01-18.
  */
 window.define(['elasticsearch','jquery'], function(elastic, $){
+
+    function make_default_auth(user, pass) {
+        var tok = user + ':' + pass;
+        var hash = btoa(tok);
+        return 'Basic ' + hash;
+    }
+
     var addAlbumElastic = function(userID, json) {
-        var url = 'http://18.221.145.44:9200/albums/albumInfo//';
+        var url = 'https://18.221.145.44:9200/albums/albumInfo/';
 
         $.ajax({
             async: true,
@@ -13,6 +20,9 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
             contentType: 'application/json',
             dataType: 'json',
             method: 'POST',
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader('Authorization', make_default_auth('elastic', 'changeme'))
+            },
             success: function(data, textStatus, xhr) {
                 console.log(data);
             },
@@ -43,7 +53,7 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
         }
 
         if (isUpdate) {
-            url = 'http://18.221.145.44:9200/albums/subInfo/_update_by_query';
+            url = 'https://18.221.145.44:9200/albums/subInfo/_update_by_query';
             if (where === 'caption') {
                 insertJson = {
                     script : {
@@ -74,7 +84,7 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
                 }
             }
         }else {
-            url = 'http://18.221.145.44:9200/albums/subInfo/';
+            url = 'https://18.221.145.44:9200/albums/subInfo/';
         }
 
 
@@ -86,6 +96,9 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
             contentType: 'application/json',
             dataType: 'json',
             method: 'POST',
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader('Authorization', make_default_auth('elastic', 'changeme'))
+            },
             success: function(data, textStatus, xhr) {
                 console.log(data);
             },
@@ -100,8 +113,11 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
         $.ajax({
             async: true,
             crossDomain: true,
-            url : 'http://18.221.145.44:9200/'+index+'/',
+            url : 'https://18.221.145.44:9200/'+index+'/',
             method: 'DELETE',
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader('Authorization', make_default_auth('elastic', 'changeme'))
+            },
             success: function(data, textStatus, xhr) {
                 console.log(data);
             },
@@ -124,7 +140,7 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
             }
         };
 
-        var url = 'http://18.221.145.44:9200/albums/_delete_by_query';
+        var url = 'https://18.221.145.44:9200/albums/_delete_by_query';
 
         $.ajax({
             async: true,
@@ -134,6 +150,9 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
             contentType: 'application/json',
             dataType: 'json',
             method: 'POST',
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader('Authorization', make_default_auth('elastic', 'changeme'))
+            },
             success: function(data, textStatus, xhr) {
                 console.log(data);
             },
@@ -161,11 +180,14 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
             async: true,
             crossDomain: true,
             processData : false,
-            url : 'http://18.221.145.44:9200/albums/albumInfo/_search/?filter_path=hits.hits._source',
+            url : 'https://18.221.145.44:9200/albums/albumInfo/_search/?filter_path=hits.hits._source',
             data : JSON.stringify(searchQuery),
             contentType: 'application/json',
             dataType : 'json',
             type: 'POST',
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader('Authorization', make_default_auth('elastic', 'changeme'))
+            },
             success: function(data, textStatus, xhr) {
                 console.log(data);
                 if (typeof callback === 'function') {
@@ -175,7 +197,9 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
             error: function(jqXHR, textStatus, errorTrown) {
                 console.log(errorTrown, jqXHR)
             }
-        })
+        });
+
+
 
     };
     var getElastic = function(searchString, userid, callback) {
@@ -197,11 +221,14 @@ window.define(['elasticsearch','jquery'], function(elastic, $){
             async: true,
             crossDomain: true,
             processData : false,
-            url : 'http://18.221.145.44:9200/albums/subInfo/_search/?filter_path=hits.hits._source',
+            url : 'https://18.221.145.44:9200/albums/subInfo/_search/?filter_path=hits.hits._source',
             data : JSON.stringify(searchQuery),
             contentType: 'application/json',
             dataType : 'json',
             type: 'POST',
+            beforeSend : function(xhr) {
+                xhr.setRequestHeader('Authorization', make_default_auth('elastic', 'changeme'))
+            },
             success: function(data, textStatus, xhr) {
                 console.log(data);
                 if (typeof callback === 'function') {
